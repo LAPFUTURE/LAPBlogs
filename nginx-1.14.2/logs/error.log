@@ -1,0 +1,10 @@
+2019/01/30 13:35:57 [emerg] 54604#99120: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2019/01/30 13:42:11 [error] 69184#5584: *1 CreateFile() "E:\nginx-1.14.2/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8001", referrer: "http://localhost:8001/"
+2019/01/30 13:58:12 [notice] 23864#40668: signal process started
+2019/01/30 22:16:31 [notice] 60236#8860: signal process started
+2019/01/30 22:35:09 [error] 115996#102552: *1 CreateFile() "E:\LAPBlogs\nginx-1.14.2/html/assets/js/chunk-vendors.031d78b6.js.map" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /assets/js/chunk-vendors.031d78b6.js.map HTTP/1.1", host: "localhost"
+2019/01/30 22:35:09 [error] 115996#102552: *2 CreateFile() "E:\LAPBlogs\nginx-1.14.2/html/assets/js/app.de413d18.js.map" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /assets/js/app.de413d18.js.map HTTP/1.1", host: "localhost"
+2019/01/30 22:38:22 [notice] 100416#90280: signal process started
+2019/01/30 22:43:23 [notice] 106476#105812: signal process started
+2019/01/30 22:48:46 [notice] 36208#101388: signal process started
+2019/01/30 23:12:31 [notice] 97876#111736: signal process started

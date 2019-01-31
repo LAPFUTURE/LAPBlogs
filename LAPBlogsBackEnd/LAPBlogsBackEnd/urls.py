@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from .blog_api import login
+from .blog_api import registe,login
 
 urlpatterns = [
-    url(r'^$', login.getJwt),
+    url(r'^registe$', registe.registe),
+    url(r'^login$', login.getJwt),
+    
 ]

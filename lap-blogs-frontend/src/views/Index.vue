@@ -25,7 +25,7 @@
             })
         },
         clickPythonApi(){
-            this.$axios.post('http://localhost:8014/registe')
+            this.$axios.post('http://localhost:8015/registe')
             .then((res)=>{
                 console.log(res);
                 console.log(JSON.parse(res.data));})

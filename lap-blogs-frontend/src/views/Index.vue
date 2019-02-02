@@ -1,10 +1,107 @@
 <template>
-    <div>
-      <h1>This is an Index page</h1>
-      <button @click="clickNodeApi">{{ nodeApi }}</button>
-      <button @click="clickPythonApi">{{ pythonApi }}</button>
-    </div>
-  </template>
+    <el-container>
+        <el-header height="8vh" style="justify-content: space-between">
+            <div class="d-flex">
+                <p class="blog">LAPBlogs</p>
+                <p>
+                    <el-input
+                        size="small"
+                        placeholder="请输入内容"
+                        prefix-icon="el-icon-search"
+                        v-model="search">
+                    </el-input>
+                </p>
+                <p>
+                    <el-button icon="el-icon-search" circle size="small"></el-button>
+                </p>
+            </div>
+            <div>
+                <div class="d-flex">
+                    {{ user }}
+                    <el-col :span="12" style="margin:auto 5px;">
+                            <el-dropdown trigger="click">
+                                <span class="el-dropdown-link">
+                                <i class="el-icon-arrow-down el-icon--right"></i>
+                                </span>
+                                <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item>登录</el-dropdown-item>
+                                <el-dropdown-item>注册</el-dropdown-item>
+                                <el-dropdown-item>关于我</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+                        </el-col>
+                    <img class="avatar" v-bind:src="avatar_addr" alt="" height="20" width="20">
+                </div>
+            </div>
+        </el-header>
+        <el-container>
+            <el-aside width="200px">
+                    <el-menu :default-openeds="['1', '3']">
+                        <el-menu-item index="0">
+                                <i class="el-icon-edit"></i><span slot="title">书写</span>                            
+                        </el-menu-item>
+                        <el-submenu index="1">
+                            <template slot="title"><i class="el-icon-document"></i>技术</template>
+                            <el-menu-item-group>
+                                <el-menu-item index="1-1">Javascript</el-menu-item>
+                                <el-menu-item index="1-2">Nodejs</el-menu-item>
+                                <el-menu-item index="1-3">Php</el-menu-item>
+                                <el-menu-item index="1-4">Python</el-menu-item>
+                                <el-menu-item index="1-5">Java</el-menu-item>
+                            </el-menu-item-group>
+                            </el-submenu>
+                        </el-submenu>
+                        <el-menu-item index="2">
+                                <i class="el-icon-sort"></i><span slot="title">心路</span>                            
+                        </el-menu-item>
+                        <el-submenu index="3">
+                                <template slot="title">
+                                    <i class="el-icon-more-outline"></i>关于我</template>
+                                <el-menu-item-group>
+                                    <el-menu-item index="3-1">选项1</el-menu-item>
+                                    <el-menu-item index="3-2">选项2</el-menu-item>
+                                </el-menu-item-group>
+                            </el-submenu>
+                    </el-menu>
+            </el-aside>
+                <el-container>
+                    <el-main style="padding: 0px;">
+                        <div class="box">
+                        <p>asd</p>
+                        <p>sdffdf</p>
+                        <p>asd</p>
+                        <p>asd</p>
+                        <p>sdffdf</p>
+                        <p>asd</p>
+                        <p>asd</p>
+                        <p>sdffdf</p>
+                        <p>asd</p>
+                        <p>asd</p>
+                        <p>sdffdf</p>
+                        <p>asd</p>
+                        <p>asd</p>
+                        <p>sdffdf</p>
+                        <p>asd</p>
+                        <p>asd</p>
+                        <p>sdffdf</p>
+                        <p>asd</p>
+                        <p>asd</p>
+                        <p>asd</p>
+                        <p>sdffdf</p>
+                        <p>asd</p>
+                        <p>asd</p>
+                        <p>sdffdf</p>
+                        <p>asd</p>
+                        <p>asd</p>
+                        <p>sdffdf</p>
+                        <p>asd</p>
+                    </div>
+                    </el-main>
+                    <el-footer height="8vh">Created By LAPFUTURE@LAPFUTURE</el-footer>
+                </el-container>
+        </el-container>
+    </el-container>
+</template>
   
 <script>
     export default {
@@ -12,7 +109,10 @@
       data(){
         return {
             nodeApi : "nodeAPI!",
-            pythonApi : "pythonAPI!"
+            pythonApi : "pythonAPI!",
+            search : '',
+            avatar_addr:"https://avatars2.githubusercontent.com/u/37266366?s=40&v=4",
+            user : "LAP",
         }
       },
       methods:{
@@ -36,4 +136,74 @@
       }
     }
 </script>
+<style>
+    .el-header{
+        line-height: 8vh;
+        display: flex;
+        background-color: #24292e;
+        color: #fff;
+    }
+    .el-footer{
+        text-align: center;
+        line-height: 8vh;
+        background-color: #24292e;
+        color: #fff;
+    }
+    .blog{
+        width:180px;
+    }
+    input{
+        border-radius: 4px;
+    }
+    .avatar{
+        border-radius: 3px;
+        margin:auto;
+    }
+    .write{
+        font-size: 14px;
+        color:#303133;
+        cursor: pointer;
+        padding: 0 20px;
+    }
+    .d-flex{
+        display: flex;
+    }
+    .el-aside {
+        background-color: #D3DCE6;
+        color: #333;
+        text-align: center;
+        height: calc(100%-60px);
+        line-height: 8vh;
+    }
+    .el-main {
+        background-color: #E9EEF3;
+        color: #333;
+        text-align: center;
+    }
+    .el-main p {
+        border:1px silver solid;
+        padding: 10px;
+    }
+    .box{
+        height: 84vh;
+        overflow: scroll;
+    }
+
+    /*滚动条整体样式*/
+    .box::-webkit-scrollbar {
+        width: 10px;
+        height: 1px;
+    }
+    /*滚动条滑块*/
+    .box::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        background: #303133;
+    }
+    /*滚动条轨道*/
+    .box::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: #eee;
+    }
+</style>
   

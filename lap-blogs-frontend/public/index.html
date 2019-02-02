@@ -5,7 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" href="css/reset.css">
     <title>lap-blogs-frontend</title>
+    <style>
+      body::-webkit-scrollbar {
+          width: 10px;
+          height: 1px;
+      }
+      body::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+          background:  #555;
+      }
+      body::-webkit-scrollbar-track {
+          border-radius: 10px;
+      }
+    </style>
   </head>
   <body>
     <noscript>

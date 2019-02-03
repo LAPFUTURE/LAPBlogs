@@ -8,7 +8,7 @@ const qs = require("querystring");
 const passport= require("passport");
 const request = require("request");
 
-router.get("/test",(req,res)=>{
+router.post("/test",(req,res)=>{
     res.json({psth:"/test",env:8010});
 });
 

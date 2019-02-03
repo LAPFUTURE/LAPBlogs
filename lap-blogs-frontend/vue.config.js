@@ -59,11 +59,11 @@ module.exports = {
         proxy:{
             '/api':{
                 // target:'http://www.connectyoume.top:5001/api',
-                target:'http://localhost:8080/',
+                target:'http://localhost:8009/',
                 ws:true,
                 changeOrigin:true,
                 pathRewrite:{
-                    '^/api':'' 
+                    '^/api':'/api' 
                 }
             }
         },

@@ -37,17 +37,29 @@
         <el-container>
             <el-aside width="200px">
                     <el-menu :default-openeds="['1', '3']">
-                        <el-menu-item index="0">
-                                <i class="el-icon-edit"></i><span slot="title">书写</span>                            
-                        </el-menu-item>
+                        <router-link to="/write">
+                            <el-menu-item index="0">
+                                    <i class="el-icon-edit"></i><span slot="title">书写</span>   
+                            </el-menu-item>
+                        </router-link>    
                         <el-submenu index="1">
                             <template slot="title"><i class="el-icon-document"></i>技术</template>
                             <el-menu-item-group>
-                                <el-menu-item index="1-1">Javascript</el-menu-item>
-                                <el-menu-item index="1-2">Nodejs</el-menu-item>
-                                <el-menu-item index="1-3">Php</el-menu-item>
-                                <el-menu-item index="1-4">Python</el-menu-item>
-                                <el-menu-item index="1-5">Java</el-menu-item>
+                                <router-link to="/technology/Javascript">
+                                    <el-menu-item index="1-1">Javascript</el-menu-item>
+                                </router-link>
+                                <router-link to="/technology/Nodejs">
+                                    <el-menu-item index="1-2">Nodejs</el-menu-item>
+                                </router-link>
+                                <router-link to="/technology/Php">
+                                    <el-menu-item index="1-3">Php</el-menu-item>
+                                </router-link>
+                                <router-link to="/technology/Python">
+                                    <el-menu-item index="1-4">Python</el-menu-item>
+                                </router-link>
+                                <router-link to="/technology/Java">
+                                    <el-menu-item index="1-5">Java</el-menu-item>
+                                </router-link>
                             </el-menu-item-group>
                             </el-submenu>
                         </el-submenu>
@@ -67,35 +79,8 @@
                 <el-container>
                     <el-main style="padding: 0px;">
                         <div class="box">
-                        <p>asd</p>
-                        <p>sdffdf</p>
-                        <p>asd</p>
-                        <p>asd</p>
-                        <p>sdffdf</p>
-                        <p>asd</p>
-                        <p>asd</p>
-                        <p>sdffdf</p>
-                        <p>asd</p>
-                        <p>asd</p>
-                        <p>sdffdf</p>
-                        <p>asd</p>
-                        <p>asd</p>
-                        <p>sdffdf</p>
-                        <p>asd</p>
-                        <p>asd</p>
-                        <p>sdffdf</p>
-                        <p>asd</p>
-                        <p>asd</p>
-                        <p>asd</p>
-                        <p>sdffdf</p>
-                        <p>asd</p>
-                        <p>asd</p>
-                        <p>sdffdf</p>
-                        <p>asd</p>
-                        <p>asd</p>
-                        <p>sdffdf</p>
-                        <p>asd</p>
-                    </div>
+                            <router-view></router-view>
+                        </div>
                     </el-main>
                     <el-footer height="8vh">Created By LAPFUTURE@LAPFUTURE</el-footer>
                 </el-container>

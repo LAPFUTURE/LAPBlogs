@@ -282,3 +282,8 @@
 127.0.0.1 - - [01/Feb/2019:11:00:58 +0800] "POST /api/users/login HTTP/1.1" 200 2166 "-" "PostmanRuntime/7.6.0"
 127.0.0.1 - - [01/Feb/2019:11:01:44 +0800] "POST /api/users/login HTTP/1.1" 200 61 "-" "PostmanRuntime/7.6.0"
 127.0.0.1 - - [01/Feb/2019:11:02:21 +0800] "POST /api/users/login HTTP/1.1" 200 145 "-" "PostmanRuntime/7.6.0"
+127.0.0.1 - - [02/Feb/2019:16:31:19 +0800] "OPTIONS /api/users/test HTTP/1.1" 200 4 "http://127.0.0.1:8081/write" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+127.0.0.1 - - [02/Feb/2019:16:31:19 +0800] "POST /api/users/test HTTP/1.1" 200 27 "http://127.0.0.1:8081/write" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+127.0.0.1 - - [02/Feb/2019:16:34:31 +0800] "OPTIONS /api/users/test HTTP/1.1" 200 4 "http://127.0.0.1:8081/write" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+127.0.0.1 - - [02/Feb/2019:16:34:31 +0800] "POST /api/users/test HTTP/1.1" 200 27 "http://127.0.0.1:8081/write" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+127.0.0.1 - - [02/Feb/2019:16:43:45 +0800] "POST /api/users/test HTTP/1.1" 200 27 "http://127.0.0.1:8081/write" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"

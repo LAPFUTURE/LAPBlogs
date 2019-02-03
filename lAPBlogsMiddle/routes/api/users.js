@@ -43,6 +43,30 @@ router.post("/login",(req,res)=>{
         }
     })
 });
+
+router.post("/registe",(req,res)=>{
+    let url = 'http://127.0.0.1:8015/registe';
+    let person = {
+        name:req.body.name,
+        email:req.body.email,
+        password:req.body.password
+    };
+    
+    request.post({url:url, form: person}, function(err,httpResponse,body){
+        if(err){
+            console.log(err);
+            return res.json({"status":-2,"msg":"服务器出错,稍后再试","person":person});
+        }else{
+            body = JSON.parse(body);
+            if(body.status === -1){
+                return res.json({"status":-1,"msg":"账号已被注册"});
+            }else if(body.status === 1){
+                return res.json({"status":1,"msg":"注册成功"});
+            }
+        }
+    });
+
+});
     
     
 module.exports = router;

@@ -9,7 +9,6 @@ Users = LAPBlogs['users']
 
 def login(request):
     user = {}
-    print(request.POST)
     if request.POST:
         user['email'] = request.POST['email']
         user['password'] = request.POST['password']

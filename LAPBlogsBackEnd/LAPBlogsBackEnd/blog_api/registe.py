@@ -5,6 +5,22 @@ import pymongo
 mongo_client = pymongo.MongoClient(host="127.0.0.1",port=27017)
 LAPBlogs = mongo_client["lap_blogs"]
 
+Users = LAPBlogs['users']
+
 def registe(request):
-    users  = list(LAPBlogs.users.find())
-    return JsonResponse(jsonStr(users), safe = False)
+    user = {}
+    if request.POST:
+        user['email'] = request.POST['email']
+        user['password'] = request.POST['password']
+        status = Users.find_one({"email":user['email']})
+    obj = {}
+    if status:
+        obj["status"] = -1
+        obj["message"] = "账号已被注册"
+        return JsonResponse(obj, safe = False)
+    else:
+        obj["status"] = 1
+        obj["message"] = "注册成功"
+        return JsonResponse(obj, safe = False)
+    
+   

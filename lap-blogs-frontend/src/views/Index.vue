@@ -105,28 +105,18 @@
             pythonApi : "pythonAPI!",
             search : '',
             avatar_addr:"https://avatars2.githubusercontent.com/u/37266366?s=40&v=4",
-            user : "LAP",
+            // user : "LAP",
         }
       },
       methods:{
-        clickNodeApi(){
-            this.$axios.get('http://localhost:8009/')
-            .then((res)=>{
-                console.log(res);})
-            .catch((error)=>{
-                console.log(error);
-            })
-        },
-        clickPythonApi(){
-            this.$axios.post('http://localhost:8015/registe')
-            .then((res)=>{
-                console.log(res);
-                console.log(JSON.parse(res.data));})
-            .catch((error)=>{
-                console.log(error);
-            })
-        }
+      },
+      computed:{
+          user(){
+              console.log(this.$store.getters.user);
+              return "LAPFUTURE";
+          }
       }
+
     }
 </script>
 <style>

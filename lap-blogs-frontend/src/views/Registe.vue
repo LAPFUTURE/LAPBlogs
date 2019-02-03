@@ -74,11 +74,13 @@
   
 <script>
     export default {
-      name: 'home',
-      data(){
+        name: 'home',
+        data(){
         let validatePass = (rule,value,callback)=>{
                 if(value !==this.registerUser.password){
                     callback(new Error("两次密码输入不一致"));
+                }else{
+                    callback(); //一定要带这个回调，不然浪费调试时间
                 }
             };
             return {
@@ -131,40 +133,35 @@
                 }
             }
       },
-      methods:{
-        submitForm(formName){
-            console.log(this.$refs["registerUser"] === this.$refs[formName]);
-
-            // this.$refs[formName].validate((valid) => {
-            //     console.log("通过了验证");
-            //     if(valid){
-            //         this.$axios.post('http:127.0.0.1:8009/api/users/registe',this.registerUser)
-            //         .then((res) => {
-            //             console.log(res);
-            //             // this.$message({
-            //             //     message:'账号注册成功',
-            //             //     type:'success'
-            //             // });
-            //             // this.$router.push('/login');
-            //         })
-            //     }else{
-            //         console.log(123);
-            //     }
-            // });
-
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                alert('submit!');
-                } else {
-                console.log('error submit!!');
-                return false;
-                }
-            });
+        methods:{
+            submitForm(formName){
+                this.$refs[formName].validate((valid) => {
+                    if(valid){
+                        this.$axios.post('/api/users/registe',this.registerUser)
+                        .then((res) => {
+                            console.log(res);
+                            if(res.data.status === -1){
+                                this.$message({
+                                    message:res.data.msg,
+                                    type:'warning',
+                                    center:true
+                                });
+                            }else if(res.data.status === 1){
+                                this.$message({
+                                    message:res.data.msg,
+                                    type:'success',
+                                    center:true
+                                });
+                                this.$router.push('/login');
+                            }
+                        })
+                    }
+                });
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             }
-      }
+        }
     }
 </script>
 <style scoped>

@@ -98,8 +98,8 @@
   
 <script>
     export default {
-      name: 'home',
-      data(){
+        name: 'home',
+        data(){
         return {
             nodeApi : "nodeAPI!",
             pythonApi : "pythonAPI!",
@@ -107,15 +107,14 @@
             avatar_addr:"https://avatars2.githubusercontent.com/u/37266366?s=40&v=4",
             // user : "LAP",
         }
-      },
-      methods:{
-      },
-      computed:{
-          user(){
-              console.log(this.$store.getters.user);
-              return "LAPFUTURE";
-          }
-      }
+        },
+        methods:{
+        },
+        computed:{
+            user(){
+                return "LAPFUTURE";
+            }
+        }
 
     }
 </script>

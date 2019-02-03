@@ -24,8 +24,16 @@
                                 <i class="el-icon-arrow-down el-icon--right"></i>
                                 </span>
                                 <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item>登录</el-dropdown-item>
-                                <el-dropdown-item>注册</el-dropdown-item>
+                                <el-dropdown-item align="center">
+                                    <router-link to="/login">
+                                        登录
+                                    </router-link>
+                                </el-dropdown-item>
+                                <el-dropdown-item align="center">
+                                    <router-link to="/registe">
+                                        注册
+                                    </router-link>
+                                </el-dropdown-item align="center">
                                 <el-dropdown-item>关于我</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
@@ -82,7 +90,7 @@
                             <router-view></router-view>
                         </div>
                     </el-main>
-                    <el-footer height="8vh">Created By LAPFUTURE@LAPFUTURE</el-footer>
+                    <el-footer height="8vh">Powered By LAPFUTURE</el-footer>
                 </el-container>
         </el-container>
     </el-container>

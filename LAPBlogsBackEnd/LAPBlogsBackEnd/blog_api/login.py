@@ -8,19 +8,16 @@ LAPBlogs = mongo_client["lap_blogs"]
 Users = LAPBlogs['users']
 
 def login(request):
-    obj = {"message":'123'}
     user = {}
     print(request.POST)
     if request.POST:
-        user['name'] = request.POST['name']
         user['email'] = request.POST['email']
         user['password'] = request.POST['password']
-        status = Users.find_one({"count":user['email']})
+        status = Users.find_one({"email":user['email']})
         if(status):
-            print(status)
-            obj = {"message":'insert success!',"user":user}
+            del status["password"]
+            user = jsonStr(status)
+            obj = {"message":'Login successfully!',"status":"1","user":user}
         else:
-            print(status)
-            obj = {"message":"insert fail!"}
-    # obj = {"msg" : "nochange"}
+            obj = {"message":"Login fail! email or password is false!","status":"2"}
     return JsonResponse(obj)

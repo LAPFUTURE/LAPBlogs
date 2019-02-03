@@ -15,7 +15,6 @@ router.post("/test",(req,res)=>{
 router.post("/login",(req,res)=>{
     let url = 'http://127.0.0.1:8015/login';
     let person = {
-        name:req.body.name,
         email:req.body.email,
         password:req.body.password
     };
@@ -23,58 +22,27 @@ router.post("/login",(req,res)=>{
         if(err){
             return console.error("error"+error);
         }else{
-            console.log("body"+body);
-            res.json({"msg":"success","data":body.toString()})
+            body = JSON.parse(body);
+            let user =  JSON.parse(body.user);
+            if(body.status === "1"){ //登录成功，分发jwt
+                const rule = {
+                    id:user._id,
+                    name:user.name,
+                    email:user.email
+                };
+                jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{
+                    if(!err){
+                        return res.json({"status":1,"msg":"登录成功","token":"Bearer " + token});
+                    }else{
+                        return res.json({"status":-2,"msg":"后台返回token出错"});
+                    }
+                });
+            }else if(body.status === "2"){ //账号或密码错误，不分发jwt
+                return res.json({"status":-1,"msg":"账号或密码错误"});
+            }
         }
     })
-    // let person = {
-    //     name:req.body.name,
-    //     email:req.body.email,
-    //     password:req.body.password
-    // };
-    // let content = qs.stringify(person);
-    // let options = {
-    //     hostname: "127.0.0.1",  
-    //     port: 8015,  
-    //     path: "/login",  
-    //     method: "POST",  
-    //     headers: {  
-    //         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-    //     }  
-    // };
-    
-    // let request = http.request(options,(result)=>{
-    //     let body;
-    //     result.on('data',function(chunk){
-    //         body = chunk;
-    //     });
-    //     result.on('end',()=>{
-    //         // body = qs.parse(body);
-    //         console.log(body.toString());
-    //         res.json({"msg":"success","data":body.toString()});
-    //     })
-    // })
-    // request.on('error',(e)=>{
-    //     console.log("error:"+e);
-    // })
-    // request.write(content);
 });
     
-    // let md5Password =  MD5(MD5(req.body.password) + "lap");
-    // const rule = {
-    //     id:"user._id",
-    //     name:"user.name",
-    //     avatar:"user.avatar",
-    //     identity:"user.identity"
-    // };
-    //     jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{
-    //             if(!err){
-    //                 return res.json({"status":1,"msg":"登录成功","token":"Bearer " + token,"req.body":req.body.password});
-    //             }else{
-    //                 return res.json({"status":-2,"msg":"后台返回token出错"});
-    //             }
-    //         }
-    //     )
-    // });
-
+    
 module.exports = router;

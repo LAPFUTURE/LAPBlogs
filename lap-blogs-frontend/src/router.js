@@ -15,6 +15,16 @@ export default new Router({
       component: Index,
       children:[
         {
+          path: '/login',
+          name: 'login',
+          component: () => import('./views/Login.vue')
+        },
+        {
+          path: '/registe',
+          name: 'registe',
+          component: () => import('./views/Registe.vue')
+        },
+        {
           path: '/write',
           name: 'write',
           component: () => import('./views/Write.vue')

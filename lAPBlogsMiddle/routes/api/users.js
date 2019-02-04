@@ -1,11 +1,11 @@
 const express = require("express");
 const http = require("http");
 const router = express.Router();
-const MD5 = require("crypto-js/md5");
+const md5 = require("crypto-js/md5");
 const jwt = require("jsonwebtoken");
 const key = require("../../config/keys");
-const qs = require("querystring");
-const passport= require("passport");
+// const qs = require("querystring");
+// const passport= require("passport");
 const request = require("request");
 
 router.post("/test",(req,res)=>{
@@ -14,17 +14,18 @@ router.post("/test",(req,res)=>{
 
 router.post("/login",(req,res)=>{
     let url = 'http://127.0.0.1:8015/login';
+    let password = (md5(req.body.password+key.Salt)).toString();
     let person = {
         email:req.body.email,
-        password:req.body.password
+        password:password
     };
     request.post({url:url, form: person}, function(err,httpResponse,body){
         if(err){
-            return console.error("error"+error);
+            return res.json({"status":-2,"msg":"后台出错,请稍后再试!"});
         }else{
             body = JSON.parse(body);
-            let user =  JSON.parse(body.user);
-            if(body.status === "1"){ //登录成功，分发jwt
+            if(body.status === 1){ //登录成功,分发jwt
+                let user =  JSON.parse(body.user);
                 const rule = {
                     id:user._id,
                     name:user.name,
@@ -37,8 +38,10 @@ router.post("/login",(req,res)=>{
                         return res.json({"status":-2,"msg":"后台返回token出错"});
                     }
                 });
-            }else if(body.status === "2"){ //账号或密码错误，不分发jwt
-                return res.json({"status":-1,"msg":"账号或密码错误"});
+            }else if(body.status === -3){ //账号未注册,不分发jwt
+                return res.json({"status":-1,"msg":"此账号未注册!"});
+            }else if(body.status === -4){ //密码错误,不分发jwt
+                return res.json({"status":-1,"msg":"密码错误!"});
             }
         }
     })
@@ -46,27 +49,25 @@ router.post("/login",(req,res)=>{
 
 router.post("/registe",(req,res)=>{
     let url = 'http://127.0.0.1:8015/registe';
+    let password = (md5(req.body.password+key.Salt)).toString(); //前台传过来的已md5加密一次，加盐后再md5加密
     let person = {
         name:req.body.name,
         email:req.body.email,
-        password:req.body.password
+        password:password
     };
-    
     request.post({url:url, form: person}, function(err,httpResponse,body){
         if(err){
             console.log(err);
-            return res.json({"status":-2,"msg":"服务器出错,稍后再试","person":person});
+            return res.json({"status":-2,"msg":"服务器出错,请稍后再试!"});
         }else{
             body = JSON.parse(body);
             if(body.status === -1){
-                return res.json({"status":-1,"msg":"账号已被注册"});
+                return res.json({"status":-1,"msg":"账号已被注册!"});
             }else if(body.status === 1){
-                return res.json({"status":1,"msg":"注册成功"});
+                return res.json({"status":1,"msg":"注册成功!"});
             }
         }
     });
-
 });
-    
     
 module.exports = router;

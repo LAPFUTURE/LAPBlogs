@@ -34,6 +34,9 @@
                                         注册
                                     </router-link>
                                 </el-dropdown-item align="center">
+                                <el-dropdown-item align="center">
+                                    <span @click="loginout">注销</span>
+                                </el-dropdown-item>
                                 <el-dropdown-item>关于我</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
@@ -109,10 +112,15 @@
         }
         },
         methods:{
+            loginout(){
+                localStorage.removeItem("eleTOken");
+                this.$store.dispatch("clearCurrentState");
+                this.$router.push("/");
+            }
         },
         computed:{
             user(){
-                return "LAPFUTURE";
+                return this.$store.getters.user["name"];
             }
         }
 

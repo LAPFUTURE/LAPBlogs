@@ -10,13 +10,15 @@ Users = LAPBlogs['users']
 def login(request):
     user = {}
     if request.POST:
-        user['email'] = request.POST['email']
-        user['password'] = request.POST['password']
-        status = Users.find_one({"email":user['email']})
+        status = Users.find_one({"email":request.POST['email']})
         if(status):
-            del status["password"]
-            user = jsonStr(status)
-            obj = {"message":'Login successfully!',"status":"1","user":user}
+            if(status["password"] == request.POST["password"]): #密码正确
+                print(status["password"])
+                del status["password"]   #删除password属性
+                user = jsonStr(status)
+                obj = {"message":'登录成功!',"status":1,"user":user}
+            else:
+                obj = {"message":'密码错误!',"status":-4}
         else:
-            obj = {"message":"Login fail! email or password is false!","status":"2"}
+            obj = {"message":"没有找到此账号!","status":-3}
     return JsonResponse(obj)

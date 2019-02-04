@@ -73,6 +73,7 @@
 </template>
   
 <script>
+    import md5 from 'crypto-js/md5';
     export default {
         name: 'home',
         data(){
@@ -137,7 +138,12 @@
             submitForm(formName){
                 this.$refs[formName].validate((valid) => {
                     if(valid){
-                        this.$axios.post('/api/users/registe',this.registerUser)
+                        let user = {"email":this.registerUser.email,
+                                    "name":this.registerUser.name,
+                                    "password":md5(this.registerUser.password).toString()
+                                    };
+                        console.log(user);
+                        this.$axios.post('/api/users/registe',user)
                         .then((res) => {
                             console.log(res);
                             if(res.data.status === -1){

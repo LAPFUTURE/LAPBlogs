@@ -10,6 +10,7 @@ Users = LAPBlogs['users']
 def registe(request):
     user = {}
     if request.POST:
+        user['name'] = request.POST['name']
         user['email'] = request.POST['email']
         user['password'] = request.POST['password']
         status = Users.find_one({"email":user['email']})
@@ -19,6 +20,7 @@ def registe(request):
         obj["message"] = "账号已被注册"
         return JsonResponse(obj, safe = False)
     else:
+        Users.save(user)
         obj["status"] = 1
         obj["message"] = "注册成功"
         return JsonResponse(obj, safe = False)

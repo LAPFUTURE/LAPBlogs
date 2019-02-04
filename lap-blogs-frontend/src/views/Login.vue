@@ -58,6 +58,8 @@
   
 <script>
     import jwt_decode from 'jwt-decode';
+    import md5 from "crypto-js/md5";
+
     export default {
       name: 'home',
       data(){
@@ -90,7 +92,11 @@
         submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$axios.post('/api/users/login', this.loginUser)
+                        let user = {
+                            "email":this.loginUser.email,
+                            "password":md5(this.loginUser.password).toString()
+                        };
+                        this.$axios.post('/api/users/login', user)
                             .then((res) => {
                                 console.log(res.data.status);
                                 if(res.data.status === 1){
@@ -101,11 +107,16 @@
                                     this.$store.dispatch('setUser',decoded);
                                     this.$message({
                                         message: '登录成功',
-                                        type: 'success'
+                                        type: 'success',
+                                        center:true
                                     });
                                     this.$router.push('/write');
-                                }else{
-                                    this.$message.error('请检查账号或密码');
+                                }else if(res.data.status === -1){
+                                    this.$message({
+                                        message: res.data.msg,
+                                        type: 'error',
+                                        center:true
+                                    });
                                 }
                             })
                     }

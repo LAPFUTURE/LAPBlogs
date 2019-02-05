@@ -11,7 +11,6 @@ Blogs = LAPBlogs['blogs']
 Users = LAPBlogs["users"]
 
 def requestBlogs(request):
-
     blogArray = ["Python","JavaScript","NodeJs","Php","Java"]
     BLOGS = {}
     for i in blogArray:

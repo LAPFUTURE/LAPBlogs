@@ -30,9 +30,9 @@ router.post("/login",(req,res)=>{
                     id:user._id,
                     name:user.name,
                     email:user.email,
-                    blog:user.blog,
-                    temporarySave:user.temporarySave,
-                    lastLoginTime:user.lastLoginTime
+                    // blog:user.blog,
+                    // temporarySave:user.temporarySave,
+                    // lastLoginTime:user.lastLoginTime
                 };
                 jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{
                     //过期时间为3600秒

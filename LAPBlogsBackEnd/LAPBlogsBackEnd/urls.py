@@ -21,6 +21,7 @@ from .blog_api import users
 from .blog_api import blogs
 
 urlpatterns = [
+    url(r'^requestBlogs$',blogs.requestBlogs),
     url(r'^searchUser$', users.searchUser),
     url(r'^registe$', users.registe),
     url(r'^login$', users.login),

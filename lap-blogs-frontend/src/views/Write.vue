@@ -90,12 +90,25 @@ export default {
                         };
                         this.$axios.post("api/blogs/insertBlog",blog).then((res)=>{
                             console.log(res);
+                            if(res.data.status === 1){
+                                this.$message({
+                                    message: res.data.msg,
+                                    type:"success",
+                                    center:true
+                                });
+                            }else if(res.data.status === -5){
+                                this.$message({
+                                    message: res.data.msg,
+                                    type:"error",
+                                    center:true
+                                });
+                            }
                         })
                         .catch((error)=>{
                             console.log(error);
                             this.$message({
                                 message: "出错了,请稍后再试!",
-                                type:"werror",
+                                type:"error",
                                 center:true
                             });
                         })

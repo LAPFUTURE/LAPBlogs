@@ -10,6 +10,25 @@ LAPBlogs = mongo_client["lap_blogs"]
 Blogs = LAPBlogs['blogs']
 Users = LAPBlogs["users"]
 
+def requestBlogs(request):
+
+    blogArray = ["Python","JavaScript","NodeJs","Php","Java"]
+    BLOGS = {}
+    for i in blogArray:
+        blogs = Blogs.find({"type":i})
+        tempArray = []
+        for blog in blogs:
+            tempArray.append(blog)
+        BLOGS[i] = tempArray
+    #BLOGS存储查找到的文章，按照语言类型分类
+    BLOGS = jsonStr(BLOGS)
+    obj = {
+        "message":"success",
+        "status":1,
+        "blog":BLOGS
+    }
+    return JsonResponse(obj,safe = False)
+
 def insertBlog(request):
     #用户的_id,用户的name,文章content,文章title,文章type,插入文章
     if request.POST:

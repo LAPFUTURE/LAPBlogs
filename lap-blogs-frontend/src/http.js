@@ -20,7 +20,7 @@ axios.interceptors.request.use(//发送请求前拦截请求,将eleToken加入�
         startLoading();
         if(localStorage.eleToken){//已登录后则设置请求头
             config.headers.Authorization = localStorage.eleToken;
-            console.log(config.headers.Authorization)
+            // console.log(config.headers.Authorization)
         }
         return config;
     },
@@ -36,7 +36,7 @@ axios.interceptors.response.use(
     },error=>{
         console.log(error);
         endLoading();
-        //Message.error(error.response.data);
+        Message.error("请求出错，请重试!");
         let { status } = error.response;
         if(status == 401){
             Message.error("时间已过期，请重新登录!");

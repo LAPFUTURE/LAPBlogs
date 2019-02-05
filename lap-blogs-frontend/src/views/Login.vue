@@ -98,7 +98,6 @@
                         };
                         this.$axios.post('/api/users/login', user)
                             .then((res) => {
-                                console.log(res.data.status);
                                 if(res.data.status === 1){
                                     let { token } = res.data;
                                     localStorage.setItem('eleToken', token);//存储token

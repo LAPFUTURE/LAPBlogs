@@ -29,7 +29,10 @@ router.post("/login",(req,res)=>{
                 const rule = {
                     id:user._id,
                     name:user.name,
-                    email:user.email
+                    email:user.email,
+                    blog:user.blog,
+                    temporarySave:user.temporarySave,
+                    lastLoginTime:user.lastLoginTime
                 };
                 jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{
                     if(!err){

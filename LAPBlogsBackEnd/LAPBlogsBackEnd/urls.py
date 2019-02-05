@@ -17,11 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from .blog_api import registe
-from .blog_api import login
+from .blog_api import registeAndLogin
+from .blog_api import blogs
 
 urlpatterns = [
-    url(r'^registe$', registe.registe),
-    url(r'^login$', login.login),
-    
+    url(r'^registe$', registeAndLogin.registe),
+    url(r'^login$', registeAndLogin.login),
+    url(r'^insertBlog',blogs.insertBlog)
 ]

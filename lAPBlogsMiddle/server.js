@@ -4,12 +4,16 @@ const port = process.env.PORT || 8010;
 const app = express();
 const bodyParser = require("body-parser");
 const passport = require("passport");
+//passport是express框架的一个针对密码的中间件
 
-// //路由
+
+
+//路由
 const users = require("./routes/api/users");
-// const profile = require("./routes/api/profile");
+const blogs = require("./routes/api/blogs");
 // const food = require("./routes/api/food");
 
+//CORS设置
 app.all('*', function(req, res, next) {  
     res.header("Access-Control-Allow-Origin", "*");  
     res.header("Access-Control-Allow-Headers", "*");  
@@ -33,7 +37,7 @@ app.use(bodyParser.json());
 
 //使用路由中间件
 app.use("/api/users",users);
-// app.use("/api/profile",profile);
+app.use("/api/blogs",blogs);
 // app.use("/api/food",food);
 
 //passport初始化

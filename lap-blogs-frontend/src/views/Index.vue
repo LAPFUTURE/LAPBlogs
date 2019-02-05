@@ -113,7 +113,7 @@
         },
         methods:{
             loginout(){
-                localStorage.removeItem("eleTOken");
+                localStorage.removeItem("eleToken");
                 this.$store.dispatch("clearCurrentState");
                 this.$router.push("/");
             }

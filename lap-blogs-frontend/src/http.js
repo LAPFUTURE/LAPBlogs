@@ -15,11 +15,12 @@ function endLoading(){
     loading.close();
 }
 
-axios.interceptors.request.use(//请求拦截
+axios.interceptors.request.use(//发送请求前拦截请求,将eleToken加入到headers.Authorization
     (config)=>{
         startLoading();
         if(localStorage.eleToken){//已登录后则设置请求头
             config.headers.Authorization = localStorage.eleToken;
+            console.log(config.headers.Authorization)
         }
         return config;
     },
@@ -33,8 +34,9 @@ axios.interceptors.response.use(
         endLoading();
         return response;
     },error=>{
+        console.log(error);
         endLoading();
-        Message.error(error.response.data);
+        //Message.error(error.response.data);
         let { status } = error.response;
         if(status == 401){
             Message.error("时间已过期，请重新登录!");

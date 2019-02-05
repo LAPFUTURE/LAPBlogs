@@ -8,6 +8,17 @@ LAPBlogs = mongo_client["lap_blogs"]
 
 Users = LAPBlogs['users']
 
+def searchUser(request):
+    obj = {}
+    status = Users.find_one({"email":request.POST['email']})
+    if status:
+        obj["status"] = 1
+        obj["message"] = "合法用户"
+    else:
+        obj["status"] = -3
+        obj["message"] = "非法用户"
+    return JsonResponse(obj, safe = False)
+
 def registe(request):
     user = {}
     obj = {}

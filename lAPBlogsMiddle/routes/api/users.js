@@ -1,9 +1,9 @@
 const express = require("express");
-const http = require("http");
 const router = express.Router();
 const md5 = require("crypto-js/md5");
 const jwt = require("jsonwebtoken");
 const key = require("../../config/keys");
+// const http = require("http");
 // const qs = require("querystring");
 // const passport= require("passport");
 const request = require("request");
@@ -35,6 +35,7 @@ router.post("/login",(req,res)=>{
                     lastLoginTime:user.lastLoginTime
                 };
                 jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{
+                    //过期时间为3600秒
                     if(!err){
                         return res.json({"status":1,"msg":"登录成功","token":"Bearer " + token});
                     }else{

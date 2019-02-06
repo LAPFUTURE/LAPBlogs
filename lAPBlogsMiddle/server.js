@@ -11,6 +11,7 @@ const passport = require("passport");
 //路由
 const users = require("./routes/api/users");
 const blogs = require("./routes/api/blogs");
+const quote = require("./routes/api/quote");
 // const food = require("./routes/api/food");
 
 //CORS设置
@@ -38,7 +39,7 @@ app.use(bodyParser.json());
 //使用路由中间件
 app.use("/api/users",users);
 app.use("/api/blogs",blogs);
-// app.use("/api/food",food);
+app.use("/api/quote",quote);
 
 //passport初始化
 app.use(passport.initialize());

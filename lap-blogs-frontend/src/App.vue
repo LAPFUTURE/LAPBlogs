@@ -1,9 +1,5 @@
 <template>
 	<div id="app">
-		<!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
 		<router-view />
 	</div>
 </template>
@@ -23,7 +19,7 @@
 			}
 		},
 		mounted() {
-			this.$axios.get("http://127.0.0.1:8009/api/blogs/requestBlogs")
+			this.$axios.get("/api/blogs/requestBlogs")
 				.then((res) => {
 					console.log(res);
 				}).catch((error) => {
@@ -33,7 +29,8 @@
 						type: "error",
 						center: true
 					});
-				})
+				});
+			console.log("mounted");
 		},
 		methods: {
 			isEmpty(value) {

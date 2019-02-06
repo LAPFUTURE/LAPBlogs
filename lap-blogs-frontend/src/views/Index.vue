@@ -48,41 +48,46 @@
         <el-container>
             <el-aside width="200px">
                     <el-menu :default-openeds="['1', '3']">
-                        <router-link to="/write">
+                        <router-link to="/">
                             <el-menu-item index="0">
+                                    <i class="el-icon-menu"></i><span slot="title">首页</span>   
+                            </el-menu-item>
+                        </router-link>
+                        <router-link to="/write">
+                            <el-menu-item index="1">
                                     <i class="el-icon-edit"></i><span slot="title">书写</span>   
                             </el-menu-item>
                         </router-link>    
-                        <el-submenu index="1">
+                        <el-submenu index="2">
                             <template slot="title"><i class="el-icon-document"></i>技术</template>
                             <el-menu-item-group>
                                 <router-link to="/technology/Javascript">
-                                    <el-menu-item index="1-1">Javascript</el-menu-item>
+                                    <el-menu-item index="2-1">Javascript</el-menu-item>
                                 </router-link>
                                 <router-link to="/technology/Nodejs">
-                                    <el-menu-item index="1-2">Nodejs</el-menu-item>
+                                    <el-menu-item index="2-2">Nodejs</el-menu-item>
                                 </router-link>
                                 <router-link to="/technology/Php">
-                                    <el-menu-item index="1-3">Php</el-menu-item>
+                                    <el-menu-item index="2-3">Php</el-menu-item>
                                 </router-link>
                                 <router-link to="/technology/Python">
-                                    <el-menu-item index="1-4">Python</el-menu-item>
+                                    <el-menu-item index="2-4">Python</el-menu-item>
                                 </router-link>
                                 <router-link to="/technology/Java">
-                                    <el-menu-item index="1-5">Java</el-menu-item>
+                                    <el-menu-item index="2-5">Java</el-menu-item>
                                 </router-link>
                             </el-menu-item-group>
                             </el-submenu>
                         </el-submenu>
-                        <el-menu-item index="2">
+                        <el-menu-item index="3">
                                 <i class="el-icon-sort"></i><span slot="title">心路</span>                            
                         </el-menu-item>
-                        <el-submenu index="3">
+                        <el-submenu index="4">
                                 <template slot="title">
                                     <i class="el-icon-more-outline"></i>关于我</template>
                                 <el-menu-item-group>
-                                    <el-menu-item index="3-1">选项1</el-menu-item>
-                                    <el-menu-item index="3-2">选项2</el-menu-item>
+                                    <el-menu-item index="4-1">选项1</el-menu-item>
+                                    <el-menu-item index="4-2">选项2</el-menu-item>
                                 </el-menu-item-group>
                             </el-submenu>
                     </el-menu>

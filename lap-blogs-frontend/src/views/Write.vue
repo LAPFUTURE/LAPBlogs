@@ -5,8 +5,10 @@
                 <template slot="prepend">标题</template>
             </el-input>
         </div>
-        <editor v-model="temporarySave.content" api-key="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6" :init="init">
-        </editor>
+        <div style="min-height: 479.8px;">
+            <editor v-model="temporarySave.content" api-key="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6" :init="init">
+            </editor>
+        </div>
         <div class="btn-contain" >
             <!-- <el-dropdown trigger="click" class="margin">
                 <span class="el-dropdown-link butt">

@@ -61,11 +61,11 @@
                         <el-submenu index="2">
                             <template slot="title"><i class="el-icon-document"></i>技术</template>
                             <el-menu-item-group>
-                                <router-link to="/technology/Javascript">
-                                    <el-menu-item index="2-1">Javascript</el-menu-item>
+                                <router-link to="/technology/JavaScript">
+                                    <el-menu-item index="2-1">JavaScript</el-menu-item>
                                 </router-link>
-                                <router-link to="/technology/Nodejs">
-                                    <el-menu-item index="2-2">Nodejs</el-menu-item>
+                                <router-link to="/technology/NodeJs">
+                                    <el-menu-item index="2-2">NodeJs</el-menu-item>
                                 </router-link>
                                 <router-link to="/technology/Php">
                                     <el-menu-item index="2-3">Php</el-menu-item>

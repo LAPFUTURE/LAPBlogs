@@ -38,6 +38,7 @@ const getters = {
 }
 
 const mutations = {
+  //es6计算属性
   [types.SET_AUTHENTICATED](state,isAuthenticated){
     isAuthenticated ? state.isAuthenticated = isAuthenticated : state.isAuthenticated = false;
     //如果有授权的话就是store.isAuthenticates为true，否则为false
@@ -67,7 +68,6 @@ const actions ={
   clearCurrentState:({commit})=>{
     commit(types.SET_AUTHENTICATED,false);
     commit(types.SET_USER,null);
-    commit(types.SET_BLOG,null)
   }
 }
 export default new Vuex.Store({

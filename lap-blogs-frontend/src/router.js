@@ -12,9 +12,7 @@ const router = new Router({
 		path: '/',
 		name: 'index',
 		component: Index,
-		children: 
-		[
-			{
+		children: [{
 				path: '/',
 				name: 'quote',
 				component: () => import('./views/Quote.vue')
@@ -45,13 +43,19 @@ const router = new Router({
 		]
 	}, ]
 });
-// router.beforeEach((to,from,next)=>{
-//   const isLogin = localStorage.eleToken ? true : false;
-//   if(to.path == "/login" || to.path == "/register"){
-//     next();
-//   }else{
-//     isLogin ? next() : next("/login");
-//   }
-// })
+router.beforeEach((to, from, next) => {
+	if (to.path == "/write") {
+		const isLogin = localStorage.eleToken ? true : false;
+		if(isLogin){
+			next();
+		}else {
+			alert("请先登录!");
+			next("/login");
+		}
+	}else{
+		next();
+	}
+})
+
 
 export default router

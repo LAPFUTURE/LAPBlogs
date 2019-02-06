@@ -9,28 +9,32 @@
 	export default {
 		name: 'app',
 		components: {},
-		created() {
+		created() { //刷新前保存用户状态
 			if (localStorage.eleToken) {
 				let decoded = jwt_decode(localStorage.eleToken);
-				let blog = localStorage.blog;
+				// let blog = localStorage.blog;
 				this.$store.dispatch('setAuthenticated', !this.isEmpty(decoded));
 				this.$store.dispatch('setUser', decoded);
-				this.$store.dispatch('setBlog', blog);
+				// this.$store.dispatch('setBlog', blog);
 			}
 		},
-		mounted() {
+		mounted() { //刷新请求新数据
 			this.$axios.get("/api/blogs/requestBlogs")
 				.then((res) => {
-					console.log(res);
+					this.$store.commit("SET_BLOG",res.data.blogs);
+					//还是用vuex存吧
+					// localStorage.setItem('Python', JSON.stringify(blog.Python));//存储博客
+					// localStorage.setItem('Java', JSON.stringify(blog.Java));
+					// localStorage.setItem('JavaScrupt', JSON.stringify(blog.JavaScript));
+					// localStorage.setItem('NodeJs', JSON.stringify(blog.NodeJs));
+					// localStorage.setItem('Php', JSON.stringify(blog.Php));
 				}).catch((error) => {
-					// console.log(error);
 					this.$message({
 						message: "出错了,请稍后再试!",
 						type: "error",
 						center: true
 					});
 				});
-			console.log("mounted");
 		},
 		methods: {
 			isEmpty(value) {

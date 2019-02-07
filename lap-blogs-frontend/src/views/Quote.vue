@@ -5,8 +5,8 @@
         <img v-bind:src="img.address" alt="" class="img" align="left">
         <div style="align-self: flex-start;">
             <img src="../assets/open.png" alt="这是一张图片" class="open">
-            <p style="padding: 20px;">{{ img.content }}</p>
-            <p style="float:right;padding-right: 20px;">--{{ img.author }}</p>
+            <p class="content">{{ img.content }}</p>
+            <p class="author">--{{ img.author }}</p>
             <p>{{ img.translation }}</p>
         </div>
     </div>
@@ -47,6 +47,7 @@ export default {
     }
     .img{
         width:25%;
+        min-width:250px;
         margin:25px;
         border-radius: 4px;
     }
@@ -54,6 +55,14 @@ export default {
         width: 50px;
         height:50px;
         margin:25px auto;
+    }
+    .content{
+        padding: 20px;
+        min-width: 500px;
+    }
+    .author{
+        float:right;
+        padding-right: 20px;
     }
 </style>
       

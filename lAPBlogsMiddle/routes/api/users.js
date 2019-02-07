@@ -35,7 +35,7 @@ router.post("/login",(req,res)=>{
                     // lastLoginTime:user.lastLoginTime
                 };
                 jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{
-                    //过期时间为3600秒
+                    //过期时间为3600秒,半小时
                     if(!err){
                         return res.json({"status":1,"msg":"登录成功","token":"Bearer " + token});
                     }else{

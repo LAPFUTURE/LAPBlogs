@@ -38,6 +38,7 @@
 
 <script>
 import Editor from '@tinymce/tinymce-vue';
+import { MessageBox } from 'element-ui';
 export default {
   name: 'write',
   components: {
@@ -50,8 +51,6 @@ export default {
             plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
             toolbar: 'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
         },
-        title:"",
-        content:"",
         temporarySave:{title:'',content:''},//暂时储存区，每隔30秒储存一次
         type: [{
           value: 'JavaScript',
@@ -91,14 +90,27 @@ export default {
                             "type":this.selectType
                         };
                         this.$axios.post("api/blogs/insertBlog",blog).then((res)=>{
-                            console.log(res);
-                            if(res.data.status === 1){
+                            if(res.data.status === 1){ //上传成功
                                 this.$message({
                                     message: res.data.msg,
                                     type:"success",
                                     center:true
                                 });
-                            }else if(res.data.status === -5){
+                                this.temporarySave.title = "";
+                                this.temporarySave.content = "";
+                                this.selectType =  '';
+                                MessageBox.confirm('前往首页,继续书写?', '提示',{
+                                    confirmButtonText: '前往首页',
+                                    cancelButtonText: '继续书写',
+                                    type: 'success',
+                                    center: true
+                                }).then(()=>{ //前往首页
+                                    this.$router.push('/');
+                                }).catch(()=>{ //留在此页面
+
+                                })
+
+                            }else if(res.data.status === -5){ //上传失败
                                 this.$message({
                                     message: res.data.msg,
                                     type:"error",
@@ -107,9 +119,8 @@ export default {
                             }
                         })
                         .catch((error)=>{
-                            console.log(error);
                             this.$message({
-                                message: "出错了,请稍后再试!",
+                                message: "时间已过期，请重新登录!",
                                 type:"error",
                                 center:true
                             });

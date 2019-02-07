@@ -37,7 +37,7 @@
                                 <el-dropdown-item align="center">
                                     <span @click="loginout">注销</span>
                                 </el-dropdown-item>
-                                <el-dropdown-item>关于我</el-dropdown-item>
+                                <!-- <el-dropdown-item>关于</el-dropdown-item> -->
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </el-col>
@@ -59,7 +59,7 @@
                             </el-menu-item>
                         </router-link>    
                         <el-submenu index="2">
-                            <template slot="title"><i class="el-icon-document"></i>技术</template>
+                            <template slot="title"><i class="el-icon-setting"></i>技术</template>
                             <el-menu-item-group>
                                 <router-link to="/technology/JavaScript">
                                     <el-menu-item index="2-1">JavaScript</el-menu-item>
@@ -82,12 +82,19 @@
                         <el-menu-item index="3">
                                 <i class="el-icon-sort"></i><span slot="title">心路</span>                            
                         </el-menu-item>
-                        <el-submenu index="4">
+                        <el-menu-item index="4">
+                                <i class="el-icon-more-outline"></i><span slot="title">关于</span>                            
+                        </el-menu-item>
+                        <el-submenu index="5">
                                 <template slot="title">
-                                    <i class="el-icon-more-outline"></i>关于我</template>
+                                    <i class="el-icon-news"></i>用户</template>
                                 <el-menu-item-group>
-                                    <el-menu-item index="4-1">选项1</el-menu-item>
-                                    <el-menu-item index="4-2">选项2</el-menu-item>
+                                    <router-link to="/myblogs">
+                                        <el-menu-item index="5-1">
+                                            <i class="el-icon-document"></i>我的博客
+                                        </el-menu-item>
+                                    </router-link>
+                                    <el-menu-item index="5-2">选项2</el-menu-item>
                                 </el-menu-item-group>
                             </el-submenu>
                     </el-menu>
@@ -113,7 +120,6 @@
             pythonApi : "pythonAPI!",
             search : '',
             avatar_addr:"https://avatars2.githubusercontent.com/u/37266366?s=40&v=4",
-            // user : "LAP",
         }
         },
         methods:{

@@ -1,13 +1,12 @@
 <template>
     <div class="detail-container">
-        <h1 style="padding:20px;">{{ title }}</h1>
+        <p style="display: flex;justify-content: space-between"><span>{{ insertTime }}</span><span>{{ title }}</span><span>{{ userName }}</span></p>
         <editor disabled="disabled" v-model="content" api-key="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6" v-bind:init="init">
         </editor>
     </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import Editor from '@tinymce/tinymce-vue';
 
 export default {
@@ -17,13 +16,13 @@ export default {
     },
     data(){
         return {
+            insertTime:'',
             title:'',
-            content:'lalla',
+            content:'',
+            userName:'',
             init:{
                 height: 550,
-                plugins: 'link',
-                toolbar: 'bold',
-        }
+            }
         }
     },
     methods:{
@@ -37,13 +36,18 @@ export default {
     },
     created(){
         let blogs = this.$store.getters.blog;
-        let purpose = this.findBlog(blogs[this.$route.params.blogType],this.$route.params.blogId);
-        console.log(purpose);
-        this.content = purpose.content;
-        this.title = purpose.title;
+        if(this.$route.params.blogType && this.$route.params.blogId){ //页面第一次进入的话
+            let purpose = this.findBlog(blogs[this.$route.params.blogType],this.$route.params.blogId);
+            this.content = purpose.content;
+            this.title = purpose.title;
+            this.insertTime = purpose.insertTime;
+            this.userName = purpose.userName;
+        }else{ //转向主页
+            this.$router.push("/");
+        }
     },
     mounted(){
-        let timer = setInterval(function(){ //将首部去掉，第一次进入无法找到这个元素，
+        let timer = setInterval(function(){ //将tinymce首部去掉，第一次进入无法找到这个元素，
             //所以用了一下定时器，并且不能用select.style.display="none",因为要在这个元
             //素上有内联样式display才可以通过style获取
             let select = document.querySelector(".detail-container div[class~='mce-top-part']")

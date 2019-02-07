@@ -45,6 +45,11 @@ const router = new Router({
 				name: 'detail',
 				component: () => import('./views/Detail.vue')
 			},
+			{
+				path: '/myblogs',
+				name: 'myblogs',
+				component: () => import('./views/Myblogs.vue')
+			},
 		]
 	}, ]
 });

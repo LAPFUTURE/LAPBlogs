@@ -6,8 +6,10 @@
         <div style="align-self: flex-start;">
             <img src="../assets/open.png" alt="这是一张图片" class="open">
             <p class="content">{{ img.content }}</p>
-            <p class="author">--{{ img.author }}</p>
-            <p>{{ img.translation }}</p>
+            <div style="display: flex;justify-content: space-between;">
+                <p>{{ img.translation }}</p>
+                <p>--{{ img.author }}</p>
+            </div>
         </div>
     </div>
 </template>
@@ -59,10 +61,6 @@ export default {
     .content{
         padding: 20px;
         min-width: 500px;
-    }
-    .author{
-        float:right;
-        padding-right: 20px;
     }
 </style>
       

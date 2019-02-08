@@ -4,11 +4,7 @@
             <div class="d-flex">
                 <p class="blog">LAPBlogs</p>
                 <p>
-                    <el-input
-                        size="small"
-                        placeholder="请输入内容"
-                        prefix-icon="el-icon-search"
-                        v-model="search">
+                    <el-input size="small" placeholder="请输入内容" prefix-icon="el-icon-search" v-model="search">
                     </el-input>
                 </p>
                 <p>
@@ -19,11 +15,11 @@
                 <div class="d-flex">
                     {{ user }}
                     <el-col :span="12" style="margin:auto 5px;">
-                            <el-dropdown trigger="click">
-                                <span class="el-dropdown-link">
+                        <el-dropdown trigger="click">
+                            <span class="el-dropdown-link">
                                 <i class="el-icon-arrow-down el-icon--right"></i>
-                                </span>
-                                <el-dropdown-menu slot="dropdown">
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item align="center">
                                     <router-link to="/login">
                                         登录
@@ -38,99 +34,99 @@
                                     <span @click="loginout">注销</span>
                                 </el-dropdown-item>
                                 <!-- <el-dropdown-item>关于</el-dropdown-item> -->
-                                </el-dropdown-menu>
-                            </el-dropdown>
-                        </el-col>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </el-col>
                     <img class="avatar" v-bind:src="avatar_addr" alt="" height="20" width="20">
                 </div>
             </div>
         </el-header>
         <el-container>
             <el-aside width="200px">
-                    <el-menu :default-openeds="['1', '3']">
-                        <router-link to="/">
-                            <el-menu-item index="0">
-                                    <i class="el-icon-menu"></i><span slot="title">首页</span>   
-                            </el-menu-item>
-                        </router-link>
-                        <router-link to="/write">
-                            <el-menu-item index="1">
-                                    <i class="el-icon-edit"></i><span slot="title">书写</span>   
-                            </el-menu-item>
-                        </router-link>    
-                        <el-submenu index="2">
-                            <template slot="title"><i class="el-icon-setting"></i>技术</template>
-                            <el-menu-item-group>
-                                <router-link to="/technology/JavaScript">
-                                    <el-menu-item index="2-1">JavaScript</el-menu-item>
-                                </router-link>
-                                <router-link to="/technology/NodeJs">
-                                    <el-menu-item index="2-2">NodeJs</el-menu-item>
-                                </router-link>
-                                <router-link to="/technology/Php">
-                                    <el-menu-item index="2-3">Php</el-menu-item>
-                                </router-link>
-                                <router-link to="/technology/Python">
-                                    <el-menu-item index="2-4">Python</el-menu-item>
-                                </router-link>
-                                <router-link to="/technology/Java">
-                                    <el-menu-item index="2-5">Java</el-menu-item>
-                                </router-link>
-                            </el-menu-item-group>
-                            </el-submenu>
-                        </el-submenu>
-                        <el-menu-item index="3">
-                                <i class="el-icon-sort"></i><span slot="title">心路</span>                            
+                <el-menu :default-openeds="['1', '3']">
+                    <router-link to="/">
+                        <el-menu-item index="0">
+                            <i class="el-icon-menu"></i><span slot="title">首页</span>
                         </el-menu-item>
-                        <el-menu-item index="4">
-                                <i class="el-icon-more-outline"></i><span slot="title">关于</span>                            
+                    </router-link>
+                    <router-link to="/write">
+                        <el-menu-item index="1">
+                            <i class="el-icon-edit"></i><span slot="title">书写</span>
                         </el-menu-item>
-                        <el-submenu index="5">
-                                <template slot="title">
-                                    <i class="el-icon-news"></i>用户</template>
-                                <el-menu-item-group>
-                                    <router-link to="/myblogs">
-                                        <el-menu-item index="5-1">
-                                            <i class="el-icon-document"></i>我的博客
-                                        </el-menu-item>
-                                    </router-link>
-                                    <el-menu-item index="5-2">选项2</el-menu-item>
-                                </el-menu-item-group>
-                            </el-submenu>
-                    </el-menu>
+                    </router-link>
+                    <el-submenu index="2">
+                        <template slot="title"><i class="el-icon-setting"></i>技术</template>
+                        <el-menu-item-group>
+                            <router-link to="/technology/JavaScript">
+                                <el-menu-item index="2-1">JavaScript</el-menu-item>
+                            </router-link>
+                            <router-link to="/technology/NodeJs">
+                                <el-menu-item index="2-2">NodeJs</el-menu-item>
+                            </router-link>
+                            <router-link to="/technology/Php">
+                                <el-menu-item index="2-3">Php</el-menu-item>
+                            </router-link>
+                            <router-link to="/technology/Python">
+                                <el-menu-item index="2-4">Python</el-menu-item>
+                            </router-link>
+                            <router-link to="/technology/Java">
+                                <el-menu-item index="2-5">Java</el-menu-item>
+                            </router-link>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    </el-submenu>
+                    <el-menu-item index="3">
+                        <i class="el-icon-sort"></i><span slot="title">心路</span>
+                    </el-menu-item>
+                    <el-menu-item index="4">
+                        <i class="el-icon-more-outline"></i><span slot="title">关于</span>
+                    </el-menu-item>
+                    <el-submenu index="5">
+                        <template slot="title">
+                            <i class="el-icon-news"></i>用户</template>
+                        <el-menu-item-group>
+                            <router-link to="/myblogs">
+                                <el-menu-item index="5-1">
+                                    <i class="el-icon-document"></i>我的博客
+                                </el-menu-item>
+                            </router-link>
+                            <el-menu-item index="5-2">选项2</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                </el-menu>
             </el-aside>
-                <el-container>
-                    <el-main style="padding: 0px;">
-                        <div class="box">
-                            <router-view></router-view>
-                        </div>
-                    </el-main>
-                    <el-footer height="8vh">Powered By LAPFUTURE</el-footer>
-                </el-container>
+            <el-container>
+                <el-main style="padding: 0px;">
+                    <div class="box">
+                        <router-view></router-view>
+                    </div>
+                </el-main>
+                <el-footer height="8vh">Powered By LAPFUTURE</el-footer>
+            </el-container>
         </el-container>
     </el-container>
 </template>
-  
+
 <script>
     export default {
         name: 'home',
-        data(){
-        return {
-            nodeApi : "nodeAPI!",
-            pythonApi : "pythonAPI!",
-            search : '',
-            avatar_addr:"https://avatars2.githubusercontent.com/u/37266366?s=40&v=4",
-        }
+        data() {
+            return {
+                nodeApi: "nodeAPI!",
+                pythonApi: "pythonAPI!",
+                search: '',
+                avatar_addr: "https://avatars2.githubusercontent.com/u/37266366?s=40&v=4",
+            }
         },
-        methods:{
-            loginout(){
+        methods: {
+            loginout() {
                 localStorage.removeItem("eleToken");
                 this.$store.dispatch("clearCurrentState");
                 this.$router.push("/");
             }
         },
-        computed:{
-            user(){
+        computed: {
+            user() {
                 return this.$store.getters.user["name"];
             }
         }
@@ -138,37 +134,44 @@
     }
 </script>
 <style>
-    .el-header{
+    .el-header {
         line-height: 8vh;
         display: flex;
         background-color: #24292e;
         color: #fff;
     }
-    .el-footer{
+
+    .el-footer {
         text-align: center;
         line-height: 8vh;
         background-color: #24292e;
         color: #fff;
     }
-    .blog{
-        width:180px;
+
+    .blog {
+        width: 180px;
     }
-    input{
+
+    input {
         border-radius: 4px;
     }
-    .avatar{
+
+    .avatar {
         border-radius: 3px;
-        margin:auto;
+        margin: auto;
     }
-    .write{
+
+    .write {
         font-size: 14px;
-        color:#303133;
+        color: #303133;
         cursor: pointer;
         padding: 0 20px;
     }
-    .d-flex{
+
+    .d-flex {
         display: flex;
     }
+
     .el-aside {
         background-color: #D3DCE6;
         color: #333;
@@ -176,16 +179,19 @@
         height: calc(100%-60px);
         line-height: 8vh;
     }
+
     .el-main {
         background-color: #E9EEF3;
         color: #333;
         text-align: center;
     }
+
     .el-main p {
-        border:1px silver solid;
+        border: 1px silver solid;
         padding: 10px;
     }
-    .box{
+
+    .box {
         height: 84vh;
         overflow: scroll;
     }
@@ -195,16 +201,17 @@
         width: 10px;
         height: 1px;
     }
+
     /*滚动条滑块*/
     .box::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
         background: #303133;
     }
+
     /*滚动条轨道*/
     .box::-webkit-scrollbar-track {
         border-radius: 10px;
         background: #eee;
     }
 </style>
-  

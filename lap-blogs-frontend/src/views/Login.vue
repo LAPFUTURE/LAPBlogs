@@ -109,7 +109,7 @@
                                         type: 'success',
                                         center:true
                                     });
-                                    this.$router.push('/write');
+                                    this.$router.push('/');
                                 }else if(res.data.status === -1){
                                     this.$message({
                                         message: res.data.msg,

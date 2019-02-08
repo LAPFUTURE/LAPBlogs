@@ -30,12 +30,17 @@ export default {
         }
     },
     mounted(){
-        this.$axios.get("/api/quote/getQuote").then((res)=>{
+        this.$axios.get("/api/quote/getQuote")
+        .then((res)=>{
             let data = res.data.data;
-            this.img.content = data.content;
-            this.img.address = data.origin_img_urls[0];
-            this.img.author = data.author;
-            this.img.translation = data.translation;
+            if(data){
+                this.img.content = data.content;
+                this.img.address = data.origin_img_urls[0];
+                this.img.author = data.author;
+                this.img.translation = data.translation;
+            }})
+        .catch((err)=>{
+            console.log(err);
         })
     }
 }

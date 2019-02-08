@@ -121,6 +121,10 @@
         methods: {
             loginout() {
                 localStorage.removeItem("eleToken");
+                localStorage.removeItem('title');
+                localStorage.removeItem('content');
+                localStorage.removeItem('saveTime');
+                localStorage.removeItem('lastLoginTime');
                 this.$store.dispatch("clearCurrentState");
                 this.$router.push("/");
             }

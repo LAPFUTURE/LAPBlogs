@@ -10,6 +10,7 @@
 
 <script>
     import Editor from '@tinymce/tinymce-vue';
+    import { Loading } from 'element-ui';
 
     export default {
         name: 'detail',
@@ -18,6 +19,7 @@
         },
         data() {
             return {
+                Loading:'',
                 insertTime: '',
                 title: '',
                 content: '',
@@ -37,6 +39,13 @@
             }
         },
         created() {
+            this.Loading = this.$loading({
+                lock: true,
+                text: '加载中，请稍后!',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            });
+
             let blogs = this.$store.getters.blog;
             if (this.$route.params.blogType && this.$route.params.blogId) { //页面第一次进入的话
                 let purpose = this.findBlog(blogs[this.$route.params.blogType], this.$route.params.blogId);
@@ -49,13 +58,14 @@
             }
         },
         mounted() {
-            let timer = setInterval(function () { //将tinymce首部去掉，第一次进入无法找到这个元素，
+            let timer = setInterval(()=>{ //将tinymce首部去掉，第一次进入无法找到这个元素，
                 //所以用了一下定时器，并且不能用select.style.display="none",因为要在这个元
                 //素上有内联样式display才可以通过style获取
                 let select = document.querySelector(".detail-container div[class~='mce-top-part']")
                 if (select) {
                     select.setAttribute("style", "display:none;");
-                    window.clearInterval(timer);
+                    this.Loading.close();
+                    clearInterval(timer);
                 }
             }, 30);
         }

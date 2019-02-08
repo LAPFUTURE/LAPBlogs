@@ -31,13 +31,15 @@ router.post("/login",(req,res)=>{
                     name:user.name,
                     email:user.email,
                     // blog:user.blog,
-                    // temporarySave:user.temporarySave,
-                    // lastLoginTime:user.lastLoginTime
                 };
+                let userInfo = {
+                    temporarySave:user.temporarySave,
+                    lastLoginTime:user.lastLoginTime
+                }; 
                 jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{
                     //过期时间为3600秒,一小时
                     if(!err){
-                        return res.json({"status":1,"msg":"登录成功","token":"Bearer " + token});
+                        return res.json({"status":1,"msg":"登录成功","userInfo":userInfo,"token":"Bearer " + token});
                     }else{
                         return res.json({"status":-2,"msg":"后台返回token出错"});
                     }

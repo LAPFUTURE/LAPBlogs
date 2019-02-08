@@ -15,6 +15,15 @@
 				// let blog = localStorage.blog;
 				this.$store.dispatch('setAuthenticated', !this.isEmpty(decoded));
 				this.$store.dispatch('setUser', decoded);
+				let userInfo = {
+					"temporarySave":{
+						"title":localStorage.title,
+						"content":localStorage.content,
+						"saveTime":localStorage.saveTime
+					},
+					"lastLoginTime":localStorage.lastLoginTime
+				};
+				this.$store.commit('SET_USERINFO',userInfo);
 				// this.$store.dispatch('setBlog', blog);
 			}
 		},
@@ -22,12 +31,6 @@
 			this.$axios.get("/api/blogs/requestBlogs")
 				.then((res) => {
 					this.$store.commit("SET_BLOG",res.data.blogs);
-					//还是用vuex存吧
-					// localStorage.setItem('Python', JSON.stringify(blog.Python));//存储博客
-					// localStorage.setItem('Java', JSON.stringify(blog.Java));
-					// localStorage.setItem('JavaScrupt', JSON.stringify(blog.JavaScript));
-					// localStorage.setItem('NodeJs', JSON.stringify(blog.NodeJs));
-					// localStorage.setItem('Php', JSON.stringify(blog.Php));
 				}).catch((error) => {
 					this.$message({
 						message: "出错了,请稍后再试!",

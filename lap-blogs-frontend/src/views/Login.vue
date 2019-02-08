@@ -99,11 +99,16 @@
                         this.$axios.post('/api/users/login', user)
                             .then((res) => {
                                 if(res.data.status === 1){
-                                    let { token } = res.data;
+                                    let { token,userInfo } = res.data;
                                     localStorage.setItem('eleToken', token);//存储token
+                                    localStorage.setItem('title',userInfo.temporarySave.title);
+                                    localStorage.setItem('content',userInfo.temporarySave.content);
+                                    localStorage.setItem('saveTime',userInfo.temporarySave.saveTime);
+                                    localStorage.setItem('lastLoginTime',userInfo.lastLoginTime);
                                     let decoded = jwt_decode(token);//解析token
-                                    this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded)); 
-                                    this.$store.dispatch('setUser',decoded);
+                                    this.$store.dispatch('setAuthenticated',!this.isEmpty(decoded)); //commit也ok
+                                    this.$store.dispatch('setUser',decoded);//commit也ok
+                                    this.$store.commit("SET_USERINFO",userInfo);
                                     this.$message({
                                         message: '登录成功',
                                         type: 'success',

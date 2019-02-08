@@ -5,7 +5,7 @@
                 <template slot="prepend">标题</template>
             </el-input>
         </div>
-        <div style="min-height: 479.8px;">
+        <div class="tinymce-container">
             <editor v-model="temporarySave.content" api-key="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6" :init="init">
             </editor>
         </div>
@@ -22,7 +22,7 @@
                     <el-dropdown-item align="center">Java</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown> -->
-            <el-select v-model="selectType" placeholder="请选择文章类型" size="small">
+            <el-select v-model="selectType" placeholder="请选择文章类型" size="small" class="margin-right">
                 <el-option align="center" 
                   v-for="item in type"
                   :key="item.value"
@@ -38,7 +38,7 @@
 
 <script>
 import Editor from '@tinymce/tinymce-vue';
-import { MessageBox } from 'element-ui';
+import { MessageBox,Loading } from 'element-ui';
 export default {
   name: 'write',
   components: {
@@ -46,12 +46,16 @@ export default {
   },
   data(){
       return{
+        Loading:'',
         init:{
             height: 380,
             plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
             toolbar: 'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
         },
-        temporarySave:{title:'',content:''},//暂时储存区，每隔30秒储存一次
+        temporarySave:{
+            title:'',
+            content:''
+        },//暂时储存区，每隔30秒储存一次
         type: [{
           value: 'JavaScript',
           label: 'JavaScript'
@@ -72,8 +76,66 @@ export default {
       }
   },
     methods:{
+        //能进入此页面说明用户已登录
         save(){
-            console.log(123);
+            if(this.temporarySave.title){
+                if(this.temporarySave.content){
+                    let user = this.$store.getters.user;
+                    let blog = {
+                        "belongTo":user.id.$oid,
+                        "title":this.temporarySave.title,
+                        "content":this.temporarySave.content
+                    };
+                    this.$axios.post("api/blogs/temporarySave",blog)
+                    .then((res)=>{
+                        let message = '';
+                        let type = '';
+                        switch(res.data.status){
+                            case 1:
+                                message = "保存成功";
+                                type = "success";
+                                break;
+                            case -2:
+                                message = "服务器出错,请稍后再试!";
+                                type = "error";
+                                break;
+                            case -5:
+                                message = "请求方式出错!";
+                                type = "error";
+                                break;
+                        }
+                        this.$message({
+                            message: message,
+                            type:type,
+                            center:true
+                        });
+                        let date = new Date(+new Date()+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
+                        let userInfo = {
+                            "temporarySave":{
+                                "title":this.temporarySave.title,
+                                "content":this.temporarySave.content,
+                                "saveTime":date
+                            },
+                            "lastLoginTime":localStorage.lastLoginTime
+                        };
+                        this.$store.commit('SET_USERINFO',userInfo);//维护状态
+                    })
+                    .catch((error)=>{
+                    })
+                }else{
+                    this.$message({
+                        message: "请书写内容!",
+                        type:"warning",
+                        center:true
+                    });
+                }
+            }else{
+                this.$message({
+                    message: "请书写标题!",
+                    type:"warning",
+                    center:true
+                });
+            }
         },
         upload(){
             if(this.temporarySave.title){
@@ -147,13 +209,47 @@ export default {
                 });
             }
         }
+    },
+    created(){
+        this.Loading = this.$loading({
+            lock: true,
+            text: '加载中，请稍后!',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+        });
+        let userInfo = this.$store.getters.userInfo;
+        if(userInfo){
+            this.temporarySave.title = userInfo.temporarySave.title;
+            this.temporarySave.content = userInfo.temporarySave.content;
+        }
+    },
+    mounted(){
+        let timer = setInterval(()=>{
+            let select = document.querySelector(".tinymce-container div[class~='mce-top-part']")
+            if (select) {
+                this.Loading.close();
+                clearInterval(timer);
+            }
+        }, 30);
+        let temporarySaveTimer = setInterval(()=>{
+            if(this.$route.path === '/write'){
+                this.save();
+            }
+        }, 150000); //两分半自动保存一次
+    },
+    beforeDestory(){
+        console.log(beforeDestory);
     }
+
 }
 </script>
 
 <style scoped>
     .editor{
         padding: 25px 50px 20px 25px;
+    }
+    .tinymce-container{
+        min-height: 479.8px;
     }
     .d-title{
         margin-bottom: 15px;
@@ -178,6 +274,9 @@ export default {
     }
     .butt:hover{
         background-color: rgb(102,177,255);
+    }
+    .margin-right{
+        margin-right:10px;
     }
 </style>
 

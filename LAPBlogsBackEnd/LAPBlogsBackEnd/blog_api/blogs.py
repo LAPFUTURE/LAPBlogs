@@ -10,6 +10,28 @@ LAPBlogs = mongo_client["lap_blogs"]
 Blogs = LAPBlogs['blogs']
 Users = LAPBlogs["users"]
 
+def temporarySave(request):
+    if request.POST:
+        try:
+            currentTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            user = Users.find_one(ObjectId(request.POST["belongTo"]))
+            condition = {"_id":ObjectId(request.POST["belongTo"])}
+            user = Users.find_one(ObjectId(request.POST["belongTo"]))
+            user["temporarySave"] = {
+                "title":request.POST["title"],
+                "content":request.POST["content"],
+                "saveTime":currentTime
+            }
+            result = Users.update_one(condition, {'$set': user})
+            obj = {"message":"ok","status":1}
+        except BaseException as e:
+            print(e)
+            obj = {"message":"服务器出错","status":-2}
+    else:
+        obj = {"message":"请求方式出错","status":-5}
+    return JsonResponse(obj,safe = False)
+
+
 def requestBlogs(request):
     blogArray = ["Python","JavaScript","NodeJs","Php","Java"]
     BLOGS = {}

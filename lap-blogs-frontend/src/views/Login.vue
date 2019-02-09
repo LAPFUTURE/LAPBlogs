@@ -96,7 +96,7 @@
                             "email":this.loginUser.email,
                             "password":md5(this.loginUser.password).toString()
                         };
-                        this.$axios.post('/api/users/login', user)
+                        this.$axios.post(this.host + '/api/users/login', user)
                             .then((res) => {
                                 if(res.data.status === 1){
                                     let { token,userInfo } = res.data;

@@ -28,7 +28,7 @@
 			}
 		},
 		mounted() { //刷新请求新数据
-			this.$axios.get("/api/blogs/requestBlogs")
+			this.$axios.get(this.host + "/api/blogs/requestBlogs")
 				.then((res) => {
 					this.$store.commit("SET_BLOG",res.data.blogs);
 				}).catch((error) => {

@@ -86,7 +86,7 @@ export default {
                         "title":this.temporarySave.title,
                         "content":this.temporarySave.content
                     };
-                    this.$axios.post("api/blogs/temporarySave",blog)
+                    this.$axios.post(this.host + "api/blogs/temporarySave",blog)
                     .then((res)=>{
                         let message = '';
                         let type = '';
@@ -151,7 +151,7 @@ export default {
                             "content":this.temporarySave.content,
                             "type":this.selectType
                         };
-                        this.$axios.post("api/blogs/insertBlog",blog).then((res)=>{
+                        this.$axios.post(this.host + "api/blogs/insertBlog",blog).then((res)=>{
                             if(res.data.status === 1){ //上传成功
                                 this.$message({
                                     message: res.data.msg,

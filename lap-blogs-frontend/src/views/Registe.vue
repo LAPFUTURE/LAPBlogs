@@ -142,8 +142,7 @@
                                     "name":this.registerUser.name,
                                     "password":md5(this.registerUser.password).toString()
                                     };
-                        console.log(user);
-                        this.$axios.post('/api/users/registe',user)
+                        this.$axios.post(this.host + '/api/users/registe',user)
                         .then((res) => {
                             console.log(res);
                             if(res.data.status === -1){

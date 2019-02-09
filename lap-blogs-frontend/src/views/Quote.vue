@@ -30,7 +30,7 @@ export default {
         }
     },
     mounted(){
-        this.$axios.get("/api/quote/getQuote")
+        this.$axios.get(this.host + "/api/quote/getQuote")
         .then((res)=>{
             let data = res.data.data;
             if(data){

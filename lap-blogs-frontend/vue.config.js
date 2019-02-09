@@ -1,7 +1,20 @@
 const path = require('path');
+const proEnv = require('./config/pro.env');  // 生产环境
+const devEnv = require('./config/dev.env');  // 本地环境
+const uatEnv = require('./config/uat.env');  // 测试环境
 // const CompressionWebpackPlugin = require('compression-webpack-plugin');
 // const productionGzipExtensions = ['js', 'css'];
-const debug = process.env.NODE_ENV !== 'production';
+
+let target = '';
+if(process.env.NODE_ENV === 'production'){  // 生产环境
+    target = proEnv.hosturl;
+}else if(process.env.NODE_ENV === 'test'){ // 测试环境
+    target = uatEnv.hosturl;
+}else{  // 本地环境
+    target = devEnv.hosturl;
+}
+
+
 module.exports = {
     baseUrl:'/',//根域上下文目录
     outputDir:'dist',//构建输出目录
@@ -11,7 +24,7 @@ module.exports = {
     // transpileDepencies:[],
     productionSourceMap:false,
     configureWebpack:(config)=>{
-        if(debug){//开发环境配置
+        if(process.env.NODE_ENV === 'development'){//开发环境配置
             config.devtool = 'cheap-module-eval-source-map';
             // config.plugins.push(new CompressionWebpackPlugin({
             //     algorithm: 'gzip',
@@ -19,7 +32,7 @@ module.exports = {
             //     threshold: 10240,
             //     minRatio: 0.8
             //   }));
-        }else{//生产环境配置
+        }else if(process.env.NODE_ENV === 'production'){//生产环境配置
             // config.plugins.push(
             //     new CompressionWebpackPlugin({
             //         asset: '[path].gz[query]',
@@ -58,8 +71,9 @@ module.exports = {
         hotOnly:false,
         proxy:{
             '/api':{
-                // target:'http://www.connectyoume.top:5001/api',
-                target:'http://localhost:8009/',
+                // target:'http://localhost:8009/', //本地
+                // target:'http://node_api.connectyoume.top',//线上
+                target:target,
                 ws:true,
                 changeOrigin:true,
                 pathRewrite:{

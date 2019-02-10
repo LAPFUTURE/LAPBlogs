@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 import Index from './views/Index.vue'
 
 Vue.use(Router)
@@ -44,6 +43,16 @@ const router = new Router({
 				path: '/detail',
 				name: 'detail',
 				component: () => import('./views/Detail.vue')
+			},
+			{
+				path: '/about',
+				name: 'about',
+				component: () => import('./views/About.vue')
+			},
+			{
+				path: '/experience',
+				name: 'experience',
+				component: () => import('./views/Experience.vue')
 			},
 			{
 				path: '/myblogs',

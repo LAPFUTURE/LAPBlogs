@@ -75,12 +75,16 @@
                         </el-menu-item-group>
                     </el-submenu>
                     </el-submenu>
-                    <el-menu-item index="3">
-                        <i class="el-icon-sort"></i><span slot="title">心路</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-more-outline"></i><span slot="title">关于</span>
-                    </el-menu-item>
+                    <router-link to="/experience">
+                        <el-menu-item index="3">
+                            <i class="el-icon-sort"></i><span slot="title">心路</span>
+                        </el-menu-item>
+                    </router-link>
+                    <router-link to="/about">
+                        <el-menu-item index="4">
+                            <i class="el-icon-more-outline"></i><span slot="title">网站结构</span>
+                        </el-menu-item>
+                    </router-link>
                     <el-submenu index="5">
                         <template slot="title">
                             <i class="el-icon-news"></i>用户</template>
@@ -90,7 +94,7 @@
                                     <i class="el-icon-document"></i>我的博客
                                 </el-menu-item>
                             </router-link>
-                            <el-menu-item index="5-2">选项2</el-menu-item>
+                            <!-- <el-menu-item index="5-2">选项2</el-menu-item> -->
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
@@ -198,6 +202,7 @@
     .box {
         height: 84vh;
         overflow: scroll;
+        scroll-behavior: smooth;
     }
 
     /*滚动条整体样式*/

@@ -34,15 +34,11 @@ axios.interceptors.response.use(
         endLoading();
         return response;
     },error=>{
-        console.log(error);
         endLoading();
-        Message.error("请求出错，请重试!");
-        let { status } = error.response;
-        if(status == 401){
-            Message.error("时间已过期，请重新登录!");
-            localStorage.removeItem("eleToken");
-            router.push('/login');
-        }
+        Message.error("时间已过期，请重新登录!");
+        localStorage.clear();
+        this.$store.dispatch("clearCurrentState");
+        router.push('/login');
         return Promise.reject(error);
     }
 )

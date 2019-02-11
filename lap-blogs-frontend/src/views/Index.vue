@@ -80,11 +80,42 @@
                             <i class="el-icon-sort"></i><span slot="title">心路</span>
                         </el-menu-item>
                     </router-link>
-                    <router-link to="/about">
-                        <el-menu-item index="4">
-                            <i class="el-icon-more-outline"></i><span slot="title">网站结构</span>
-                        </el-menu-item>
-                    </router-link>
+                    <el-submenu index="4">
+                        <template slot="title">
+                            <i class="el-icon-more-outline"></i>网站结构</template>
+                        <el-menu-item-group>
+                            <router-link to="/schema">
+                                <el-menu-item index="4-1">
+                                    0.图示
+                                </el-menu-item>
+                            </router-link>
+                            <router-link to="/vue">
+                                <el-menu-item index="4-2">
+                                    1.Vue
+                                </el-menu-item>
+                            </router-link>
+                            <router-link to="/nginx">
+                                <el-menu-item index="4-3">
+                                    2.Nginx
+                                </el-menu-item>
+                            </router-link>
+                            <router-link to="/nodejs">
+                                <el-menu-item index="4-4">
+                                    3.NodeJs
+                                </el-menu-item>
+                            </router-link>
+                            <router-link to="/django">
+                                <el-menu-item index="4-5">
+                                    4.Django
+                                </el-menu-item>
+                            </router-link>
+                            <router-link to="/mongodb">
+                                <el-menu-item index="4-6">
+                                    5.MongoDB
+                                </el-menu-item>
+                            </router-link>
+                        </el-menu-item-group>
+                    </el-submenu>
                     <el-submenu index="5">
                         <template slot="title">
                             <i class="el-icon-news"></i>用户</template>
@@ -94,7 +125,6 @@
                                     <i class="el-icon-document"></i>我的博客
                                 </el-menu-item>
                             </router-link>
-                            <!-- <el-menu-item index="5-2">选项2</el-menu-item> -->
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
@@ -124,11 +154,7 @@
         },
         methods: {
             loginout() {
-                localStorage.removeItem("eleToken");
-                localStorage.removeItem('title');
-                localStorage.removeItem('content');
-                localStorage.removeItem('saveTime');
-                localStorage.removeItem('lastLoginTime');
+                localStorage.clear();
                 this.$store.dispatch("clearCurrentState");
                 this.$router.push("/");
             }

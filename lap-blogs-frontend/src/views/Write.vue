@@ -86,7 +86,7 @@ export default {
                         "title":this.temporarySave.title,
                         "content":this.temporarySave.content
                     };
-                    this.$axios.post(this.host + "api/blogs/temporarySave",blog)
+                    this.$axios.post(this.host + "/api/blogs/temporarySave",blog)
                     .then((res)=>{
                         let message = '';
                         let type = '';
@@ -118,10 +118,15 @@ export default {
                             },
                             "lastLoginTime":localStorage.lastLoginTime
                         };
+                        localStorage.setItem('title',userInfo.temporarySave.title);
+                        localStorage.setItem('content',userInfo.temporarySave.content);
+                        localStorage.setItem('saveTime',userInfo.temporarySave.saveTime);
                         this.$store.commit('SET_USERINFO',userInfo);//维护状态
                     })
                     .catch((error)=>{
+                        console.log(error);
                     })
+                    
                 }else{
                     this.$message({
                         message: "请书写内容!",
@@ -151,7 +156,7 @@ export default {
                             "content":this.temporarySave.content,
                             "type":this.selectType
                         };
-                        this.$axios.post(this.host + "api/blogs/insertBlog",blog).then((res)=>{
+                        this.$axios.post(this.host + "/api/blogs/insertBlog",blog).then((res)=>{
                             if(res.data.status === 1){ //上传成功
                                 this.$message({
                                     message: res.data.msg,
@@ -235,10 +240,10 @@ export default {
             if(this.$route.path === '/write'){
                 this.save();
             }
-        }, 150000); //两分半自动保存一次
+        }, 360000); //6分钟自动保存一次
     },
     beforeDestory(){
-        console.log(beforeDestory);
+        // console.log(beforeDestory);
     }
 
 }

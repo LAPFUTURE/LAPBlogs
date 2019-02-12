@@ -48,8 +48,6 @@ def login(request):
     if request.POST:
         status = Users.find_one({"email":request.POST['email']})
         if(status):
-            print(status["password"])
-            print(request.POST["password"])
             if(status["password"] == request.POST["password"]): #密码正确
                 user = {
                         "_id":status["_id"],

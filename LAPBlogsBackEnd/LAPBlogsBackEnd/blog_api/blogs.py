@@ -34,12 +34,16 @@ def temporarySave(request):
 def userBlogs(request):
     if request.POST:
         try:
-            userBlogsId = request.POST["userBlogs"]
-            for blog in userBlogsId:
-                print(blog)
-
+            userBlogsId = request.POST
+            blogArray =[]
+            for blogId in userBlogsId:
+                blog = Blogs.find_one(ObjectId(userBlogsId[blogId]))
+                blogArray.append({
+                    "blogId":blogId,
+                    "detail":blog
+                })
+            obj = {"message":"success","status":1,"blogArray":jsonStr(blogArray)}
         except BaseException as e:
-            print(e)
             obj = {"message":"服务器出错","status":-2}
     else:
         obj = {"message":"请求方式出错","status":-5}

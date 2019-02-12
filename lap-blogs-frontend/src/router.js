@@ -60,6 +60,11 @@ const router = new Router({
 				component: () => import('./views/Myblogs.vue')
 			},
 			{
+				path: '/myblog',
+				name: 'myblog',
+				component: () => import('./views/Myblog.vue')
+			},
+			{
 				path: '/schema',
 				name: 'schema',
 				component: () => import('./components/Schema.vue')

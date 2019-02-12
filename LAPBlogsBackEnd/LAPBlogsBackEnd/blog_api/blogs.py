@@ -31,6 +31,19 @@ def temporarySave(request):
         obj = {"message":"请求方式出错","status":-5}
     return JsonResponse(obj,safe = False)
 
+def userBlogs(request):
+    if request.POST:
+        try:
+            userBlogsId = request.POST["userBlogs"]
+            for blog in userBlogsId:
+                print(blog)
+
+        except BaseException as e:
+            print(e)
+            obj = {"message":"服务器出错","status":-2}
+    else:
+        obj = {"message":"请求方式出错","status":-5}
+    return JsonResponse(obj,safe = False)
 
 def requestBlogs(request):
     blogArray = ["Python","JavaScript","NodeJs","Php","Java"]

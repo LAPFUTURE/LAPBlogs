@@ -1,5 +1,5 @@
 <template>
-    <div class="vue" id="vue">
+    <div class="vue">
         <h1 >Vue(3.0.3)</h1>
         <ul align="left">
             <li><span><a href="#element-ui">Element-ui</a></span> <a href="http://element-cn.eleme.io/#/zh-CN">官方文档</a></li>
@@ -286,7 +286,9 @@
                 <span class="line-code">        &lteditor v-model="temporarySave.content" api-key="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6" :init="init"&gt</span>
                 <span class="line-code">        &lt/editor&gt</span>
                 <span class="line-code">    &lt/div&gt</span>
-                tinymce的初始化可以好好看一下文档，定制成你想要的样式。
+                tinymce的初始化可以好好看一下文档，定制成你想要的样式。然后就是获得编辑框的内容是通过
+                v-model="temporarySave.content",内容全是html字符，然后发送提交给后台，后台存数据库，
+                然后要用的时候再把html字符串显示出来，那么就跟编辑时的样式一样。
                 这里主要是讲那个api-key，没有这个api-key它会一直给你个警告并且好像一些功能也用不了，
                 不美观。所以要得到这个api-key,而且这个api-key还是比较容易得到的，
                 去官网注册一下账号(官网真好看，非常舒服)，进入到右上角的My Count，然后再点那个API Key Manage,就会出现
@@ -305,7 +307,10 @@
         </div>
         <div class="component" id="others">
             <h1 align="left">Others</h1>
-            gg
+            <p>
+                剩下一些杂七杂八的小物件，比如布局啊，自定义滚动条，
+                数据库取出博客html字符串然后显示在页面上等等
+            </p>
         </div>
     </div>
 </template>

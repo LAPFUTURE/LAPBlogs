@@ -25,6 +25,25 @@ router.get("/requestBlogs",(req,res)=>{
     });
 })
 
+router.post("/userBlogs",passport.authenticate("jwt",{session:false}),(req,res)=>{
+    let url = 'http://127.0.0.1:8015/userBlogs';
+    console.log(req.body.userBlogs);
+    
+    let userBlogs = {
+        "userBlogs":req.body.userBlogs
+    }
+    request.post({url:url, form: userBlogs}, function(err,httpResponse,body){
+        body = JSON.parse(body);
+        console.log(body);
+        // if(body.status === 1){
+        //     res.json({"status":1,"msg":"上传成功!"});
+        // }else if(body.status === -5){
+        //     res.json({"status":-5,"msg":"请使用post方式请求!"});
+        // }        
+    })
+    res.json({"msg":"ok","userBlogs":req.body.userBlogs,"status":1,});
+})
+
 router.post("/insertBlog",passport.authenticate("jwt",{session:false}),(req,res)=>{
     let blog = {
         "belongTo":req.body._id,

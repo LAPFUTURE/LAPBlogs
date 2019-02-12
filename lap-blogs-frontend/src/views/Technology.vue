@@ -39,7 +39,6 @@
 				this.blogType = type;
 				let blogs = this.$store.getters.blog;
 				this.blogs = blogs[type];
-				console.log(blogs);
 			}
 		},
 		computed: {

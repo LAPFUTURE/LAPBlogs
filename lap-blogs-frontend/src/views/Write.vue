@@ -22,7 +22,7 @@
                     <el-dropdown-item align="center">Java</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown> -->
-            <el-select v-model="selectType" placeholder="请选择文章类型" size="small" class="margin-right">
+            <el-select v-model="selectType" placeholder="请选择文章类型" size="small">
                 <el-option align="center" 
                   v-for="item in type"
                   :key="item.value"
@@ -30,6 +30,7 @@
                   :value="item.value">
                 </el-option>
             </el-select>
+            &nbsp;
             <el-button type="primary" size="small" @click="save">保存<i class="el-icon-time el-icon--right"></i></el-button>
             <el-button type="primary" size="small" @click="upload">上传<i class="el-icon-upload el-icon--right"></i></el-button>
         </div>
@@ -48,7 +49,7 @@ export default {
       return{
         Loading:'',
         init:{
-            height: 380,
+            height: 415,
             plugins: 'link lists image code table colorpicker textcolor wordcount contextmenu',
             toolbar: 'bold italic underline strikethrough | fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent blockquote | undo redo | link unlink image code | removeformat',
         },
@@ -224,8 +225,8 @@ export default {
         });
         let userInfo = this.$store.getters.userInfo;
         if(userInfo){
-            this.temporarySave.title = userInfo.temporarySave.title;
-            this.temporarySave.content = userInfo.temporarySave.content;
+            this.temporarySave.title = userInfo.temporarySave.title === "undefined" ? '' : userInfo.temporarySave.title;
+            this.temporarySave.content = userInfo.temporarySave.content === "undefined" ? '' : userInfo.temporarySave.content;
         }
     },
     mounted(){
@@ -254,7 +255,7 @@ export default {
         padding: 25px 50px 20px 25px;
     }
     .tinymce-container{
-        min-height: 479.8px;
+        min-height: 517px;
     }
     .d-title{
         margin-bottom: 15px;
@@ -279,9 +280,6 @@ export default {
     }
     .butt:hover{
         background-color: rgb(102,177,255);
-    }
-    .margin-right{
-        margin-right:10px;
     }
 </style>
 

@@ -29,5 +29,5 @@ urlpatterns = [
     url(r'^insertBlog',blogs.insertBlog),
     url(r'^userBlogs',blogs.userBlogs),
     url(r'^userBlog',blogs.userBlog),
-
+    url(r'^editBlog',blogs.editBlog)
 ]

@@ -8,7 +8,7 @@
                     </el-input>
                 </p>
                 <p>
-                    <el-button icon="el-icon-search" circle size="small"></el-button>
+                    <el-button icon="el-icon-search" circle size="small" @click="clickSearch"></el-button>
                 </p>
             </div>
             <div>
@@ -142,6 +142,7 @@
 </template>
 
 <script>
+    import { Message } from 'element-ui';
     export default {
         name: 'home',
         data() {
@@ -157,6 +158,13 @@
                 localStorage.clear();
                 this.$store.dispatch("clearCurrentState");
                 this.$router.push("/");
+            },
+            clickSearch(){
+                Message.success({
+                    message:'尚在开发,敬请期待！',
+                    center:true,
+                    duration:2000
+                });
             }
         },
         computed: {

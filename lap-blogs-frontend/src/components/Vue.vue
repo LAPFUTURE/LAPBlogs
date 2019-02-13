@@ -12,6 +12,10 @@
             <li><a href="#others">Others...</a></li>
         </ul>
         <p>vue脚手架的从零搭建就不用了吧，官网也有详细的教程，这里就默认大家会使用vue进行开发。
+            还有就是建站用的是Vue3.0，它与Vue2.0大的变化就是webpack配置隐藏起来了，
+            它都是默认配置给你配置好了的。所以如果要更改配置的话要在根目录下新建一个
+            vue.config.js,在这里可以配置webpack和代理什么的。这是
+            <a href="https://cli.vuejs.org/zh/config/#vue-config-js">Vue3.0官方配置参考中文文档</a>。
             以及后面一大片的代码可以直接跳过看解析，或者边看注释边看代码，仔细看的话还是很容易理解的，
             不过还是建议先看解析再看代码，这样会有一个整体的认识。</p>
         <div class="component" id="element-ui">
@@ -301,9 +305,9 @@
                 <span class="code">apiKey="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6"</span>,
                 如果想更方便的话还是要注册一个，反正也不是很费时间。
                 放个图片吧：
-                <dic class="img">
+                <div class="img">
                     <img src="../assets/tinykey.jpg" alt="">
-                </dic>
+                </div>
         </div>
         <div class="component" id="others">
             <h1 align="left">Others</h1>

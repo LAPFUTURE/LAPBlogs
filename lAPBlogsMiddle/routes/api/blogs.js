@@ -17,9 +17,7 @@ router.get("/requestBlogs",(req,res)=>{ //请求所有博客
         }else{
             body = JSON.parse(body);
             if(body.status === 1){
-                return res.json({"msg":"success",
-                                  "status":1,
-                                  "blogs":JSON.parse(body.blog)});
+                return res.json({"msg":"success","status":1,"blogs":JSON.parse(body.blog)});
             }
         }
     });
@@ -52,7 +50,7 @@ router.post("/userBlog",passport.authenticate("jwt",{session:false}),(req,res)=>
     request.post({url:url, form: userBlog}, function(err,httpResponse,body){
         body = JSON.parse(body);
         if(body.status === 1){
-            res.json({"status":1,"msg":"请求成功!",blogArray:JSON.parse(body.blog)});
+            res.json({"status":1,"msg":"请求成功!","blog":JSON.parse(body.blog)});
         }else if(body.status === -5){
             res.json({"status":-5,"msg":"请使用post方式请求!"});
         }else if(body.status === -2){
@@ -91,6 +89,26 @@ router.post("/temporarySave",passport.authenticate("jwt",{session:false}),(req,r
         body = JSON.parse(body);
         if(body.status === 1){
             res.json({"status":1,"msg":"保存成功!"});
+        }else if(body.status === -5){
+            res.json({"status":-5,"msg":"请使用post方式请求!"});
+        }else if(body.status === -2){
+            res.json({"status":-2,"msg":"服务器出错!"});
+        }
+    })
+});
+
+router.post("/editBlog",passport.authenticate("jwt",{session:false}),(req,res)=>{//暂时保存博客
+    let blog = {
+        "blogId":req.body.blogId,
+        "title":req.body.title,
+        "content":req.body.content,
+        "type":req.body.type
+    };
+    let url = 'http://127.0.0.1:8015/editBlog';
+    request.post({url:url, form: blog}, function(err,httpResponse,body){
+        body = JSON.parse(body);
+        if(body.status === 1){
+            res.json({"status":1,"msg":"编辑成功!"});
         }else if(body.status === -5){
             res.json({"status":-5,"msg":"请使用post方式请求!"});
         }else if(body.status === -2){

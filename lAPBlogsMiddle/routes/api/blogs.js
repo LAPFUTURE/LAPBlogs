@@ -5,11 +5,11 @@ const md5 = require("crypto-js/md5");
 const passport= require("passport");
 const request = require("request");
 
-router.post("/test",(req,res)=>{
+router.post("/test",(req,res)=>{ //测试
     res.json({psth:"/test",env:8010});
 });
 
-router.get("/requestBlogs",(req,res)=>{
+router.get("/requestBlogs",(req,res)=>{ //请求所有博客
     let url = 'http://127.0.0.1:8015/requestBlogs';
     request.get(url, function(error, httpResponse, body){
         if(error){
@@ -25,7 +25,7 @@ router.get("/requestBlogs",(req,res)=>{
     });
 })
 
-router.post("/userBlogs",passport.authenticate("jwt",{session:false}),(req,res)=>{
+router.post("/userBlogs",passport.authenticate("jwt",{session:false}),(req,res)=>{ //用户博客的ids
     let url = 'http://127.0.0.1:8015/userBlogs';
     
     let userBlogs = {
@@ -43,7 +43,25 @@ router.post("/userBlogs",passport.authenticate("jwt",{session:false}),(req,res)=
     })
 })
 
-router.post("/insertBlog",passport.authenticate("jwt",{session:false}),(req,res)=>{
+router.post("/userBlog",passport.authenticate("jwt",{session:false}),(req,res)=>{
+    let url = 'http://127.0.0.1:8015/userBlog';
+    
+    let userBlog = {
+        "userBlogId":req.body.blogId
+    }
+    request.post({url:url, form: userBlog}, function(err,httpResponse,body){
+        body = JSON.parse(body);
+        if(body.status === 1){
+            res.json({"status":1,"msg":"请求成功!",blogArray:JSON.parse(body.blog)});
+        }else if(body.status === -5){
+            res.json({"status":-5,"msg":"请使用post方式请求!"});
+        }else if(body.status === -2){
+            res.json({"status":-2,"msg":"服务器出错!"});
+        }
+    })
+})
+
+router.post("/insertBlog",passport.authenticate("jwt",{session:false}),(req,res)=>{//插入博客
     let blog = {
         "belongTo":req.body._id,
         "userName":req.body.userName,
@@ -62,7 +80,7 @@ router.post("/insertBlog",passport.authenticate("jwt",{session:false}),(req,res)
     })
 });
 
-router.post("/temporarySave",passport.authenticate("jwt",{session:false}),(req,res)=>{
+router.post("/temporarySave",passport.authenticate("jwt",{session:false}),(req,res)=>{//暂时保存博客
     let blog = {
         "belongTo":req.body.belongTo,
         "title":req.body.title,

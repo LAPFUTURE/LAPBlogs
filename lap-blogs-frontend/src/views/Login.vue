@@ -100,6 +100,9 @@
                             .then((res) => {
                                 if(res.data.status === 1){
                                     let { token,userInfo } = res.data;
+                                    let idAarray = userInfo.userBlogs.map((item)=>{return item.$oid});
+                                    // console.log(idStrings);
+                                    localStorage.setItem('idArrays',idAarray);//存储用户的blogId,用于进入用户的"我的博客"模块
                                     localStorage.setItem('eleToken', token);//存储token
                                     localStorage.setItem('title',userInfo.temporarySave.title);
                                     localStorage.setItem('content',userInfo.temporarySave.content);

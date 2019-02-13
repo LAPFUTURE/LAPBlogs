@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^login$', users.login),
     url(r'^insertBlog',blogs.insertBlog),
     url(r'^userBlogs',blogs.userBlogs),
+    url(r'^userBlog',blogs.userBlog),
 
 ]

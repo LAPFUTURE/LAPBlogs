@@ -9,22 +9,23 @@
 	export default {
 		name: 'app',
 		components: {},
-		created() { //刷新前保存用户状态
+		created() { //刷新后保存用户状态
 			if (localStorage.eleToken) {
 				let decoded = jwt_decode(localStorage.eleToken);
-				// let blog = localStorage.blog;
 				this.$store.dispatch('setAuthenticated', !this.isEmpty(decoded));
 				this.$store.dispatch('setUser', decoded);
+				let idArrays = localStorage.getItem("idArrays").toString().split(",");
+				let idObject = idArrays.map((item)=>{let obj = {};obj.$oid = item;return obj;});
 				let userInfo = {
 					"temporarySave":{
 						"title":localStorage.title,
 						"content":localStorage.content,
-						"saveTime":localStorage.saveTime
+						"saveTime":localStorage.saveTime,
 					},
-					"lastLoginTime":localStorage.lastLoginTime
+					"lastLoginTime":localStorage.lastLoginTime,
+					"userBlogs":idObject
 				};
 				this.$store.commit('SET_USERINFO',userInfo);
-				// this.$store.dispatch('setBlog', blog);
 			}
 		},
 		mounted() { //刷新请求新数据

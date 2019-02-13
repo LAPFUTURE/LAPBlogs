@@ -309,9 +309,21 @@
             <h1 align="left">Others</h1>
             <p>
                 剩下一些杂七杂八的小物件，比如布局啊，自定义滚动条，
-                数据库取出博客html字符串然后显示在页面上等等
+                数据库取出博客html字符串然后显示在页面上等等。
+                布局我用的是flex,说起flex,我很喜欢一个文档，很舒服：<a href="http://cssreference.parryqiu.com/">http://cssreference.parryqiu.com/
+                </a>。自定义滚动条要用到三个伪类，不会很难，花几分钟就可以做好。
+                然后就是html字符串在页面显示。我也是用的tinymce的编辑面板，然后加个disable属性，但是由于tinymce
+                首部有一个插件栏，而我只需要编辑板，所以我把首部去掉了(在组件的生命周期中把首部去掉了)。还有就是css
+                平滑滚动，只要给目标容器加一个css属性<span class="code">scroll-behavior: smooth;</span>,然后运用锚点链接就行了。
             </p>
         </div>
+        <router-link to="/schema">
+            <el-button type="primary" icon="el-icon-d-arrow-left">上一篇(图示)</el-button>
+        </router-link>
+        &nbsp;
+        <router-link to="/nginx">
+            <el-button type="primary" icon="el-icon-d-arrow-right">下一篇(Nginx)</el-button>
+        </router-link>
     </div>
 </template>
 <script>
@@ -322,6 +334,7 @@
 
 <style scoped>
     h1{
+        font-size: 2em;
         padding: 10px;
     }
      .about{
@@ -370,6 +383,7 @@
         text-indent: 0;
         padding:2px 5px 2px 5px;
         margin:2px;
+        color:black;
         border-radius: 4px;
         display: inline-block;
     }

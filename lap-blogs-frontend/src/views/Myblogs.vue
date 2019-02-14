@@ -47,10 +47,16 @@
                 };
                 this.$axios.post(this.host + "/api/blogs/userBlogs",sendTo)
                 .then((res)=>{
-                    let blogArray = res.data.blogArray.filter((item)=>{
-                        return item.detail === null ? false : true;
-                    });//剔掉空值blog
-                    this.userBlogs = blogArray.map((item)=>{return item.detail});
+                    let blogArray = [];
+                    if(res.data.blogArray){
+                        blogArray = res.data.blogArray.filter((item)=>{
+                            return item.detail === null ? false : true;
+                        });//剔掉空值blog
+                        this.userBlogs = blogArray.map((item)=>{return item.detail});
+                    }else{
+                        this.userBlogs = [];
+                    }
+                    
                 })
                 .catch((err)=>{
                     this.userBlogs = [];

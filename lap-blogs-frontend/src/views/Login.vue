@@ -17,6 +17,8 @@
                                 没有账号,去注册=>
                             </router-link>
                         </el-col>
+                        <br>
+                        <br>
                         <el-form-item>
                             <el-button type="primary" size="small" @click="submitForm('loginUser')">登录</el-button>
                             <el-button type="warning" size="small" @click="resetForm('loginUser')">重置</el-button>
@@ -100,8 +102,10 @@
                             .then((res) => {
                                 if(res.data.status === 1){
                                     let { token,userInfo } = res.data;
-                                    let idAarray = userInfo.userBlogs.map((item)=>{return item.$oid});
-                                    // console.log(idStrings);
+                                    let idAarray = [];
+                                    if(userInfo.userBlogs){
+                                        let idAarray = userInfo.userBlogs.map((item)=>{return item.$oid});
+                                    }
                                     localStorage.setItem('idArrays',idAarray);//存储用户的blogId,用于进入用户的"我的博客"模块
                                     localStorage.setItem('eleToken', token);//存储token
                                     localStorage.setItem('title',userInfo.temporarySave.title);

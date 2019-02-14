@@ -144,7 +144,6 @@
                                     };
                         this.$axios.post(this.host + '/api/users/registe',user)
                         .then((res) => {
-                            console.log(res);
                             if(res.data.status === -1){
                                 this.$message({
                                     message:res.data.msg,

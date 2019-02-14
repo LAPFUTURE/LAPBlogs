@@ -167,6 +167,18 @@ export default {
                                 this.temporarySave.title = "";
                                 this.temporarySave.content = "";
                                 this.selectType =  '';
+                                //请求数据
+                                this.$axios.get(this.host + "/api/blogs/requestBlogs")
+                                .then((res) => {
+                                    this.$store.commit("SET_BLOG",res.data.blogs);
+                                }).catch((error) => {
+                                    this.$message({
+                                        message: "出错了,请稍后再试!",
+                                        type: "error",
+                                        center: true
+                                    });
+                                });
+
                                 MessageBox.confirm('前往首页,继续书写?', '提示',{
                                     confirmButtonText: '前往首页',
                                     cancelButtonText: '继续书写',

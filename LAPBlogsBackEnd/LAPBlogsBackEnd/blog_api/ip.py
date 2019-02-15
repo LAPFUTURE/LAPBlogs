@@ -21,12 +21,26 @@ def ipQuote(request):
                 "userAgent":request.POST["user-agent"],
                 "refererTime":currentTime
             }
-            # print(ip)
-            # Users.update(condition,user) #更新user表
-            # IPs["quote"].append(ip)
-            # result = IPs.find_one({})
-            # IPs["quote"] = {"orig"}
-            # print(res)
+            # quote = {"type":"quote","access":[]}
+            # schema = {"type":"schema","access":[]}
+            # vue = {"type":"schema","access":[]}
+            # nginx = {"type":"schema","access":[]}
+            # nodejs = {"type":"schema","access":[]}
+            # python = {"type":"schema","access":[]}
+            # mongodb = {"type":"schema","access":[]}
+            # IPs.insert(quote)
+            # IPs.insert(schema)
+            # IPs.insert(vue)
+            # IPs.insert(nginx)
+            # IPs.insert(nodejs)
+            # IPs.insert(python)
+            # IPs.insert(mongodb)
+            result = IPs.find_one({"type":"quote"})
+            res = result["access"]
+            res.append(ip)
+            print(res)
+            result = IPs.find_one({"type":"quote"})
+            print(result)
             obj = {"message":"ok","status":1}
         except BaseException as e:
             print(e)

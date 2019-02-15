@@ -19,6 +19,7 @@ from django.urls import path
 from django.conf.urls import url
 from .blog_api import users
 from .blog_api import blogs
+from .blog_api import ip
 
 urlpatterns = [
     url(r'^requestBlogs$',blogs.requestBlogs),
@@ -29,5 +30,6 @@ urlpatterns = [
     url(r'^insertBlog',blogs.insertBlog),
     url(r'^userBlogs',blogs.userBlogs),
     url(r'^userBlog',blogs.userBlog),
-    url(r'^editBlog',blogs.editBlog)
+    url(r'^editBlog',blogs.editBlog),
+    url(r'^ipQuote',ip.ipQuote),
 ]

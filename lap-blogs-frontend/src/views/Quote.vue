@@ -11,6 +11,11 @@
                 <p>--{{ img.author }}</p>
             </div>
         </div>
+        <div style="position: absolute;right: 35px;bottom:8vh;">
+            <el-badge :value="value" :max="999" class="item" type="primary">
+                <el-button size="small">浏览数</el-button>
+            </el-badge>
+        </div>
     </div>
 </template>
     
@@ -26,8 +31,19 @@ export default {
                 content:'',
                 author:'',
                 translation:''
-            }
+            },
+            value:99999
         }
+    },
+    created(){
+        this.$axios.get(this.host + "/api/ip/quote")
+        .then((res)=>{
+            console.log(res);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+
     },
     mounted(){
         this.$axios.get(this.host + "/api/quote/getQuote")

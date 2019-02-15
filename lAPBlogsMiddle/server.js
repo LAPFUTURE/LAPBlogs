@@ -6,12 +6,11 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 //passport是express框架的一个针对密码的中间件
 
-
-
 //路由
 const users = require("./routes/api/users");
 const blogs = require("./routes/api/blogs");
 const quote = require("./routes/api/quote");
+const ip = require("./routes/api/ip");
 // const food = require("./routes/api/food");
 
 //CORS设置
@@ -40,6 +39,7 @@ app.use(bodyParser.json());
 app.use("/api/users",users);
 app.use("/api/blogs",blogs);
 app.use("/api/quote",quote);
+app.use("/api/ip",ip);
 
 //passport初始化
 app.use(passport.initialize());

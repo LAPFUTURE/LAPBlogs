@@ -10,7 +10,7 @@
         <ul align="left">
             <li><span><a href="#mean">What is Nginx?</a></span></a></li>
             <li>
-                <span><a href="#dowload">下载与安装</a></span> 
+                <span><a href="#download">下载与安装</a></span> 
             </li>
             <li><span><a href="#proxy">正向代理和反向代理</a></span></li>
             <li><span><a href="#affect">Nginx在这个网站的作用</a></span></li>
@@ -68,7 +68,45 @@
             服务器们对外提供一个统一的入口，客户端的请求先经过代理服务器，具体客户端访问
             哪个服务器是由nginx控制的。服务器一般组成一个集群，然后nginx负责把请求
             分发给集群，这就是nginx的功能负载均衡。
+        </div>
+        <div class="component" id="affect">
+            <h1 align="left">Nginx在这个网站的作用</h1>
+            在讲作用nginx在这个LAPBlogs体现的作用之前，我们先把几段伪代码展示一下：
+            <span class="line-code">server{</span>
+            <span class="line-code">    listen 80;</span>
+            <span class="line-code">    server_name lapBlogs.connectyoume.top;</span>
+            <span class="line-code">    location / {</span>
+                <span class="line-code">       route html;</span>
+                <span class="line-code">       index lapblogs/index.html</span>
+                <span class="line-code">    }</span>
+            <br>
+            <span class="line-code">server{</span>
+            <span class="line-code">    listen 80;</span>
+            <span class="line-code">    server_name node_api.connectyoume.top;</span>
+            <span class="line-code">    location / {</span>
+            <span class="line-code">        proxy_pass http://localhost:8010;</span>
+            <span class="line-code">    }</span>
+            <span class="line-code">}</span>
 
+            这里我们再讲nginx在LAPBlogs这个站点的作用:客户端访问
+            lapblogs.connectyoume.top,这个请求匹配的是
+            nginx listen 80和server_name lapBlogs.connectyoume.top，
+            然后nginx直接返回一个html/lapblogs/index.html(将vue打包后index.html的放在这个路径)，
+            之后index.html与后台通信时,发请求给node_api.connectyoume.top，
+            这个请求会被代理到http://localhost:8010，比如说：
+            http://node_api.connectyoume.top/user/login这个请求会被代理到
+            http://localhost:8015/user/login。
+        </div>
+        <div class="component" id="others">
+            <h1 align="left">Others</h1>
+            gzip,适配PC或移动设备(根据不同的设备响应不同的文件)。
+            <br>
+            对于gzip，apache和nginx都可以配置。
+            我的使用体验:gzip简直就是优化利器。我们知道单页面应用的
+            一个缺点就是初始化时间长，首屏渲染给用户的体验差一些。
+            拿LAPBlogs举例，没开gzip之前，LAPBlogs首屏加载要7秒(可能网速确实太慢)，
+            开了gzip之后，在相同网速条件下时间只要1.3秒(虽然还是很长)，但是gzip的效果是
+            立竿见影的。
         </div>
         <router-link to="/vue">
             <el-button type="primary" icon="el-icon-d-arrow-left">上一篇(Vue)</el-button>

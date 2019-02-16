@@ -1,6 +1,12 @@
 <template>
     <div class="vue">
-        <h1 >Vue(3.0.3)</h1>
+        <h1>Vue(3.0.3)
+            <span style="float: right;padding-right: 10px;">
+                <el-badge :value="value" :max="999" class="item" type="primary">
+                    <el-button size="small">浏览数</el-button>
+                </el-badge>
+            </span>
+        </h1>
         <ul align="left">
             <li><span><a href="#element-ui">Element-ui</a></span> <a href="http://element-cn.eleme.io/#/zh-CN">官方文档</a></li>
             <li><span><a href="#vuex">Vuex</a></span> <a href="https://vuex.vuejs.org/zh/guide/">官方文档</a></li>
@@ -280,34 +286,35 @@
             </div>
             如何使用它呢，官方文档全是英文，考验英语水平的时候到了。英语就英语呗，还不是照样搞定它
             在vue里安装和使用使用它：<span class="line-code">npm install @tinymce/tinymce-vue</span>
-            在vue组件中使用它(详细见Write.vue): 
-                <span class="line-code">import Editor from '@tinymce/tinymce-vue';</span>
-                <span class="line-code">    export default {</span>
-                <span class="line-code">        components: {</span>
-                <span class="line-code">          'editor':Editor}</span>
-                <span class="line-code">        },</span>
-                <span class="line-code">&ltdiv class="tinymce-container"&gt</span>
-                <span class="line-code">        &lteditor v-model="temporarySave.content" api-key="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6" :init="init"&gt</span>
-                <span class="line-code">        &lt/editor&gt</span>
-                <span class="line-code">    &lt/div&gt</span>
-                tinymce的初始化可以好好看一下文档，定制成你想要的样式。然后就是获得编辑框的内容是通过
-                v-model="temporarySave.content",内容全是html字符，然后发送提交给后台，后台存数据库，
-                然后要用的时候再把html字符串显示出来，那么就跟编辑时的样式一样。
-                这里主要是讲那个api-key，没有这个api-key它会一直给你个警告并且好像一些功能也用不了，
-                不美观。所以要得到这个api-key,而且这个api-key还是比较容易得到的，
-                去官网注册一下账号(官网真好看，非常舒服)，进入到右上角的My Count，然后再点那个API Key Manage,就会出现
-                api-key，Copy一下ok，然后事情还没完，它下面要加个域名访问权限，有这个权限的域才可以使用刚才得到
-                api-key。默认已经有localhost，但是如果是127.0.0.1，还是得加上去，如果是自己的域名的话也得加上去，
-                加子域名就行了。不然没有权限的域他还是报警告，对了，填完域还得点那个UPDATE API KEY，它得更新一下，可能要一会，
-                全球cdn得更新一下，官方说可能要20分钟，我倒是update之后就立马生效了 。对了我的key你们应该用不了，
-                因为我的域名权限只加了三个：localhost,127.0.0.1,connectyoume.top,如果是本地开发的话用我的api-key
-                应该没问题不过我也没试过。大家如果想试一下这个富文本编辑器的话可以试试我的
-                <span class="code">apiKey="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6"</span>,
-                如果想更方便的话还是要注册一个，反正也不是很费时间。
-                放个图片吧：
-                <div class="img">
-                    <img src="../assets/tinykey.jpg" alt="">
-                </div>
+            在vue组件中使用它(详细见Write.vue):
+            <span class="line-code">import Editor from '@tinymce/tinymce-vue';</span>
+            <span class="line-code"> export default {</span>
+            <span class="line-code"> components: {</span>
+            <span class="line-code"> 'editor':Editor}</span>
+            <span class="line-code"> },</span>
+            <span class="line-code">&ltdiv class="tinymce-container"&gt</span>
+            <span class="line-code"> &lteditor v-model="temporarySave.content"
+                api-key="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6" :init="init"&gt</span>
+            <span class="line-code"> &lt/editor&gt</span>
+            <span class="line-code"> &lt/div&gt</span>
+            tinymce的初始化可以好好看一下文档，定制成你想要的样式。然后就是获得编辑框的内容是通过
+            v-model="temporarySave.content",内容全是html字符，然后发送提交给后台，后台存数据库，
+            然后要用的时候再把html字符串显示出来，那么就跟编辑时的样式一样。
+            这里主要是讲那个api-key，没有这个api-key它会一直给你个警告并且好像一些功能也用不了，
+            不美观。所以要得到这个api-key,而且这个api-key还是比较容易得到的，
+            去官网注册一下账号(官网真好看，非常舒服)，进入到右上角的My Count，然后再点那个API Key Manage,就会出现
+            api-key，Copy一下ok，然后事情还没完，它下面要加个域名访问权限，有这个权限的域才可以使用刚才得到
+            api-key。默认已经有localhost，但是如果是127.0.0.1，还是得加上去，如果是自己的域名的话也得加上去，
+            加子域名就行了。不然没有权限的域他还是报警告，对了，填完域还得点那个UPDATE API KEY，它得更新一下，可能要一会，
+            全球cdn得更新一下，官方说可能要20分钟，我倒是update之后就立马生效了 。对了我的key你们应该用不了，
+            因为我的域名权限只加了三个：localhost,127.0.0.1,connectyoume.top,如果是本地开发的话用我的api-key
+            应该没问题不过我也没试过。大家如果想试一下这个富文本编辑器的话可以试试我的
+            <span class="code">apiKey="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6"</span>,
+            如果想更方便的话还是要注册一个，反正也不是很费时间。
+            放个图片吧：
+            <div class="img">
+                <img src="../assets/tinykey.jpg" alt="">
+            </div>
         </div>
         <div class="component" id="others">
             <h1 align="left">Others</h1>
@@ -333,84 +340,129 @@
 <script>
     export default {
         name: 'vue',
+        data() {
+            return {
+                value: 0
+            }
+        },
+        methods: {
+            getNumbers(name) {
+                this.$axios.get(this.host + "/api/ip/ipAccess?type=" + name)
+                    .then((res) => {
+                        if (res.data.status === 1) {
+                            this.value = res.data.accessTime;
+                        } else {
+                            console.log(res);
+                            this.$message({
+                                type: "warning",
+                                message: "，服务器繁忙,获取浏览数失败!",
+                                center: true
+                            })
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+            }
+        },
+        created() {
+            this.getNumbers("vue");
+        },
     }
 </script>
 
 <style scoped>
-    h1{
+    h1 {
         font-size: 2em;
         padding: 10px;
     }
-     .about{
-        padding:20px;
+
+    .about {
+        padding: 20px;
     }
-    .about>p{
+
+    .about>p {
         text-indent: 2em;
     }
-    p>span{
-        color:rgb(66,185,131);
+
+    p>span {
+        color: rgb(66, 185, 131);
     }
-    strong{
+
+    strong {
         font-weight: bolder;
     }
-    .about>h1{
+
+    .about>h1 {
         font-size: 2em;
-        padding:10px;
+        padding: 10px;
     }
-    ul{
-        padding:20px;
+
+    ul {
+        padding: 20px;
         list-style-type: disc;
     }
-    li{
+
+    li {
         padding: 5px;
         cursor: pointer;
     }
-    li>span{
+
+    li>span {
         display: inline-block;
-        min-width:100px;
+        min-width: 100px;
     }
-    #vue{
+
+    #vue {
         border-radius: 4px;
-        background:rgb(248,248,248);
-        
+        background: rgb(248, 248, 248);
+
     }
-    #vue li{
-        color:rgb(66,185,131);
+
+    #vue li {
+        color: rgb(66, 185, 131);
     }
-    #vue>h1{
+
+    #vue>h1 {
         font-size: 2em;
         text-indent: 1em;
-        color:rgb(66,185,131);
+        color: rgb(66, 185, 131);
     }
-    .code{
-        background-color:rgb(66,185,131);
+
+    .code {
+        background-color: rgb(66, 185, 131);
         text-indent: 0;
-        padding:2px 5px 2px 5px;
-        margin:2px;
-        color:black;
+        padding: 2px 5px 2px 5px;
+        margin: 2px;
+        color: black;
         border-radius: 4px;
         display: inline-block;
     }
-    .line-code{
+
+    .line-code {
         /* background-color:rgb(66,185,131); */
-        background-color: #BEEDC7 ;
+        background-color: #BEEDC7;
         text-indent: 0;
-        padding:2px 5px 2px 5px;
+        padding: 2px 5px 2px 5px;
         display: block;
     }
-    .component{
+
+    .component {
         padding: 20px;
         text-indent: 2em;
         line-height: 22px;
         text-align: left;
     }
-    .component>h1{
-        font-size:1.2em;
+
+    .component>h1 {
+        font-size: 1.2em;
     }
-    .line-through{
+
+    .line-through {
         text-decoration: line-through;
     }
-    .img{
+
+    .img {
         overflow-x: scroll;
     }
 </style>

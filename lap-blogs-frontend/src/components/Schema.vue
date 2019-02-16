@@ -1,6 +1,13 @@
 <template>
     <div class="schema" id="schema">
-            <h1>LAPBlogs的网站结构</h1>
+            
+            <h1>LAPBlogs的网站结构
+                <span style="float: right;padding-right: 10px;">
+                    <el-badge :value="value" :max="999" class="item" type="primary">
+                        <el-button size="small">浏览数</el-button>
+                    </el-badge>
+                </span>
+            </h1>
             <p align="left">前言：感谢各位看官百忙之中抽出时间来看这篇文章，文章<span>从零建站并部署
                 上线</span>。当你学完此文章时，那么起码对这个网站会有一个
                 <span>整体的认识</span>，并会学习到许多知识，
@@ -60,6 +67,34 @@
 <script>
 export default {
     name: 'schema',
+    data(){
+        return{
+            value:0
+        }
+    },
+    methods:{
+        getNumbers(name){
+            this.$axios.get(this.host + "/api/ip/ipAccess?type=" + name)
+            .then((res)=>{
+                if(res.data.status === 1){
+                    this.value = res.data.accessTime;
+                }else{
+                    console.log(res);
+                    this.$message({
+                        type:"warning",
+                        message:"，服务器繁忙,获取浏览数失败!",
+                        center:true
+                    })
+                }
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
+    },
+    created(){
+        this.getNumbers("schema");
+    },
 }
 </script>
 

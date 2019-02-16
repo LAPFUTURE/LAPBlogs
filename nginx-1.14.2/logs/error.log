@@ -152,3 +152,4 @@
 2019/02/10 10:16:07 [notice] 9028#48088: signal process started
 2019/02/10 10:51:17 [notice] 27876#18192: signal process started
 2019/02/10 11:17:04 [error] 30604#30820: *9 CreateFile() "E:\LAPBlogs\nginx-1.14.2/html/lapBlogs/assets/img/timg.jpg" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /assets/img/timg.jpg HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2019/02/15 22:58:38 [error] 27916#18664: *118 WSARecv() failed (10054: An existing connection was forcibly closed by the remote host) while reading response header from upstream, client: 127.0.0.1, server: localhost, request: "GET /api/ip/quote HTTP/1.1", upstream: "http://127.0.0.1:8010/api/ip/quote", host: "localhost:8009", referrer: "http://127.0.0.1:8081/"

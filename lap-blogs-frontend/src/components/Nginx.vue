@@ -1,10 +1,16 @@
 <template>
     <div class="nginx">
-        <h1>Nginx</h1>
+        <h1>Nginx
+            <span style="float: right;">
+                <el-badge :value="value" :max="999" class="item" type="primary">
+                    <el-button size="small">浏览数</el-button>
+                </el-badge>
+            </span>
+        </h1>
         <ul align="left">
             <li><span><a href="#mean">What is Nginx?</a></span></a></li>
-            <li><span><a href="#dowload">下载与安装</a></span> 
-                <!-- <a href="http://element-cn.eleme.io/#/zh-CN">官方文档</a> -->
+            <li>
+                <span><a href="#dowload">下载与安装</a></span> 
             </li>
             <li><span><a href="#proxy">正向代理和反向代理</a></span></li>
             <li><span><a href="#affect">Nginx在这个网站的作用</a></span></li>
@@ -39,10 +45,31 @@
         <div class="component" id="proxy">
             <h1 align="left">正向代理和反向代理</h1>
             既然要学nginx,那么就得知道正向代理和反向代理的意思。因为nginx主要就是干反向代理的。言归正传：<br>
-            正向代理：vpn大家都用过吧，它就是正向代理的例子。
+            正向代理：vpn大家都用过吧，它就是正向代理的例子：
+            <br>
+            <div class="img">
+                <img src="../assets/proxyserver.jpg" alt="">
+            </div>
+            <br>
+            我们无法直接请求到server,需要先请求proxy,然后proxy再请求server,
+            server把响应数据返回给proxy,然后proxy再把数据(可能封装了)返回给客户端。
+            而我们使用vpn的用途就是访问国外的资源（该资源无法直接请求获得），
+            这时vpn起到了就是正向代理的作用。举个例子：比如我们在AWS上买了一个
+            在日本的服务器，然后这个服务器是可以访问google的服务的。我们就先
+            访问该服务器，然后该服务器再去请求google服务，于是就绕开了墙。
+            简言之，<strong>正向代理就是proxy服务器代理的是客户端</strong>，这个例子希望可以帮助你理解正向代理。
+            <br>
+            然后我们现在讲反向代理：
+            <br>
+            <div class="img">
+                <img src="../assets/reverseproxy.jpg" alt="">
+            </div>
+            从图中可以看出,<strong>反向代理就是proxy服务器代理的是服务器</strong>。
+            服务器们对外提供一个统一的入口，客户端的请求先经过代理服务器，具体客户端访问
+            哪个服务器是由nginx控制的。服务器一般组成一个集群，然后nginx负责把请求
+            分发给集群，这就是nginx的功能负载均衡。
+
         </div>
-
-
         <router-link to="/vue">
             <el-button type="primary" icon="el-icon-d-arrow-left">上一篇(Vue)</el-button>
         </router-link>
@@ -55,6 +82,34 @@
 <script>
     export default {
         name: 'nginx',
+        data() {
+            return {
+                value: 0
+            }
+        },
+        methods: {
+            getNumbers(name) {
+                this.$axios.get(this.host + "/api/ip/ipAccess?type=" + name)
+                    .then((res) => {
+                        if (res.data.status === 1) {
+                            this.value = res.data.accessTime;
+                        } else {
+                            console.log(res);
+                            this.$message({
+                                type: "warning",
+                                message: "，服务器繁忙,获取浏览数失败!",
+                                center: true
+                            })
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+            }
+        },
+        created() {
+            this.getNumbers("nginx");
+        },
     }
 </script>
 
@@ -139,6 +194,8 @@
     }
 
     .img {
-        overflow-x: scroll;
+        /* overflow-x: scroll; */
+        width:94%;
+        margin: 0 auto;
     }
 </style>

@@ -143,8 +143,10 @@ export default {
         display: inline-block;
     }
     .img{
-        overflow-x: scroll;
-        overflow-y: hidden;
+        text-align: center;
+    }
+    img {
+        width:960px;
     }
 </style>
   

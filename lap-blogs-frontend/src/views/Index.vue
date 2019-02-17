@@ -104,9 +104,9 @@
                                     3.NodeJs
                                 </el-menu-item>
                             </router-link>
-                            <router-link to="/django">
+                            <router-link to="/python">
                                 <el-menu-item index="4-5">
-                                    4.Django
+                                    4.Python
                                 </el-menu-item>
                             </router-link>
                             <router-link to="/mongodb">

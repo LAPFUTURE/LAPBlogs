@@ -1,7 +1,7 @@
 <template>
     <div class="vue">
         <h1>Vue(3.0.3)
-            <span style="float: right;padding-right: 10px;">
+            <span style="float: right;margin-right:-90px;">
                 <el-badge :value="value" :max="999" class="item" type="primary">
                     <el-button size="small">浏览数</el-button>
                 </el-badge>
@@ -17,6 +17,18 @@
             <li><span><a href="#tinymce">Tinymce</a></span> <a href="https://github.com/tinymce/tinymce-vue#usage">官方文档</a></li>
             <li><a href="#others">Others...</a></li>
         </ul>
+        <div class="right-bottom">
+            <ul>
+                <li><span><a href="#element-ui">Element-ui</a></span></li>
+                <li><span><a href="#vuex">Vuex</a></span></li>
+                <li><span><a href="#localstorage">localStorage</a></span></li>
+                <li><span><a href="#axios">Axios</a></span></li>
+                <li><span><a href="#proxy">代理和跨域</a></span></li>
+                <li><span><a href="#jwt-decode">jwt-decode</a></span></li>
+                <li><span><a href="#tinymce">Tinymce</a></span></li>
+                <li><a href="#others">Others...</a></li>
+            </ul>
+        </div>
         <p>vue脚手架的从零搭建就不用了吧，官网也有详细的教程，这里就默认大家会使用vue进行开发。
             还有就是建站用的是Vue3.0，它与Vue2.0大的变化就是webpack配置隐藏起来了，
             它都是默认配置给你配置好了的。所以如果要更改配置的话要在根目录下新建一个
@@ -413,20 +425,8 @@
         min-width: 100px;
     }
 
-    #vue {
-        border-radius: 4px;
-        background: rgb(248, 248, 248);
-
-    }
-
-    #vue li {
-        color: rgb(66, 185, 131);
-    }
-
-    #vue>h1 {
-        font-size: 2em;
-        text-indent: 1em;
-        color: rgb(66, 185, 131);
+    .vue {
+        margin-right:125px;
     }
 
     .code {
@@ -440,7 +440,6 @@
     }
 
     .line-code {
-        /* background-color:rgb(66,185,131); */
         background-color: #BEEDC7;
         text-indent: 0;
         padding: 2px 5px 2px 5px;
@@ -461,8 +460,23 @@
     .line-through {
         text-decoration: line-through;
     }
-
-    .img {
-        overflow-x: scroll;
+    .img{
+        text-align: center;
+    }
+    img {
+        width:960px;
+    }
+    .right-bottom{
+        font-size:0.8em;
+        position: absolute;
+        right: 10px;
+        bottom: 8vh;
+        background-color:#BEEDC7;
+        border-radius: 4px;
+    }
+    .right-bottom>ul{
+        padding:0px;
+        list-style: none;
+        text-align: center;
     }
 </style>

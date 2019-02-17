@@ -79,6 +79,11 @@ const router = new Router({
 				name: 'nginx',
 				component: () => import('./components/Nginx.vue')
 			},
+			{
+				path: '/nodejs',
+				name: 'nodsjs',
+				component: () => import('./components/NodeJs.vue')
+			},
 		]
 	}, ]
 });

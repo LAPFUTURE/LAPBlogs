@@ -11,18 +11,19 @@ const users = require("./routes/api/users");
 const blogs = require("./routes/api/blogs");
 const quote = require("./routes/api/quote");
 const ip = require("./routes/api/ip");
-// const food = require("./routes/api/food");
 
 //CORS设置
-app.all('*', function(req, res, next) {  
-    res.header("Access-Control-Allow-Origin", "*");  
+app.all('*', function(req, res, next) {
+    if(req.headers.origin === "http://127.0.0.1:8081" || req.headers.origin === "http://lapblogs.connectyoume.top"){  
+        res.header("Access-Control-Allow-Origin", req.headers.origin);
+    }
     res.header("Access-Control-Allow-Headers", "*");  
     res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");  
     res.header("Content-Type", "application/json;charset=utf-8");
     next();  
 });
 
-app.get("/",(req,res)=>{
+app.get("/",(req,res)=>{//测试接口
     http.get("http://127.0.0.1:8015/registe",(result)=>{
         result.on('data', function (data) {
             data = JSON.parse(JSON.parse(data.toString()));
@@ -44,7 +45,6 @@ app.use("/api/ip",ip);
 //passport初始化
 app.use(passport.initialize());
 require("./config/passport")(passport);
-
 
 app.listen(port,()=>{
     console.log(`Server is running in ${port}`);

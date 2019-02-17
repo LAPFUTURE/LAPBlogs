@@ -1,7 +1,7 @@
 <template>
     <div class="nginx">
         <h1>Nginx
-            <span style="float: right;">
+            <span style="float: right;margin-right:-90px;">
                 <el-badge :value="value" :max="999" class="item" type="primary">
                     <el-button size="small">浏览数</el-button>
                 </el-badge>
@@ -16,6 +16,17 @@
             <li><span><a href="#affect">Nginx在这个网站的作用</a></span></li>
             <li><a href="#others">Others...</a></li>
         </ul>
+        <div class="right-bottom">
+            <ul>
+                <li><span><a href="#mean">What is Nginx?</a></span></a></li>
+            <li>
+                <span><a href="#download">下载与安装</a></span> 
+            </li>
+            <li><span><a href="#proxy">正向代理和反向代理</a></span></li>
+            <li><span><a href="#affect">Nginx在这个网站的作用</a></span></li>
+            <li><a href="#others">Others...</a></li>
+            </ul>
+        </div>
         <div class="component" id="mean">
             <h1 align="left">What is Nginx?</h1>
             <p>
@@ -40,7 +51,12 @@
         </div>
         <div class="component" id="download">
             <h1 align="left">下载与安装</h1>
-            网上教程遍地开花，所以我就不浪费大家时间了。请根据自家电脑和服务器的系统（linux,windows）自行goole，百度，必应。。。嘻嘻
+            网上教程遍地开花，所以我就不浪费大家时间了。请根据自家电脑和服务器的系统（linux,windows）自行goole，百度，必应。。。嘻嘻。
+            安装好后使用下面几条命令简单操作nginx：
+            开启nginx:windows:<span class="code">start nginx</span>,linux:<span class="code">nginx</span>;
+            退出nginx:<span class="code">nginx -s quit</span>,如果你的是windows，nginx -s quit没有用的话就用.\nginx -s quit试一下;
+            重启nginx:<span class="code">nginx -s reload</span>;
+
         </div>
         <div class="component" id="proxy">
             <h1 align="left">正向代理和反向代理</h1>
@@ -99,20 +115,59 @@
         </div>
         <div class="component" id="others">
             <h1 align="left">Others</h1>
-            gzip,适配PC或移动设备(根据不同的设备响应不同的文件)。
+            gzip,适配PC或移动设备(根据不同的设备响应不同的文件)，对于错误页面（404，500等）的处理。
             <br>
             对于gzip，apache和nginx都可以配置。
             我的使用体验:gzip简直就是优化利器。我们知道单页面应用的
             一个缺点就是初始化时间长，首屏渲染给用户的体验差一些。
             拿LAPBlogs举例，没开gzip之前，LAPBlogs首屏加载要7秒(可能网速确实太慢)，
             开了gzip之后，在相同网速条件下时间只要1.3秒(虽然还是很长)，但是gzip的效果是
-            立竿见影的。
+            立竿见影的。在nginx开启gzip是很简单的：只要在nginx.conf中添加如下代码：
+            <span class="line-code">gzip  on;#开启gzip</span>
+            <span class="line-code">gzip_min_length 1k;#对大于1k的文件进行gzip压缩</span>
+            <span class="line-code">gzip_comp_level 7;#压缩等级1-9，越大说明压缩程度越高同时也越消耗服务器资源</span>
+            <span class="line-code">gzip_types text/plain application/javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png image/webp;#要进行压缩的文件格式</span>
+            还有一些配置项，但这里也就展开说明上述入门配置。
+            <br>
+            对于适配，我们知道http的request的headers会携带许多信息，而这里要用到的就是
+            user-agent。nginx根据user-agent判断是pc还是移动端，从而将请求处理（或转发或响应不同的文件），由于LAP现在只做好了pc,并且样式还丑，大家凑合着看吧，
+            从移动端访问则只有一个静态网页（当然也有可能你手机型号并没有在我的处理名单中，就会翻车）。
+            在nginx的nginx.conf文件添加如下配置：
+            <span class="line-code">server{</span>
+            <span class="line-code">    listen 80;</span>
+            <span class="line-code">    server_name  lapBlogs.connectyoume.top;</span>
+            <span class="line-code">    location / {</span>
+            <span class="line-code">        root   html;</span>
+            <span class="line-code">        if ($http_user_agent ~* 'Android|webOS|iPhone|iPod|BlackBerry|mobile|nokia|samsung|htc|huawei') {</span>
+            <span class="line-code">            root  mobile;#<strong>如果user-agent是移动端，则让root目录为mobile，跟下面的index连起来就是移动端的响应文件是mobile/lapBlogs/index.html,pc端的响应文件是html/lapBlogs/index.html</strong></span>
+            <span class="line-code">        }</span>
+            <span class="line-code">        index  lapBlogs/index.html;</span>
+            <span class="line-code">    }</span>
+            <span class="line-code">    error_page 404 /lapBlogs/index.html;#这里则是让404页面也指向index.html页面，有点偷懒</span>
+            <span class="line-code">}</span>
+            权限限制，nginx可以控制哪些文件可以被访问;
+            <br>
+            还有负载均衡，需要定义一个上游服务器集群:
+            <span class="line-code">upstream <strong>back_servers</strong>{</span>
+            <span class="line-code">    server 127.0.0.1:8001;</span>
+            <span class="line-code">    server 127.0.0.1:8002;</span>
+            <span class="line-code">    server 127.0.0.1:8003;</span>
+            <span class="line-code">}</span>
+            <span class="line-code">server{</span>
+            <span class="line-code">    listen 80;</span>
+            <span class="line-code">    server_name lapblogs.connectyoume.top;</span>
+            <span class="line-code">    proxy_pass <strong>http:back_servers</strong></span>
+            <span class="line-code">}</span>
+            上述代码的意思就是将lapblogs.connectyoume.top的请求由nginx的负载均衡策略分发给服务器们。
+            这个策略可以自己调。LAPBlogs这个小网站就没有去弄服务器集群了，
+            这破网站都要负载均衡了，那我不得要上天？
         </div>
+        
         <router-link to="/vue">
             <el-button type="primary" icon="el-icon-d-arrow-left">上一篇(Vue)</el-button>
         </router-link>
         &nbsp;
-        <router-link to="/nginx">
+        <router-link to="/nodejs">
             <el-button type="primary" icon="el-icon-d-arrow-right">下一篇(NodeJs)</el-button>
         </router-link>
     </div>
@@ -193,10 +248,8 @@
         min-width: 100px;
     }
 
-    #vue {
-        border-radius: 4px;
-        background: rgb(248, 248, 248);
-
+    .nginx {
+        margin-right:125px;
     }
     .code {
         background-color: rgb(66, 185, 131);
@@ -230,10 +283,24 @@
     .line-through {
         text-decoration: line-through;
     }
-
-    .img {
-        /* overflow-x: scroll; */
-        width:94%;
-        margin: 0 auto;
+    .img{
+        text-align: center;
+    }
+    img {
+        width:960px;
+    }
+    .right-bottom{
+        font-size:0.8em; 
+        position: absolute;
+        right: 10px;
+        bottom: 8vh;
+        background-color:#BEEDC7;
+        border-radius: 4px;
+    }
+    .right-bottom>ul{
+        width:110px;
+        padding:0px;
+        list-style: none;
+        text-align: center;
     }
 </style>

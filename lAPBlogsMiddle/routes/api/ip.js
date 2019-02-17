@@ -5,7 +5,6 @@ const request = require("request");
 router.get("/ipAccess",(req,res)=>{
     let url = 'http://127.0.0.1:8015/ipAccess';
     let headers = req.headers;
-    console.log(req.query.type);
     let ip = {
         "origin":headers.origin || "no origin",
         "referer":headers.referer,

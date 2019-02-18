@@ -16,9 +16,10 @@ const ip = require("./routes/api/ip");
 app.all('*', function(req, res, next) {
     if(req.headers.origin === "http://127.0.0.1:8081" || req.headers.origin === "http://lapblogs.connectyoume.top"){  
         res.header("Access-Control-Allow-Origin", req.headers.origin);
-    }
-    res.header("Access-Control-Allow-Headers", "*");  //服务器允许请求中携带任意字段
-    res.header("Access-Control-Allow-Methods","POST,GET,OPTIONS");  //服务器允许客户端使用 POST,GET 和 OPTIONS 方法发起请求。
+    }//作用于简单跨域请求和非简单跨域请求
+    res.header("Access-Control-Allow-Headers", "*");  //作用于非简单跨域请求,服务器允许请求中携带任意字段
+    res.header("Access-Control-Allow-Methods","POST,GET,OPTIONS");  //作用于非简单跨域请求,服务器允许客户端使用 POST,GET 和 OPTIONS 方法发起请求。
+    // res.header("Access-Control-Max-Age",600)//允许浏览器在指定时间内，无需再发送预检请求进行协商
     res.header("Content-Type", "application/json;charset=utf-8");
     next();  
 });

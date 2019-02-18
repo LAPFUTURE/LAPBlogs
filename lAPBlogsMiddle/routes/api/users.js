@@ -3,9 +3,6 @@ const router = express.Router();
 const md5 = require("crypto-js/md5");
 const jwt = require("jsonwebtoken");
 const key = require("../../config/keys");
-// const http = require("http");
-// const qs = require("querystring");
-// const passport= require("passport");
 const request = require("request");
 
 router.post("/test",(req,res)=>{
@@ -30,19 +27,17 @@ router.post("/login",(req,res)=>{
                     id:user._id,
                     name:user.name,
                     email:user.email,
-                    // blog:user.blog,
                 };
                 let userInfo = {
                     temporarySave:user.temporarySave,
                     lastLoginTime:user.lastLoginTime,
                     userBlogs:user.blog
                 }; 
-                jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{
-                    //过期时间为3600秒,一小时
-                    if(!err){
-                        return res.json({"status":1,"msg":"登录成功","userInfo":userInfo,"token":"Bearer " + token});
-                    }else{
+                jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{//过期时间为3600秒,一小时
+                    if(err){
                         return res.json({"status":-2,"msg":"后台返回token出错"});
+                    }else{
+                        return res.json({"status":1,"msg":"登录成功","userInfo":userInfo,"token":"Bearer " + token});
                     }
                 });
             }else if(body.status === -3){ //账号未注册,不分发jwt

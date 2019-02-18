@@ -11,7 +11,6 @@ opts.secretOrKey = key.Key;
 
 module.exports = (passport)=>{
     passport.use(new JwtStrategy(opts,(jwt_payload,done)=>{
-            // console.log(jwt_payload);
             let url = 'http://127.0.0.1:8015/searchUser';
             request.post({url:url, form: jwt_payload}, function(err,httpResponse,body){
                 if(err){ //请求后台出错

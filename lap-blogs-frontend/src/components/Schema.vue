@@ -25,6 +25,9 @@
                 <li><a href="/mongodb">MongoDB</a></li>
             </ul>
             <img style="width:94%;padding:10px;" src="../assets/architecture.jpg" alt="">
+            <div>
+                <img style="width:200px;" src="../assets/allproject.jpg" alt="">
+            </div>
             <p align="left">网站整体结构：我用的是阿里云的学生机，比较便宜100块左右一年，搞个服务器加个域名再备案一下也不会要太多时间。
                 阿里云的客服也是很贴心，
                 客服小姐姐动不动就打电话问我需不需要帮助，帮助倒是还行，就是缺个女朋友，

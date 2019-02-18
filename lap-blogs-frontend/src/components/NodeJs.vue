@@ -34,7 +34,33 @@
             其实对于LAPBlogs而言，主要使用的是express路由中间件功能，以及一些
             其它的协同功能，它并没有向客户端动态渲染html模板，它的作用就是
             承担前哨和缓冲，响应前台的ajax并向真正的后台发出请求并进一步处理后台
-            返回的数据，最后将数据返回给前台。
+            返回的数据，最后将数据返回给前台。由于同源策略只存在于浏览器中，nodejs
+            发送请求给后台是不会跨域的。
+            <br>
+            安装express:<span class="code">npm install express</span>
+            <br>
+            使用express:
+            <span class="line-code">const express = require("express");</span>
+            <span class="line-code">const app = express();</span>
+            <span class="line-code">app.get('/', function (req, res) {</span>
+            <span class="line-code">    res.send('Hello World')</span>
+            <span class="line-code">})</span>
+            <span class="line-code">app.listen(8010,()=>{</span>
+            <span class="line-code">console.log("Server is running in 8010"))</span>
+        </div>
+        <div class="component" id="cors">
+            <h1 align="left">CORS</h1>
+            前台发送请求给nodejs,如果前台和nodejs不是同域，那么浏览器就会报错。
+            于是现在先设置好后台的cors,俗话说得好，只要cors设得好，跨域它就不会报。
+            <span class="line-code">app.all('*', function(req, res, next) {</span>
+            <span class="line-code">    if(req.headers.origin === "http://127.0.0.1:8081" || req.headers.origin === "http://lapblogs.connectyoume.top"){ </span> 
+            <span class="line-code">        res.header("Access-Control-Allow-Origin", req.headers.origin);</span>
+            <span class="line-code">    }</span>
+            <span class="line-code">    res.header("Access-Control-Allow-Headers", "*");  </span>
+            <span class="line-code">    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");  </span>
+            <span class="line-code">    res.header("Content-Type", "application/json;charset=utf-8");</span>
+            <span class="line-code">    next();  </span>
+            <span class="line-code">});</span>
         </div>
         <router-link to="/nginx">
             <el-button type="primary" icon="el-icon-d-arrow-left">上一篇(Vue)</el-button>

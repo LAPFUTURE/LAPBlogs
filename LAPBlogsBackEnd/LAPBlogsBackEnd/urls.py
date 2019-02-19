@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^userBlog',blogs.userBlog),
     url(r'^editBlog',blogs.editBlog),
     url(r'^ipAccess',ip.ipAccess),
+    url(r'^handleStar',ip.handleStar),
 ]

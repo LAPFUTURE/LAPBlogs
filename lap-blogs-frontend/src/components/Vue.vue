@@ -344,6 +344,8 @@
             <el-button type="primary" icon="el-icon-d-arrow-left">上一篇(图示)</el-button>
         </router-link>
         &nbsp;
+        <el-button @click="clickStar" type="primary" icon="el-icon-star-on">{{ star }}</el-button>
+        &nbsp;
         <router-link to="/nginx">
             <el-button type="primary" icon="el-icon-d-arrow-right">下一篇(Nginx)</el-button>
         </router-link>
@@ -354,7 +356,9 @@
         name: 'vue',
         data() {
             return {
-                value: 0
+                value: 0,
+                star: 0,
+                status: false
             }
         },
         methods: {
@@ -363,6 +367,7 @@
                     .then((res) => {
                         if (res.data.status === 1) {
                             this.value = res.data.accessTime;
+                            this.star = res.data.star;
                         } else {
                             console.log(res);
                             this.$message({
@@ -375,8 +380,46 @@
                     .catch((err) => {
                         console.log(err);
                     })
-            }
+            },
+            clickStar() {
+                if (this.status) {
+                    this.handleStar({
+                        "type": "vue",
+                        "star": "decrease"
+                    });
+                } else {
+                    this.handleStar({
+                        "type": "vue",
+                        "star": "add"
+                    });
+                }
+            },
+            handleStar: async function (obj) {
+                try {
+                    let res = await this.$axios.post(this.host + "/api/ip/handleStar", obj);
+                    if (res.data.status === 1) {
+                        this.$message({
+                            type: "success",
+                            center: true,
+                            message: res.data.msg,
+                            duration: 1000
+                        });
+                        this.star = res.data.starNumbers;
+                        this.status = !this.status;
+                    } else {
+                        this.$message({
+                            type: "error",
+                            center: true,
+                            message: "服务器繁忙,请稍后再试",
+                            duration: 1000
+                        })
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            },
         },
+
         created() {
             this.getNumbers("vue");
         },
@@ -426,7 +469,7 @@
     }
 
     .vue {
-        margin-right:125px;
+        margin-right: 125px;
     }
 
     .code {
@@ -460,22 +503,26 @@
     .line-through {
         text-decoration: line-through;
     }
-    .img{
+
+    .img {
         text-align: center;
     }
+
     img {
-        width:960px;
+        width: 960px;
     }
-    .right-bottom{
-        font-size:0.8em;
+
+    .right-bottom {
+        font-size: 0.8em;
         position: absolute;
         right: 10px;
         bottom: 8vh;
-        background-color:#BEEDC7;
+        background-color: #BEEDC7;
         border-radius: 4px;
     }
-    .right-bottom>ul{
-        padding:0px;
+
+    .right-bottom>ul {
+        padding: 0px;
         list-style: none;
         text-align: center;
     }

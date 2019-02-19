@@ -27,9 +27,9 @@
         </div>
         <div class="component" id="express">
             <h1 align="left">What is Express?</h1>
-            借用网上的一段话来介绍：<strong>Express 是一个简洁而灵活的 node.js Web应用框架, 
-            提供了一系列强大特性帮助你创建各种 Web 应用，和丰富的 HTTP 工具。
-            使用 Express 可以快速地搭建一个完整功能的网站。</strong>
+            借用网上的一段话来介绍：<strong>Express 是一个简洁而灵活的 node.js Web应用框架,
+                提供了一系列强大特性帮助你创建各种 Web 应用，和丰富的 HTTP 工具。
+                使用 Express 可以快速地搭建一个完整功能的网站。</strong>
             <br>
             其实对于LAPBlogs而言，主要使用的是express路由中间件功能，以及一些
             其它的协同功能，它并没有向客户端动态渲染html模板，它的作用就是
@@ -43,7 +43,7 @@
             <span class="line-code">const express = require("express");</span>
             <span class="line-code">const app = express();</span>
             <span class="line-code">app.get('/', function (req, res) {</span>
-            <span class="line-code">    res.send('Hello World')</span>
+            <span class="line-code"> res.send('Hello World')</span>
             <span class="line-code">})</span>
             <span class="line-code">app.listen(8010,()=>{</span>
             <span class="line-code">console.log("Server is running in 8010"))</span>
@@ -54,13 +54,16 @@
             于是现在先设置好后台的cors,俗话说得好，只要cors设得好，跨域它就不会报。
             下面会解释代码并且会涉及到<strong>预检请求</strong>:
             <span class="line-code">app.all('*', function(req, res, next) {</span>
-            <span class="line-code">    if(req.headers.origin === "http://127.0.0.1:8081" || req.headers.origin === "http://lapblogs.connectyoume.top"){ </span> 
-            <span class="line-code">        res.header("Access-Control-Allow-Origin", req.headers.origin);</span>
-            <span class="line-code">    } //<strong>作用于简单跨域请求和非简单跨域请求</strong></span>
-            <span class="line-code">    res.header("Access-Control-Allow-Headers", "*"); //<strong>作用于非简单跨域请求，表示允许正式请求定义任意头部字段</strong>  </span>
-            <span class="line-code">    res.header("Access-Control-Allow-Methods","POST,GET,OPTIONS"); <strong>//作用于非简单跨域请求，表示允许正式请求的请求方法为post,get,options</strong> </span>
-            <span class="line-code">    res.header("Content-Type", "application/json;charset=utf-8");</span>
-            <span class="line-code">    next();  </span>
+            <span class="line-code"> if(req.headers.origin === "http://127.0.0.1:8081" || req.headers.origin ===
+                "http://lapblogs.connectyoume.top"){ </span>
+            <span class="line-code"> res.header("Access-Control-Allow-Origin", req.headers.origin);</span>
+            <span class="line-code"> } //<strong>作用于简单跨域请求和非简单跨域请求</strong></span>
+            <span class="line-code"> res.header("Access-Control-Allow-Headers", "*"); //<strong>作用于非简单跨域请求，表示允许正式请求定义任意头部字段</strong>
+            </span>
+            <span class="line-code"> res.header("Access-Control-Allow-Methods","POST,GET,OPTIONS"); <strong>//作用于非简单跨域请求，表示允许正式请求的请求方法为post,get,options</strong>
+            </span>
+            <span class="line-code"> res.header("Content-Type", "application/json;charset=utf-8");</span>
+            <span class="line-code"> next(); </span>
             <span class="line-code">});</span>
             首先用all函数定义了中间件，所有请求都必须先通过此中间件。
             前台发送的跨域请求分为简单跨域请求和非简单跨域请求，区别在于非简单跨域请求会在
@@ -92,19 +95,24 @@
             <br>
             Access-Control-Request-Method对应服务器响应的Access-Control-Allow-Methods,
             <br>
-            Access-Control-Request-Headers对应服务器响应的Access-Control-Allow-Headers, 
+            Access-Control-Request-Headers对应服务器响应的Access-Control-Allow-Headers,
             <br>
             另外，服务器端还可以加入Access-Control-Max-Age，允许浏览器在指定时间内，无需再发送预检请求进行协商
             <br>
             最后下面有详细的字段解析，看完之后再回去理解预检请求就轻而易举：
             <span class="line-code">1. Origin。HTTP请求头，任何涉及CORS的请求都必需携带。</span>
             <span class="line-code">2. Access-Control-Request-Method。HTTP请求头，在带预检(Preflighted)的跨域请求中用来表示真实请求的方法。</span>
-            <span class="line-code">3. Access-Control-Request-Headers。HTTP请求头，在带预检(Preflighted)的跨域请求中用来表示真实请求的自定义Header列表。</span>
-            <span class="line-code">4. Access-Control-Allow-Origin。HTTP响应头，指定服务器端允许进行跨域资源访问的来源域。可以用通配符*表示允许任何域的JavaScript访问资源，但是在响应一个携带身份信息(Credential)的HTTP请求时，Access-Control-Allow-Origin必需指定具体的域，不能用通配符。</span>
+            <span class="line-code">3.
+                Access-Control-Request-Headers。HTTP请求头，在带预检(Preflighted)的跨域请求中用来表示真实请求的自定义Header列表。</span>
+            <span class="line-code">4.
+                Access-Control-Allow-Origin。HTTP响应头，指定服务器端允许进行跨域资源访问的来源域。可以用通配符*表示允许任何域的JavaScript访问资源，但是在响应一个携带身份信息(Credential)的HTTP请求时，Access-Control-Allow-Origin必需指定具体的域，不能用通配符。</span>
             <span class="line-code">5. Access-Control-Allow-Methods。HTTP响应头，指定服务器允许进行跨域资源访问的请求方法列表，一般用在响应预检请求上。</span>
             <span class="line-code">6. Access-Control-Allow-Headers。HTTP响应头，指定服务器允许进行跨域资源访问的请求头列表，一般用在响应预检请求上。</span>
-            <span class="line-code">7. Access-Control-Max-Age。HTTP响应头，用在响应预检请求上，表示本次预检响应的有效时间。在此时间内，浏览器都可以根据此次协商结果决定是否有必要直接发送真实请求，而无需再次发送预检请求。</span>
-            <span class="line-code">8. Access-Control-Allow-Credentials。HTTP响应头，凡是浏览器请求中携带了身份信息，而响应头中没有返回Access-Control-Allow-Credentials: true的，浏览器都会忽略此次响应。</span>
+            <span class="line-code">7.
+                Access-Control-Max-Age。HTTP响应头，用在响应预检请求上，表示本次预检响应的有效时间。在此时间内，浏览器都可以根据此次协商结果决定是否有必要直接发送真实请求，而无需再次发送预检请求。</span>
+            <span class="line-code">8.
+                Access-Control-Allow-Credentials。HTTP响应头，凡是浏览器请求中携带了身份信息，而响应头中没有返回Access-Control-Allow-Credentials:
+                true的，浏览器都会忽略此次响应。</span>
         </div>
         <div class="component" id="jwt">
             <h1 align="left">JsonWebToken</h1>
@@ -124,43 +132,44 @@
             <span class="line-code">const key = require("../../config/keys");</span>
             <span class="line-code">const request = require("request");</span>
             <span class="line-code">router.post("/login",(req,res)=>{</span>
-            <span class="line-code">    let url = 'http://127.0.0.1:8015/login';</span>
-            <span class="line-code">    let password = (md5(req.body.password+key.Salt)).toString();</span>
-            <span class="line-code">    let person = {</span>
-            <span class="line-code">        email:req.body.email,</span>
-            <span class="line-code">        password:password</span>
-            <span class="line-code">    };</span>
-            <span class="line-code">    request.post({url:url, form: person}, function(err,httpResponse,body){</span>
-            <span class="line-code">        if(err){</span>
-            <span class="line-code">            return res.json({"status":-2,"msg":"后台出错,请稍后再试!"});</span>
-            <span class="line-code">        }else{</span>
-            <span class="line-code">            body = JSON.parse(body);</span>
-            <span class="line-code">            if(body.status === 1){ //登录成功,分发jwt</span>
-            <span class="line-code">                let user =  JSON.parse(body.user);</span>
-            <strong><span class="line-code">                const rule = {</span>
-            <span class="line-code">                    id:user._id,</span>
-            <span class="line-code">                    name:user.name,</span>
-            <span class="line-code">                    email:user.email,</span>
-            <span class="line-code">                };</span></strong>
-            <span class="line-code">                let userInfo = {</span>
-            <span class="line-code">                    temporarySave:user.temporarySave,</span>
-            <span class="line-code">                    lastLoginTime:user.lastLoginTime,</span>
-            <span class="line-code">                    userBlogs:user.blog</span>
-            <span class="line-code">                }; </span>
-            <strong><span class="line-code">                jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{//过期时间为3600秒,一小时</span>
-            <span class="line-code">                    if(err){</span>
-            <span class="line-code">                        return res.json({"status":-2,"msg":"后台返回token出错"});</span>
-            <span class="line-code">                    }else{</span>
-            <span class="line-code">                        return res.json({"status":1,"msg":"登录成功","userInfo":userInfo,"token":"Bearer " + token});</span>
-            <span class="line-code">                    }</span>
-            <span class="line-code">                });</span></strong>
-            <span class="line-code">            }else if(body.status === -3){ //账号未注册,不分发jwt</span>
-            <span class="line-code">                return res.json({"status":-1,"msg":"此账号未注册!"});</span>
-            <span class="line-code">            }else if(body.status === -4){ //密码错误,不分发jwt</span>
-            <span class="line-code">                return res.json({"status":-1,"msg":"密码错误!"});</span>
-            <span class="line-code">            }</span>
-            <span class="line-code">        }</span>
-            <span class="line-code">    })</span>
+            <span class="line-code"> let url = 'http://127.0.0.1:8015/login';</span>
+            <span class="line-code"> let password = (md5(req.body.password+key.Salt)).toString();</span>
+            <span class="line-code"> let person = {</span>
+            <span class="line-code"> email:req.body.email,</span>
+            <span class="line-code"> password:password</span>
+            <span class="line-code"> };</span>
+            <span class="line-code"> request.post({url:url, form: person}, function(err,httpResponse,body){</span>
+            <span class="line-code"> if(err){</span>
+            <span class="line-code"> return res.json({"status":-2,"msg":"后台出错,请稍后再试!"});</span>
+            <span class="line-code"> }else{</span>
+            <span class="line-code"> body = JSON.parse(body);</span>
+            <span class="line-code"> if(body.status === 1){ //登录成功,分发jwt</span>
+            <span class="line-code"> let user = JSON.parse(body.user);</span>
+            <strong><span class="line-code"> const rule = {</span>
+                <span class="line-code"> id:user._id,</span>
+                <span class="line-code"> name:user.name,</span>
+                <span class="line-code"> email:user.email,</span>
+                <span class="line-code"> };</span></strong>
+            <span class="line-code"> let userInfo = {</span>
+            <span class="line-code"> temporarySave:user.temporarySave,</span>
+            <span class="line-code"> lastLoginTime:user.lastLoginTime,</span>
+            <span class="line-code"> userBlogs:user.blog</span>
+            <span class="line-code"> }; </span>
+            <strong><span class="line-code"> jwt.sign(rule,key.Key,{expiresIn:3600},(err,token)=>{//过期时间为3600秒,一小时</span>
+                <span class="line-code"> if(err){</span>
+                <span class="line-code"> return res.json({"status":-2,"msg":"后台返回token出错"});</span>
+                <span class="line-code"> }else{</span>
+                <span class="line-code"> return res.json({"status":1,"msg":"登录成功","userInfo":userInfo,"token":"Bearer "
+                    + token});</span>
+                <span class="line-code"> }</span>
+                <span class="line-code"> });</span></strong>
+            <span class="line-code"> }else if(body.status === -3){ //账号未注册,不分发jwt</span>
+            <span class="line-code"> return res.json({"status":-1,"msg":"此账号未注册!"});</span>
+            <span class="line-code"> }else if(body.status === -4){ //密码错误,不分发jwt</span>
+            <span class="line-code"> return res.json({"status":-1,"msg":"密码错误!"});</span>
+            <span class="line-code"> }</span>
+            <span class="line-code"> }</span>
+            <span class="line-code"> })</span>
             <span class="line-code">});</span>
             上面代码的含义：处理前台的登录请求，然后向后台验证用户，若通过验证则向前台派发token。
             <br>
@@ -187,42 +196,42 @@
             <span class="line-code">opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();</span>
             <span class="line-code">opts.secretOrKey = key.Key;</span>
             <span class="line-code">module.exports = (passport)=>{</span>
-            <span class="line-code">    passport.use(new JwtStrategy(opts,(jwt_payload,done)=>{</span>
-            <span class="line-code">            let url = 'http://127.0.0.1:8015/searchUser';</span>
-            <span class="line-code">            request.post({url:url, form: jwt_payload}, function(err,httpResponse,body){</span>
-            <span class="line-code">                if(err){ //请求后台出错</span>
-            <span class="line-code">                    console.log(err);</span>
-            <span class="line-code">                    return done(err, false);</span>
-            <span class="line-code">                }else{</span>
-            <span class="line-code">                    body = JSON.parse(body);</span>
-            <span class="line-code">                    if(body.status === 1){ //合法用户</span>
-            <span class="line-code">                        <strong>return done(null, body);//验证通过，会触发后面的回调函数，回调函数在后面接口定义</strong></span>
-            <span class="line-code">                    }else if(body.status === -1){  //非法用户，<strong>认证失败后会返回 401 Unauthorized，不会触发后面的回调</strong></span>
-            <span class="line-code">                        <strong>return done(null, false);</strong></span>
-            <span class="line-code">                    }</span>
-            <span class="line-code">                }</span>
-            <span class="line-code">            });</span>
-            <span class="line-code">        })</span>
-            <span class="line-code">    )</span>
+            <span class="line-code"> passport.use(new JwtStrategy(opts,(jwt_payload,done)=>{</span>
+            <span class="line-code"> let url = 'http://127.0.0.1:8015/searchUser';</span>
+            <span class="line-code"> request.post({url:url, form: jwt_payload}, function(err,httpResponse,body){</span>
+            <span class="line-code"> if(err){ //请求后台出错</span>
+            <span class="line-code"> console.log(err);</span>
+            <span class="line-code"> return done(err, false);</span>
+            <span class="line-code"> }else{</span>
+            <span class="line-code"> body = JSON.parse(body);</span>
+            <span class="line-code"> if(body.status === 1){ //合法用户</span>
+            <span class="line-code"> <strong>return done(null, body);//验证通过，会触发后面的回调函数，回调函数在后面接口定义</strong></span>
+            <span class="line-code"> }else if(body.status === -1){ //非法用户，<strong>认证失败后会返回 401 Unauthorized，不会触发后面的回调</strong></span>
+            <span class="line-code"> <strong>return done(null, false);</strong></span>
+            <span class="line-code"> }</span>
+            <span class="line-code"> }</span>
+            <span class="line-code"> });</span>
+            <span class="line-code"> })</span>
+            <span class="line-code"> )</span>
             <span class="line-code">}</span>
             这里用一个接口来说明：
             <span class="line-code">router.post("/temporarySave",passport.authenticate("jwt",{session:false}),(req,res)=>{//<strong>这就是上面说的回调函数</strong></span>
-            <span class="line-code">    let blog = {</span>
-            <span class="line-code">        "belongTo":req.body.belongTo,</span>
-            <span class="line-code">        "title":req.body.title,</span>
-            <span class="line-code">        "content":req.body.content,</span>
-            <span class="line-code">    };</span>
-            <span class="line-code">    let url = 'http://127.0.0.1:8015/temporarySave';</span>
-            <span class="line-code">    request.post({url:url, form: blog}, function(err,httpResponse,body){</span>
-            <span class="line-code">        body = JSON.parse(body);</span>
-            <span class="line-code">        if(body.status === 1){</span>
-            <span class="line-code">            res.json({"status":1,"msg":"保存成功!"});</span>
-            <span class="line-code">        }else if(body.status === -5){</span>
-            <span class="line-code">            res.json({"status":-5,"msg":"请使用post方式请求!"});</span>
-            <span class="line-code">        }else if(body.status === -2){</span>
-            <span class="line-code">            res.json({"status":-2,"msg":"服务器出错!"});</span>
-            <span class="line-code">        }</span>
-            <span class="line-code">    })</span>
+            <span class="line-code"> let blog = {</span>
+            <span class="line-code"> "belongTo":req.body.belongTo,</span>
+            <span class="line-code"> "title":req.body.title,</span>
+            <span class="line-code"> "content":req.body.content,</span>
+            <span class="line-code"> };</span>
+            <span class="line-code"> let url = 'http://127.0.0.1:8015/temporarySave';</span>
+            <span class="line-code"> request.post({url:url, form: blog}, function(err,httpResponse,body){</span>
+            <span class="line-code"> body = JSON.parse(body);</span>
+            <span class="line-code"> if(body.status === 1){</span>
+            <span class="line-code"> res.json({"status":1,"msg":"保存成功!"});</span>
+            <span class="line-code"> }else if(body.status === -5){</span>
+            <span class="line-code"> res.json({"status":-5,"msg":"请使用post方式请求!"});</span>
+            <span class="line-code"> }else if(body.status === -2){</span>
+            <span class="line-code"> res.json({"status":-2,"msg":"服务器出错!"});</span>
+            <span class="line-code"> }</span>
+            <span class="line-code"> })</span>
             <span class="line-code">});</span>
             只有前台携带的jwt是合法为未过期的，nodojs才会向后台请求，否则返回401。
         </div>
@@ -248,36 +257,36 @@
             <br>
             post:
             <span class="line-code">router.post("/insertBlog",passport.authenticate("jwt",{session:false}),(req,res)=>{//插入博客</span>
-            <span class="line-code">    let blog = {</span>
-            <span class="line-code">        "belongTo":req.body._id,</span>
-            <span class="line-code">        "userName":req.body.userName,</span>
-            <span class="line-code">        "title":req.body.title,</span>
-            <span class="line-code">        "content":req.body.content,</span>
-            <span class="line-code">        "type":req.body.type</span>
-            <span class="line-code">    };</span>
-            <span class="line-code">    let url = 'http://127.0.0.1:8015/insertBlogs';</span>
-            <span class="line-code">    request.post({url:url, form: blog}, function(err,httpResponse,body){</span>
-            <span class="line-code">        body = JSON.parse(body);</span>
-            <span class="line-code">        if(body.status === 1){</span>
-            <span class="line-code">            res.json({"status":1,"msg":"上传成功!"});</span>
-            <span class="line-code">        }else if(body.status === -5){</span>
-            <span class="line-code">            res.json({"status":-5,"msg":"请使用post方式请求!"});</span>
-            <span class="line-code">        }      </span>  
-            <span class="line-code">    })</span>
+            <span class="line-code"> let blog = {</span>
+            <span class="line-code"> "belongTo":req.body._id,</span>
+            <span class="line-code"> "userName":req.body.userName,</span>
+            <span class="line-code"> "title":req.body.title,</span>
+            <span class="line-code"> "content":req.body.content,</span>
+            <span class="line-code"> "type":req.body.type</span>
+            <span class="line-code"> };</span>
+            <span class="line-code"> let url = 'http://127.0.0.1:8015/insertBlogs';</span>
+            <span class="line-code"> request.post({url:url, form: blog}, function(err,httpResponse,body){</span>
+            <span class="line-code"> body = JSON.parse(body);</span>
+            <span class="line-code"> if(body.status === 1){</span>
+            <span class="line-code"> res.json({"status":1,"msg":"上传成功!"});</span>
+            <span class="line-code"> }else if(body.status === -5){</span>
+            <span class="line-code"> res.json({"status":-5,"msg":"请使用post方式请求!"});</span>
+            <span class="line-code"> } </span>
+            <span class="line-code"> })</span>
             <span class="line-code">});</span>
             get:
             <span class="line-code">router.get("/requestBlogs",(req,res)=>{ //请求所有博客</span>
-            <span class="line-code">    let url = 'http://127.0.0.1:8015/requestBlogs';</span>
-            <span class="line-code">    request.get(url, function(error, httpResponse, body){</span>
-            <span class="line-code">        if(error){</span>
-            <span class="line-code">            return res.json({"msg":"服务器出错",status:-2});</span>
-            <span class="line-code">        }else{</span>
-            <span class="line-code">            body = JSON.parse(body);</span>
-            <span class="line-code">            if(body.status === 1){</span>
-            <span class="line-code">                return res.json({"msg":"success","status":1,"blogs":JSON.parse(body.blog)});</span>
-            <span class="line-code">            }</span>
-            <span class="line-code">        }</span>
-            <span class="line-code">    });</span>
+            <span class="line-code"> let url = 'http://127.0.0.1:8015/requestBlogs';</span>
+            <span class="line-code"> request.get(url, function(error, httpResponse, body){</span>
+            <span class="line-code"> if(error){</span>
+            <span class="line-code"> return res.json({"msg":"服务器出错",status:-2});</span>
+            <span class="line-code"> }else{</span>
+            <span class="line-code"> body = JSON.parse(body);</span>
+            <span class="line-code"> if(body.status === 1){</span>
+            <span class="line-code"> return res.json({"msg":"success","status":1,"blogs":JSON.parse(body.blog)});</span>
+            <span class="line-code"> }</span>
+            <span class="line-code"> }</span>
+            <span class="line-code"> });</span>
             <span class="line-code">})</span>
             这里就举两个例子，详情查看官方文档。
         </div>
@@ -288,11 +297,15 @@
             <span class="line-code">app.use(bodyParser.urlencoded({extended:false}));</span>
             <span class="line-code">app.use(bodyParser.json());</span>
             crypto-js是用来加密用户密码的：用户密码在前台md5加密一次后在这里加盐后再md5加密，然后传给后台。
-            还有测试接口的话可以用postman。
+            还有测试接口的话可以用postman。对了，这里前台首页还调用了扇贝英语的接口，由于同源策略，在前台直接向
+            扇贝的接口请求资源会报跨域错误，但是由于用nodejs的request去请求就不会有这个问题。但是我发现一个有趣的现象：
+            在微信小程序中wx.request()请求扇贝接口倒是可以直接请求，然后才知道原来是微信后端拿到wx.request调用的url、用后端请求后端，所以不会有跨域的问题。
         </div>
         <router-link to="/nginx">
             <el-button type="primary" icon="el-icon-d-arrow-left">上一篇(Nginx)</el-button>
         </router-link>
+        &nbsp;
+        <el-button @click="clickStar" type="primary" icon="el-icon-star-on">{{ star }}</el-button>
         &nbsp;
         <router-link to="/python">
             <el-button type="primary" icon="el-icon-d-arrow-right">下一篇(Python)</el-button>
@@ -304,7 +317,9 @@
         name: 'nodejs',
         data() {
             return {
-                value: 0
+                value: 0,
+                star: 0,
+                status: false
             }
         },
         methods: {
@@ -325,7 +340,44 @@
                     .catch((err) => {
                         console.log(err);
                     })
-            }
+            },
+            clickStar() {
+                if (this.status) {
+                    this.handleStar({
+                        "type": "nodejs",
+                        "star": "decrease"
+                    });
+                } else {
+                    this.handleStar({
+                        "type": "nodejs",
+                        "star": "add"
+                    });
+                }
+            },
+            handleStar: async function (obj) {
+                try {
+                    let res = await this.$axios.post(this.host + "/api/ip/handleStar", obj);
+                    if (res.data.status === 1) {
+                        this.$message({
+                            type: "success",
+                            center: true,
+                            message: res.data.msg,
+                            duration: 1000
+                        });
+                        this.star = res.data.starNumbers;
+                        this.status = !this.status;
+                    } else {
+                        this.$message({
+                            type: "error",
+                            center: true,
+                            message: "服务器繁忙,请稍后再试",
+                            duration: 1000
+                        })
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            },
         },
         created() {
             this.getNumbers("nodejs");
@@ -376,8 +428,9 @@
     }
 
     .nginx {
-        margin-right:125px;
+        margin-right: 125px;
     }
+
     .code {
         background-color: rgb(66, 185, 131);
         text-indent: 0;
@@ -410,22 +463,26 @@
     .line-through {
         text-decoration: line-through;
     }
-    .img{
+
+    .img {
         text-align: center;
     }
+
     img {
-        width:960px;
+        width: 960px;
     }
-    .right-bottom{
-        font-size:0.8em; 
+
+    .right-bottom {
+        font-size: 0.8em;
         position: absolute;
         right: 10px;
         bottom: 8vh;
-        background-color:#BEEDC7;
+        background-color: #BEEDC7;
         border-radius: 4px;
     }
-    .right-bottom>ul{
-        padding:0px;
+
+    .right-bottom>ul {
+        padding: 0px;
         list-style: none;
         text-align: center;
     }

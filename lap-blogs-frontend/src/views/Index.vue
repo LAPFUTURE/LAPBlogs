@@ -2,7 +2,9 @@
     <el-container>
         <el-header height="8vh" style="justify-content: space-between">
             <div class="d-flex">
-                <p class="blog">LAPBlogs</p>
+                <router-link to="/">
+                    <p class="blog">LAPBlogs</p>
+                </router-link>
                 <p>
                     <el-input size="small" placeholder="请输入内容" prefix-icon="el-icon-search" v-model="search">
                     </el-input>
@@ -33,7 +35,6 @@
                                 <el-dropdown-item align="center">
                                     <span @click="loginout">注销</span>
                                 </el-dropdown-item>
-                                <!-- <el-dropdown-item>关于</el-dropdown-item> -->
                             </el-dropdown-menu>
                         </el-dropdown>
                     </el-col>
@@ -135,18 +136,24 @@
                         <router-view></router-view>
                     </div>
                 </el-main>
-                <el-footer height="8vh">Powered By LAPFUTURE</el-footer>
+                <el-footer height="8vh">
+                    <span v-bind:style="{ color:color }" style="float: left;font-family: PingFang SC;font-size: 0.8em;">学识决定眼界,眼界决定格局,格局决定人生.</span>
+                    <span @click="show" style="float: right;cursor: pointer;">Powered By LAPFUTURE</span>
+                </el-footer>
             </el-container>
         </el-container>
     </el-container>
 </template>
 
 <script>
-    import { Message } from 'element-ui';
+    import {
+        Message
+    } from 'element-ui';
     export default {
         name: 'home',
         data() {
             return {
+                color: "#24292e",
                 nodeApi: "nodeAPI!",
                 pythonApi: "pythonAPI!",
                 search: '',
@@ -154,16 +161,19 @@
             }
         },
         methods: {
+            show() {
+                this.color = "white";
+            },
             loginout() {
                 localStorage.clear();
                 this.$store.dispatch("clearCurrentState");
                 this.$router.push("/");
             },
-            clickSearch(){
+            clickSearch() {
                 Message.success({
-                    message:'尚在开发,敬请期待！',
-                    center:true,
-                    duration:2000
+                    message: '尚在开发,敬请期待！',
+                    center: true,
+                    duration: 2000
                 });
             }
         },
@@ -192,6 +202,7 @@
 
     .blog {
         width: 180px;
+        color: #fff;
     }
 
     input {

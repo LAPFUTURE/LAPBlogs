@@ -11,8 +11,8 @@
     export default {
         name: 'about',
         components: {
-            schema:Schema,
-            vue:Vue
+            schema: Schema,
+            vue: Vue
         }
     }
 </script>

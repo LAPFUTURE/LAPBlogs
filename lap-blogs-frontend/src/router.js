@@ -84,6 +84,11 @@ const router = new Router({
 				name: 'nodsjs',
 				component: () => import('./components/NodeJs.vue')
 			},
+			{
+				path: '/python',
+				name: 'python',
+				component: () => import('./components/Python.vue')
+			},
 		]
 	}, ]
 });

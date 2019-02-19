@@ -14,8 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path
+# from django.contrib import admin
+# from django.urls import path
 from django.conf.urls import url
 from .blog_api import users
 from .blog_api import blogs
@@ -27,10 +27,10 @@ urlpatterns = [
     url(r'^searchUser$', users.searchUser),
     url(r'^registe$', users.registe),
     url(r'^login$', users.login),
-    url(r'^insertBlog',blogs.insertBlog),
-    url(r'^userBlogs',blogs.userBlogs),
-    url(r'^userBlog',blogs.userBlog),
-    url(r'^editBlog',blogs.editBlog),
-    url(r'^ipAccess',ip.ipAccess),
-    url(r'^handleStar',ip.handleStar),
+    url(r'^insertBlog$',blogs.insertBlog),
+    url(r'^userBlogs$',blogs.userBlogs),
+    url(r'^userBlog$',blogs.userBlog),
+    url(r'^editBlog$',blogs.editBlog),
+    url(r'^ipAccess$',ip.ipAccess),
+    url(r'^handleStar$',ip.handleStar),
 ]

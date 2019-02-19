@@ -328,6 +328,7 @@
                     .then((res) => {
                         if (res.data.status === 1) {
                             this.value = res.data.accessTime;
+                            this.star = res.data.star;
                         } else {
                             console.log(res);
                             this.$message({

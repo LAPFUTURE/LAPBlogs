@@ -11,7 +11,7 @@
             <li><span><a href="#mean">What is Django?</a></span> <a href="https://docs.djangoproject.com/zh-hans/2.0/">官方文档</a></li>
             <li><span><a href="#reason">Why is Django?</a></span></li>
             <li><span><a href="#route">路由</a></span></li>
-            <li><span><a href="#operation">操作MongoDB</a></span></li>
+            <li><span><a href="#operation">操作MongoDB</a></span><a href="http://api.mongodb.com/python/current/api/pymongo/">官方文档</a></li>
             <li><a href="#others">Others...</a></li>
         </ul>
         <div class="right-bottom">
@@ -29,7 +29,7 @@
             Django是一个开放源代码的Web应用框架，由Python写成。Django采用了MVC的软件设计模式，即模型M，视图V和控制器C。
             <br>
             由于Django是要跑在python环境下的，所以还是要先安装好python，然后使用pip install django。安装整体上挺简单的，但具体安装还是看文档吧，
-            Django+Uwsgi+Nginx是常用技术栈，要是有时间和兴趣的可以鼓捣一下。
+            Django+Uwsgi+Nginx是常用技术栈，要是有时间和兴趣的还是可以鼓捣一下。
             <br>
             许多有名的框架都是基于mvc的，我使用过的是ThinkPhp5和Django,如果有一些框架使用经验应该会更好入门。
             其实如果只是入个门的话两个小时就可以参照文档写个小东西。反正<strong>一开始学习一个新东西</strong>我的理念就是：<strong>只求会用，不求甚解</strong>。
@@ -41,7 +41,7 @@
         </div>
         <div class="component" id="reason">
             <h1 align="left">Why is Django?</h1>
-            个人经常使用(菜鸡哪里敢写熟悉!)的后台语言和后台框架是:
+            个人使用过(菜鸡哪里敢写熟悉!)的后台语言和后台框架是:
             <br>
             php->ThinkPhp5,虽然也有段时间没写了，但对php的熟练程度还是大于python，所以为什么没有选择php做LAPBlogs的后台呢？
             <br>
@@ -67,7 +67,7 @@
             <span class="line-code">from django.conf.urls import url</span>
             <span class="line-code">from .blog_api import users #引入blog_api这个包下的users.py</span>
             <span class="line-code">urlpatterns = [</span>
-            <span class="line-code">    url(r'^login$', users.login), #users.py的login函数处理该请求</span>
+            <span class="line-code"> url(r'^login$', users.login), #users.py的login函数处理该请求</span>
             <span class="line-code">]</span>
             题外话，如果是处于不同的域的,浏览器直接请求django，也会发生跨域，这个时候也要pip install django-cors-headers,
             然后在setting.py添加下面配置=>链接：<a href="https://blog.csdn.net/liuanpingfirst/article/details/86684029">之前写的关于django处理跨域和403的博客</a>,这里也对预检请求有设置，
@@ -77,15 +77,69 @@
         </div>
         <div class="component" id="operation">
             <h1 align="left">操作MongoDB</h1>
+            首先要有取舍，Django有一个Django Admin管理工具，这就相当于它有一个后台数据库管理界面了，可以便捷管理数据。
+            Django 对各种数据库提供了很好的支持，包括：PostgreSQL、MySQL、SQLite、Oracle。Django 为这些数据库提供了统一的调用API。
+            也就是说使用MongoDB是没有Django admin管理工具的，自己取舍吧。不过好像有个django-mongonaut(<a href="https://django-mongonaut.readthedocs.io/en/latest/index.html#features">官方文档</a>)的包重写了django的admin模块，
+            但仅限于mongodb的使用,由于我也没有用过这个，不知道具体效果如何。
+            <br>
+            首先<span class="code">pip install pymongo</span>,然后在需要使用MongoDB的地方引入并连接数据库，下面是例子:
+            <span class="line-code">import pymongo</span>
+            <span class="line-code">mongo_client = pymongo.MongoClient(host="127.0.0.1",port=27017)</span>
+            <span class="line-code">LAPBlogs = mongo_client["lap_blogs"]</span>
+            <span class="line-code">Blogs = LAPBlogs['blogs']</span>
+            <span class="line-code">Users = LAPBlogs['users']</span>
+            又是愉快的增删改查(CURD)时间了。下面是简单的例子，具体的复杂操作可以查看官方文档。
+            <br>
+            <strong>查询:</strong>利用find_one()或find()方法进行查询，其中find_one()查询得到的是单个结果，find()则返回一个生成器对象。
+            <span class="line-code">blog = Blogs.find_one(ObjectId(userBlogsId))#根据ObjectId查询</span>
+            <span class="line-code">users = Users.find({'age': {'$gt': 20}})#查询age>20</span>
+            另外也可以使用正则
+            <br>
+            <strong>插入:</strong>使用insert_one()和insert_many()方法来分别插入单条记录和多条记录,
+            insert_one()返回的是InsertOneResult对象，可以调用其inserted_id属性获取_id；insert_many()返回的是InsertManyResult，
+            调用inserted_ids属性可以获取插入数据的_id列表。
+            <span class="line-code">user = {</span>
+            <span class="line-code"> "email":"1314@qq.com",</span>
+            <span class="line-code"> "name":"LAPFUTURE",</span>
+            <span class="line-code"> "password":789</span>
+            <span class="line-code">}</span>
+            <span class="line-code">result = Users.insert_one(user)</span>
+            <span class="line-code">print(result.inserted_id)</span>
+            <br>
+            <span class="line-code">user1 = {"name":"user1"}</span>
+            <span class="line-code">user2 = {"name":"user2"}</span>
+            <span class="line-code">result = Users.insert_many([user1,user2])</span>
+            <span class="line-code">print(result.inserted_ids)</span>
+            <strong>更新:</strong>update_one()方法和update_many()方法,返回结果是UpdateResult类型。
+            <span class="line-code">user = Users.find_one({'name': 'LAPFUTURE'})</span>
+            <span class="line-code">user['age'] = 18</span>
+            <span class="line-code">result = Users.update_one({'name': 'LAPFUTURE'}, {'$set': user})</span>
+            <br>
+            <span class="line-code">result = Blogs.update_many({'type': "python"}, {'$set': {'star':
+                999}})#将所有类型为python的博客的star置为999</span>
+            <strong>删除:</strong>delete_one()和delete_many(),delete_one()会删除第一条符合条件的数据，delete_many()会删除所有符合条件的数据。
+            它们的返回结果都是DeleteResult类型。可以使用deleted_count属性来获取删除的数据条数。
+            <span class="line-code">result = Users.delete_one({'name': 'LAPFUTURE'})</span>
+            <span class="line-code">print(result)</span>
+            <span class="line-code">print(result.deleted_count)</span>
+            <br>
+            <span class="line-code">result = Blogs.delete_many({'type: "python"})</span>
+            <span class="line-code">print(result.deleted_count)</span>
+            上面都是简单的操作方法，还有排序，计数等等，大家可以查看文档。
         </div>
-        <router-link to="/mongodb">
+        <div class="component" id="others">
+            <h1 align="left">Others</h1>
+            就是做到现在，压根就没有怎么使用Django的大部分功能，所以说实在是太菜了。希望以后可以慢慢发掘Django的功能，
+            这点半吊子实在不够看。我想起一句话：<strong>弱水三千，只取一瓢饮</strong>。为什么只取一瓢，因为自己目前就只能装那么多啊，哎，好好努力！
+        </div>
+        <router-link to="/nodejs">
             <el-button type="primary" icon="el-icon-d-arrow-left">上一篇(NodeJs)</el-button>
         </router-link>
         &nbsp;
         <el-button @click="clickStar" type="primary" icon="el-icon-star-on">{{ star }}</el-button>
         &nbsp;
         <router-link to="/mongodb">
-            <el-button type="primary" icon="el-icon-d-arrow-right">下一篇(Vue)</el-button>
+            <el-button type="primary" icon="el-icon-d-arrow-right">下一篇(MongoDB)</el-button>
         </router-link>
     </div>
 </template>
@@ -163,105 +217,105 @@
 </script>
 
 <style scoped>
-        h1 {
-            font-size: 2em;
-            padding: 10px;
-        }
-    
-        .about {
-            padding: 20px;
-        }
-    
-        .about>p {
-            text-indent: 2em;
-        }
-    
-        p>span {
-            color: rgb(66, 185, 131);
-        }
-    
-        strong {
-            font-weight: bolder;
-        }
-    
-        .about>h1 {
-            font-size: 2em;
-            padding: 10px;
-        }
-    
-        ul {
-            padding: 20px;
-            list-style-type: disc;
-        }
-    
-        li {
-            padding: 5px;
-            cursor: pointer;
-        }
-    
-        li>span {
-            display: inline-block;
-            min-width: 100px;
-        }
-    
-        .python {
-            margin-right: 125px;
-        }
-    
-        .code {
-            background-color: rgb(66, 185, 131);
-            text-indent: 0;
-            padding: 2px 5px 2px 5px;
-            margin: 2px;
-            color: black;
-            border-radius: 4px;
-            display: inline-block;
-        }
-    
-        .line-code {
-            /* background-color:rgb(66,185,131); */
-            background-color: #BEEDC7;
-            text-indent: 0;
-            padding: 2px 5px 2px 5px;
-            display: block;
-        }
-    
-        .component {
-            padding: 20px;
-            text-indent: 2em;
-            line-height: 22px;
-            text-align: left;
-        }
-    
-        .component>h1 {
-            font-size: 1.2em;
-        }
-    
-        .line-through {
-            text-decoration: line-through;
-        }
-    
-        .img {
-            text-align: center;
-        }
-    
-        img {
-            width: 960px;
-        }
-    
-        .right-bottom {
-            font-size: 0.8em;
-            position: absolute;
-            right: 10px;
-            bottom: 8vh;
-            background-color: #BEEDC7;
-            border-radius: 4px;
-        }
-    
-        .right-bottom>ul {
-            width: 110px;
-            padding: 0px;
-            list-style: none;
-            text-align: center;
-        }
-    </style>
+    h1 {
+        font-size: 2em;
+        padding: 10px;
+    }
+
+    .about {
+        padding: 20px;
+    }
+
+    .about>p {
+        text-indent: 2em;
+    }
+
+    p>span {
+        color: rgb(66, 185, 131);
+    }
+
+    strong {
+        font-weight: bolder;
+    }
+
+    .about>h1 {
+        font-size: 2em;
+        padding: 10px;
+    }
+
+    ul {
+        padding: 20px;
+        list-style-type: disc;
+    }
+
+    li {
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    li>span {
+        display: inline-block;
+        min-width: 100px;
+    }
+
+    .python {
+        margin-right: 125px;
+    }
+
+    .code {
+        background-color: rgb(66, 185, 131);
+        text-indent: 0;
+        padding: 2px 5px 2px 5px;
+        margin: 2px;
+        color: black;
+        border-radius: 4px;
+        display: inline-block;
+    }
+
+    .line-code {
+        /* background-color:rgb(66,185,131); */
+        background-color: #BEEDC7;
+        text-indent: 0;
+        padding: 2px 5px 2px 5px;
+        display: block;
+    }
+
+    .component {
+        padding: 20px;
+        text-indent: 2em;
+        line-height: 22px;
+        text-align: left;
+    }
+
+    .component>h1 {
+        font-size: 1.2em;
+    }
+
+    .line-through {
+        text-decoration: line-through;
+    }
+
+    .img {
+        text-align: center;
+    }
+
+    img {
+        width: 960px;
+    }
+
+    .right-bottom {
+        font-size: 0.8em;
+        position: absolute;
+        right: 10px;
+        bottom: 8vh;
+        background-color: #BEEDC7;
+        border-radius: 4px;
+    }
+
+    .right-bottom>ul {
+        width: 110px;
+        padding: 0px;
+        list-style: none;
+        text-align: center;
+    }
+</style>

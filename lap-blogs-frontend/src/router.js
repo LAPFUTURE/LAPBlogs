@@ -89,6 +89,11 @@ const router = new Router({
 				name: 'python',
 				component: () => import('./components/Python.vue')
 			},
+			{
+				path: '/mongodb',
+				name: 'mongodb',
+				component: () => import('./components/MongoDb.vue')
+			},
 		]
 	}, ]
 });

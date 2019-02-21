@@ -77,6 +77,7 @@
 		display: flex;
 		justify-content: space-between;
 		background-color:rgb(240,240,240,0.90);
+		color:#24292e;
 		height:50px;
 		width:80%;
 		margin: 15px auto;

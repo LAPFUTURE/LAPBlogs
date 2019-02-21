@@ -76,6 +76,7 @@ h1{
     background-color:rgb(250,250,250);
     height:50px;
     line-height: 50px;
+    color:#24292e;
     width:80%;
     margin: 15px auto;
     border-radius: 4px;

@@ -1,20 +1,20 @@
 <template>
     <div class="vue">
-        <h1>Vue(3.0.3)
+        <h1>Vue
             <span style="float: right;margin-right:-90px;">
                 <el-badge :value="value" :max="999" class="item" type="primary">
                     <el-button size="small">浏览数</el-button>
                 </el-badge>
             </span>
         </h1>
-        <ul align="left">
-            <li><span><a href="#element-ui">Element-ui</a></span> <a href="http://element-cn.eleme.io/#/zh-CN">官方文档</a></li>
-            <li><span><a href="#vuex">Vuex</a></span> <a href="https://vuex.vuejs.org/zh/guide/">官方文档</a></li>
+        <ul align="left" style="background-color: rgb(250,250,250);border-radius: 4px;">
+            <li><span><a href="#element-ui">Element-ui</a></span> <a href="http://element-cn.eleme.io/#/zh-CN"><el-button type="primary" size="mini">官方文档</el-button></a></li>
+            <li><span><a href="#vuex">Vuex</a></span> <a href="https://vuex.vuejs.org/zh/guide/"><el-button type="primary" size="mini">官方文档</el-button></a></li>
             <li><span><a href="#localstorage">localStorage</a></span></li>
-            <li><span><a href="#axios">Axios</a></span> <a href="https://www.npmjs.com/package/axios">官方文档</a></li>
+            <li><span><a href="#axios">Axios</a></span> <a href="https://www.npmjs.com/package/axios"><el-button type="primary" size="mini">官方文档</el-button></a></li>
             <li><span><a href="#proxy">代理和跨域</a></span></li>
-            <li><span><a href="#jwt-decode">jwt-decode</a></span> <a href="https://www.npmjs.com/package/jwt-decode">官方文档</a></li>
-            <li><span><a href="#tinymce">Tinymce</a></span> <a href="https://github.com/tinymce/tinymce-vue#usage">官方文档</a></li>
+            <li><span><a href="#jwt-decode">jwt-decode</a></span> <a href="https://www.npmjs.com/package/jwt-decode"><el-button type="primary" size="mini">官方文档</el-button></a></li>
+            <li><span><a href="#tinymce">Tinymce</a></span> <a href="https://github.com/tinymce/tinymce-vue#usage"><el-button type="primary" size="mini">官方文档</el-button></a></li>
             <li><a href="#others">Others...</a></li>
         </ul>
         <div class="right-bottom">
@@ -29,6 +29,7 @@
                 <li><a href="#others">Others...</a></li>
             </ul>
         </div>
+        <br>
         <p>vue脚手架的从零搭建就不用了吧，官网也有详细的教程，这里就默认大家会使用vue进行开发。
             还有就是建站用的是Vue3.0，它与Vue2.0大的变化就是webpack配置隐藏起来了，
             它都是默认配置给你配置好了的。所以如果要更改配置的话要在根目录下新建一个
@@ -38,119 +39,128 @@
             不过还是建议先看解析再看代码，这样会有一个整体的认识。</p>
         <div class="component" id="element-ui">
             <h1 align="left">Element-ui</h1>
-            <div>这里用一下官方文档的一句话："Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0
+            <p>这里用一下官方文档的一句话："Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0
                 的桌面端组件库"。虽然这个网站前台是vue3.0，但这并不影响与element-ui的融合。使用element-ui来构建站点可以极大的提高开发效率。
                 你想：遇到要写什么过渡动画，消息提醒，美观表格，导航啊。。。什么乱七八糟的，这里都有，<span class="line-through">直接Ctrl C + Ctrl V</span>认真观看文档，然后仔细查看参数说明,最后怀着虔诚的心把代码拷过来，岂不美哉？快快用起来，一起摇摆，你就是最靓的仔
-            </div>
+            </p>
+            <br>
             <div>
-                好了，element-ui这么好用，那么如何使用它呢？进入代码环节: 使用命令行进入到你的vue项目，
-                <span class="code">npm install element-ui -S</span>,安装好之后找到vue项目下的<span class="code">src/main.js</span>。在其中添加下面代码：
-                <div>
-                    <span class="line-code">
-                        import Vue from 'vue'
-                    </span>
-                    <span class="line-code">
-                        import ElementUI from 'element-ui'
-                    </span>
-                    <span class="line-code">
-                        import 'element-ui/lib/theme-chalk/index.css'
-                    </span>
-                    <span class="line-code">
-                        Vue.use(ElementUI)
-                    </span>
-                    以上引入是全局引入，如果你只想要引入部分组件的话,可以这样写：
+                <p>好了，element-ui这么好用，那么如何使用它呢？进入代码环节: 使用命令行进入到你的vue项目，
+                    <span class="code">npm install element-ui -S</span>,安装好之后找到vue项目下的<span class="code">src/main.js</span>。在其中添加下面代码：
+                </p>
+                    <textarea disabled="disabled">
+                            import Vue from 'vue';
+                            import ElementUI from 'element-ui';
+                            import 'element-ui/lib/theme-chalk/index.css';
+                            Vue.use(ElementUI);
+                    </textarea>
+                    <p>以上引入是全局引入，如果你只想要引入部分组件的话,可以这样写：
+                    </p>
                     <span class="line-code">import { MessageBox,Loading } from 'element-ui';</span>
-                    详情请见<a href="http://element-cn.eleme.io/#/zh-CN/component/quickstart">
-                        <官方文档>
+                    <p>详情请见<a href="http://element-cn.eleme.io/#/zh-CN/component/quickstart">
+                        <el-button type="primary" size="mini">官方文档</el-button>
                     </a>，官方文档是最好的老师。element-ui
                     上手还是挺快的，花点时间就入门了。
                     还有就是不要乱改组件的代码，以及明白参数的意义，不然
                     就容易gg，你花费30分钟解决莫名其妙的bug来节约看文档的10分钟。我当时用它的表单验证时，
                     一开始我以为有个回调没有用，于是删掉了，然后后面即使通过验证但一直触发不了提交函数。。。
                     结局就是花了好一会才找到，还是太菜，让各位见笑了
-                </div>
+                    </p>
             </div>
         </div>
         <div class="component" id="vuex">
             <h1 align="left">Vuex</h1>
-            组件之间传值使用props感觉有点累，所以虽然这个网站前台并不是很复杂，但我还是选择用vuex来维护状态。
+            <p>组件之间传值使用props感觉有点累，所以虽然这个网站前台并不是很复杂，但我还是选择用vuex来维护状态。
             在src/store.js(没有则新建)添加以下代码：
-            <span class="line-code">import Vue from 'vue'</span>
-            <span class="line-code">import Vuex from 'vuex'</span>
-            <span class="line-code">Vue.use(Vuex)</span>
-            <span class="line-code">const types = {</span>
-            <span class="line-code"> SET_AUTHENTICATED: "SET_AUTHENICATED",</span>
-            <span class="line-code"> SET_USER: "SET_USER",</span>
-            <span class="line-code"> SET_BLOG: "SET_BLOG",</span>
-            <span class="line-code"> SET_USERINFO: "SET_USERINFO"</span>
-            <span class="line-code">}</span>
-            <span class="line-code">const state = {</span>
-            <span class="line-code"> isAuthenticated: false, //授权状态</span>
-            <span class="line-code"> user: {}, //email,name,id</span>
-            <span class="line-code"> blog: {}, //请求的blog</span>
-            <span class="line-code"> userInfo: {} //temporarySave(暂存区),saveTime(保存时间)</span>
-            <span class="line-code">}</span>
-            <span class="line-code">const getters = {</span>
-            <span class="line-code"> isAuthenticated: state => state.isAuthenticated,</span>
-            <span class="line-code"> user: state => state.user,</span>
-            <span class="line-code"> blog: state => state.blog,</span>
-            <span class="line-code"> userInfo: state => state.userInfo</span>
-            <span class="line-code">}</span>
-            <span class="line-code">const mutations = {</span>
-            <span class="line-code"> //es6计算属性</span>
-            <span class="line-code"> [types.SET_AUTHENTICATED](state, isAuthenticated) {</span>
-            <span class="line-code"> isAuthenticated ? state.isAuthenticated = isAuthenticated : state.isAuthenticated
-                = false;</span>
-            <span class="line-code"> //如果有授权的话就是store.isAuthenticates为true，否则为false,下面同理</span>
-            <span class="line-code"> },</span>
-            <span class="line-code"> [types.SET_USER](state, user) {</span>
-            <span class="line-code"> user ? state.user = user : state.user = {};</span>
-            <span class="line-code"> },</span>
-            <span class="line-code"> [types.SET_BLOG](state, blog) {</span>
-            <span class="line-code"> blog ? state.blog = blog : state.blog = {};</span>
-            <span class="line-code"> },</span>
-            <span class="line-code"> [types.SET_USERINFO](state, userInfo) {</span>
-            <span class="line-code"> userInfo ? state.userInfo = userInfo : state.userInfo = {};</span>
-            <span class="line-code"> },</span>
-            <span class="line-code">}</span>
-            <span class="line-code">const actions = {</span>
-            <span class="line-code"> //setAuthenticated</span>
-            <span class="line-code"> setAuthenticated: ({</span>
-            <span class="line-code"> commit</span>
-            <span class="line-code"> }, isAuthenticated) => {</span>
-            <span class="line-code"> commit(types.SET_AUTHENTICATED, isAuthenticated);//这里提交的是mutation,</span>
-            <span class="line-code"> },</span>
-            <span class="line-code"> setUser: ({</span>
-            <span class="line-code"> commit</span>
-            <span class="line-code"> }, user) => {</span>
-            <span class="line-code"> commit(types.SET_USER, user);</span>
-            <span class="line-code"> },</span>
-            <span class="line-code"> setBlog: ({</span>
-            <span class="line-code"> commit</span>
-            <span class="line-code"> }, blog) => {</span>
-            <span class="line-code"> commit(types.SET_BLOG, blog);</span>
-            <span class="line-code"> },</span>
-            <span class="line-code"> setUserInfo: ({</span>
-            <span class="line-code"> commit</span>
-            <span class="line-code"> }, userInfo) => {</span>
-            <span class="line-code"> commit(types.SET_USERINFO, userInfo);</span>
-            <span class="line-code"> },</span>
-            <span class="line-code"> clearCurrentState: ({//清除所有状态</span>
-            <span class="line-code"> commit</span>
-            <span class="line-code"> }) => {</span>
-            <span class="line-code"> commit(types.SET_AUTHENTICATED, false);</span>
-            <span class="line-code"> commit(types.SET_USER, null);</span>
-            <span class="line-code"> commit(types.SET_USERINFO, null);</span>
-            <span class="line-code"> }</span>
-            <span class="line-code">}</span>
-            <span class="line-code">export default new Vuex.Store({</span>
-            <span class="line-code"> state,</span>
-            <span class="line-code"> getters,</span>
-            <span class="line-code"> mutations,</span>
-            <span class="line-code"> actions</span>
-            <span class="line-code">})</span>
+            </p>
+            <textarea>
+                    import Vue from 'vue'
+                    import Vuex from 'vuex'
+                    
+                    Vue.use(Vuex)
+                    
+                    const types = {
+                        SET_AUTHENTICATED: "SET_AUTHENICATED",
+                        SET_USER: "SET_USER",
+                        SET_BLOG: "SET_BLOG",
+                        SET_USERINFO: "SET_USERINFO"
+                    }
+                    
+                    const state = {
+                        isAuthenticated: false, //授权状态
+                        user: {}, //email,name,id
+                        blog: {}, //请求的blog
+                        userInfo: {} //temporarySave(暂存区),saveTime(保存时间)
+                    }
+                    
+                    const getters = {
+                        isAuthenticated: state => state.isAuthenticated,
+                        user: state => state.user,
+                        blog: state => state.blog,
+                        userInfo: state => state.userInfo
+                    }
+                    
+                    const mutations = {
+                        //es6计算属性
+                        [types.SET_AUTHENTICATED](state, isAuthenticated) {
+                            isAuthenticated ? state.isAuthenticated = isAuthenticated : state.isAuthenticated = false;
+                            //如果有授权的话就是store.isAuthenticates为true，否则为false
+                        },
+                    
+                        [types.SET_USER](state, user) {
+                            user ? state.user = user : state.user = {};
+                        },
+                    
+                        [types.SET_BLOG](state, blog) {
+                            blog ? state.blog = blog : state.blog = {};
+                        },
+                    
+                        [types.SET_USERINFO](state, userInfo) {
+                            userInfo ? state.userInfo = userInfo : state.userInfo = {};
+                        },
+                    }
+                    
+                    const actions = {
+                        //setAuthenticated
+                        setAuthenticated: ({
+                            commit
+                        }, isAuthenticated) => {
+                            commit(types.SET_AUTHENTICATED, isAuthenticated);
+                        },
+                        setUser: ({
+                            commit
+                        }, user) => {
+                            commit(types.SET_USER, user);
+                        },
+                        setBlog: ({
+                            commit
+                        }, blog) => {
+                            commit(types.SET_BLOG, blog);
+                        },
+                        setUserInfo: ({
+                            commit
+                        }, userInfo) => {
+                            commit(types.SET_USERINFO, userInfo);
+                        },
+                        clearCurrentState: ({
+                            commit
+                        }) => {
+                            commit(types.SET_AUTHENTICATED, false);
+                            commit(types.SET_USER, null);
+                            commit(types.SET_USERINFO, null);
+                        }
+                    }
+                    export default new Vuex.Store({
+                        state,
+                        getters,
+                        mutations,
+                        actions
+                    })
+            </textarea>
+           <p>
             state里的都是要维护的状态，然后在其它组件中通过getters获取，
             同步修改状态使用commit提交mutation,异步修改状态使用dispatch提交action
+        </p>
         </div>
         <div class="component" id="localstorage">
             <h1 align="left">localStorage</h1>
@@ -431,7 +441,47 @@
         font-size: 2em;
         padding: 10px;
     }
+    p{
+        text-indent:2em;
+        text-align: left;
+        line-height: 24px;
+        border:0;
+        background-color: rgb(250,250,250);
+        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+    }
+    a{
+        color: black;
+    }
+    textarea{
+        background-color: rgba(40,44,52);
+        color:rgb(255,255,255);
+        font-size: 16px;
+        line-height: 24px;
+        border-radius: 3px;
+        min-width: 100%;
+        margin:20px 0;
+        padding: 20px 0;
+        overflow-y: auto;
+        min-height: 125px;
+        font-family: Arial, Helvetica, sans-serif;
+        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+    }
+    
 
+    .line-code {
+        display: inline-block;
+        background-color: rgba(40,44,52);
+        color:rgb(255,255,255);
+        font-size: 16px;
+        line-height: 24px;
+        border-radius: 3px;
+        min-width: 100%;
+        margin:20px 0;
+        padding: 5px 0;
+        overflow-y: auto;
+        font-family: Arial, Helvetica, sans-serif;
+    }
     .about {
         padding: 20px;
     }
@@ -456,6 +506,7 @@
     ul {
         padding: 20px;
         list-style-type: disc;
+        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
     }
 
     li {
@@ -480,13 +531,7 @@
         color: black;
         border-radius: 4px;
         display: inline-block;
-    }
-
-    .line-code {
-        background-color: #BEEDC7;
-        text-indent: 0;
-        padding: 2px 5px 2px 5px;
-        display: block;
+        
     }
 
     .component {

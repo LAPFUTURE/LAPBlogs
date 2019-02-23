@@ -73,7 +73,7 @@
             <p>组件之间传值使用props感觉有点累，所以虽然这个网站前台并不是很复杂，但我还是选择用vuex来维护状态。
             在src/store.js(没有则新建)添加以下代码：
             </p>
-            <textarea>
+            <textarea disabled="disabled">
                     import Vue from 'vue'
                     import Vuex from 'vuex'
                     
@@ -164,105 +164,121 @@
         </div>
         <div class="component" id="localstorage">
             <h1 align="left">localStorage</h1>
-            众所周知cookie只能存4kb，并且cookie一开始的作用是维持http状态，
+            <p>众所周知cookie只能存4kb，并且cookie一开始的作用是维持http状态，
             让服务器通过cookie知道你是谁，后来cookie又被迫承担本地存储的担子，小小身板大能量。
             后来localStorage出现了，它是用来分担和代替cookie肩上的担子的。
             localStorage和cookie同样遵循浏览器的同源策略，并且存储容量可以达到5-10M。
             存储在其中的数据永远也不会过期，除非使用localStorage.removeItem()或者localStorage.clear();
-            <br>
-            存储数据：<span class="code">localStorage.setItem('name',"lap" )</span>
-            <br>
-            读取数据：<span class="code">localStorage.getItem('name')</span>
-            <br>
-            删除数据：<span class="code">localStorage.removeItem('name')</span>
-            <br>
-            删除所有数据：<span class="code">localStorage.clear()</span>
+            </p>
+            <textarea disabled="disabled">
+                localStorage.setItem('name',"lap" )//存储数据
+                localStorage.getItem('name')//读取数据
+                localStorage.removeItem('name')//删除数据
+                localStorage.clear()//删除所有数据
+            </textarea>
         </div>
         <div class="component" id="axios">
             <h1 align="left">Axios</h1>
-            现在引入axios,并对其封装拦截请求，在src下的http.js(没有的话就新建一个)，下面的代码可以跳过，直接看解析。
-            <span class="line-code">import axios from 'axios'</span>
-            <span class="line-code">import {Message,Loading} from 'element-ui'</span>
-            <span class="line-code">import router from './router'</span>
-            <span class="line-code">let loading;</span>
-            <span class="line-code">function startLoading(){</span>
-            <span class="line-code"> loading = Loading.service({</span>
-            <span class="line-code"> lock:true,</span>
-            <span class="line-code"> text:'Loading...',</span>
-            <span class="line-code"> background:'rgb(0,0,0,0.7)'</span>
-            <span class="line-code"> });</span>
-            <span class="line-code">}</span>
-            <span class="line-code">function endLoading(){</span>
-            <span class="line-code"> loading.close();</span>
-            <span class="line-code">}</span>
-            <span class="line-code">axios.interceptors.request.use(//发送请求前拦截请求,将eleToken加入到headers.Authorization</span>
-            <span class="line-code"> (config)=>{</span>
-            <span class="line-code"> startLoading();</span>
-            <span class="line-code"> if(localStorage.eleToken){//第一次登录时eleTokenk肯定是空的，如果有则说明是已登录用户，已登录则要设置请求头带上token</span>
-            <span class="line-code"> <strong> config.headers.Authorization = localStorage.eleToken;</strong>//设置请求头带上token</span>
-            <span class="line-code"> // console.log(config.headers.Authorization)</span>
-            <span class="line-code"> }</span>
-            <span class="line-code"> return config;</span>
-            <span class="line-code"> },</span>
-            <span class="line-code"> (error)=>{</span>
-            <span class="line-code"> return Promise.reject(error);</span>
-            <span class="line-code"> }</span>
-            <span class="line-code">)</span>
-            <span class="line-code">axios.interceptors.response.use(</span>
-            <span class="line-code"> (response)=>{//返回拦截</span>
-            <span class="line-code"> endLoading();</span>
-            <span class="line-code"> return response;</span>
-            <span class="line-code"> },error=>{</span>
-            <span class="line-code"> console.log(error);</span>
-            <span class="line-code"> endLoading();</span>
-            <span class="line-code"> Message.error("请求出错，请重试!");</span>
-            <span class="line-code"> let { status } = error.response;</span>
-            <span class="line-code"> if(status == 401){</span>
-            <span class="line-code"> Message.error("时间已过期，请重新登录!");</span>
-            <span class="line-code"> localStorage.removeItem("eleToken");</span>
-            <span class="line-code"> router.push('/login');</span>
-            <span class="line-code"> }</span>
-            <span class="line-code"> return Promise.reject(error);</span>
-            <span class="line-code"> }</span>
-            <span class="line-code">)</span>
-            <span class="line-code">export default axios;</span>
-            上面出现了headers.Authorization，字段跨域存放token凭证,
+            <p>现在引入axios,并对其封装拦截请求，在src下的http.js(没有的话就新建一个)，下面的代码可以跳过，直接看解析。
+            </p>
+            <textarea disabled="disabled">
+            import axios from 'axios'
+            import {Message,Loading} from 'element-ui'
+            import router from './router'
+
+            let loading;
+            function startLoading(){
+                loading = Loading.service({
+                lock:true,
+                text:'Loading...',
+                background:'rgb(0,0,0,0.7)'
+                });
+            }
+            function endLoading(){
+                loading.close();
+            }
+            axios.interceptors.request.use(//发送请求前拦截请求,将eleToken加入到headers.Authorization
+             (config)=>{
+                startLoading();
+                if(localStorage.eleToken){//第一次登录时eleTokenk肯定是空的，如果有则说明是已登录用户，已登录则要设置请求头带上token
+                <strong> config.headers.Authorization = localStorage.eleToken;</strong>//设置请求头带上token
+             }
+             return config;
+             },
+            (error)=>{
+                return Promise.reject(error);
+            }
+            )
+            axios.interceptors.response.use(
+             (response)=>{//返回拦截
+                endLoading();
+                return response;
+             },error=>{
+                endLoading();
+                Message.error("请求出错，请重试!");
+                let { status } = error.response;
+             if(status == 401){
+                Message.error("时间已过期，请重新登录!");
+                localStorage.removeItem("eleToken");
+                router.push('/login');
+             }
+                return Promise.reject(error);
+             }
+            )
+            export default axios;
+        </textarea>
+            <p>上面出现了headers.Authorization，字段跨域存放token凭证,
             服务器通过这个字段认证请求者的身份。上面代码表明axios每次发送请求
             都会被拦截下来填装headers.Authorization,如果本地有eleToken说明登录了，然后把token填上去。
             如果为空，说明是登录请求。当请求返回，也被axios拦截，判断返回状态，做相应处理。
+            </p>
         </div>
         <div class="component" id="proxy">
             <h1 align="left">代理和跨域</h1>
-            重头戏来了，其实跨域这个问题大家肯定也是看了n篇文章了吧，真的是老生常谈，
+            <p>重头戏来了，其实跨域这个问题大家肯定也是看了n篇文章了吧，真的是老生常谈，
             但是呢这个还是需要讲一讲的。不过不是讲跨域是什么，而是讲比较我个人对跨域和代理的理解。
             首先基于浏览器的同源安全策略，浏览器如果直接请求不同域的后台，那么浏览器会报错。
             首先要明白跨域只会发生在浏览器，如果是不同域的服务器请求服务器则不会发生，
             比如说你用php的curl，nodejs的request，postman...发送请求给服务器都不会报跨域的错。
-            后面会讲nginx的代理，可以解决跨域，不过现在不讲。<br>
+            后面会讲nginx的代理，可以解决跨域。</p>
+            <br>
+            <p>
             根本的解决办法就是在后台接受请求时设置cors,以NodeJs为例res.header("Access-Control-Allow-Origin", "*");
             *说明服务器允许所有请求。一般还是得设置个白名单，只允许名单里的请求，这是给浏览器看的。其实浏览器
             发送请求给服务器，即使跨域了，服务器也会处理这个请求并返回数据，只是浏览器把着关，只要response的
             响应头Access-Control-Allow-Origin的值与浏览器发送请求的当前域是不同域，那么这个响应就会被浏览器挡住。
             浏览器发送请求时headers会有origin字段(ajax2才有,不过现在基本上都是ajax2了)，后台对其验证，通过
             了，那么response响应头会有Access-Control-Allow-Origin：*或者是当前域。然后我个人感觉服务器配置好cors
-            才是解决跨域的根本方法，像jsonp什么的就是耍流氓，别喷我，开个玩笑，调侃一下。<br>
+            才是解决跨域的根本方法，像jsonp什么的就是耍流氓，别喷我，开个玩笑，调侃一下。</p>
+            <br>
+            <p>
             另外，vue在本地开发环境时会有个devServer下的proxy配置,肯定有许多人配过这个，我也配过。不过这个东西我现在觉得
             有点鸡肋，于是我把它注释掉了，照样运行。
+            </p>
             <div class="img">
                 <img src="../assets/proxy.jpg" alt="">
             </div>
-            为什么我说它用处不大呢？理由如下：<br>
-            0.解决跨域只要后台cors设置好就不会有跨域的错，它这里搞个代理用处不大。<br>
+            <p>
+                为什么我说它用处不大呢？理由如下:
+            </p>
+            <br>
+            <p>0.解决跨域只要后台cors设置好就不会有跨域的错，它这里搞个代理用处不大。<br>
+            </p>
+            <br>
+            <p>
             1.这个东西只有在开发环境有用，在线上的时候还是得改接口。即使上面target改成线上地址，
             我npm run build后打包，axios请求的地址仍然不是线上地址。所以我想了一个办法可以解决：
             在src/main.js添加下面代码
-            <span class="line-code">if(process.env.NODE_ENV === 'production'){ // 生产环境,线上环境</span>
-            <span class="line-code"> Vue.prototype.host = 'http://node_api.connectyoume.top';</span>
-            <span class="line-code">}else if(process.env.NODE_ENV === 'test'){ //测试环境</span>
-            <span class="line-code"> Vue.prototype.host = '';</span>
-            <span class="line-code">}else if(process.env.NODE_ENV === 'development'){ // 开发环境</span>
-            <span class="line-code"> Vue.prototype.host = 'http://localhost:8009';</span>
-            <span class="line-code">}</span>
+            </p>
+            <textarea disabled="disabled">(process.env.NODE_ENV === 'production'){ // 生产环境,线上环境
+             Vue.prototype.host = 'http://node_api.connectyoume.top';
+            }else if(process.env.NODE_ENV === 'test'){ //测试环境
+             Vue.prototype.host = '';
+            }else if(process.env.NODE_ENV === 'development'){ // 开发环境
+             Vue.prototype.host = 'http://localhost:8009';
+            }
+            </textarea>
+            <p>
             process.env.NODE_ENV有三个值'production'(生产环境)，'development'(开发环境),'test'(测试环境)
             process.env.NODE_ENV会根据你的编译环境改变，<br>
             当你运行npm run serve时，process.env.NODE_ENV的值为'development';<br>
@@ -270,55 +286,68 @@
             process.env.NODE_ENV的值为test时我也没用过，没搞过测试。<br>
             然后Vue.prototype.host的值就会根据你执行的命令不同对应到不同的值，然后我们知道在
             组件中可以用this访问Vue实例，于是axios发送请求时用this.host+接口路由,比如：<br>
-            <span class="line-code">mounted(){</span>
-            <span class="line-code"> this.$axios.get(<strong>this.host + "/api/quote/getQuote"</strong>)</span>
-            <span class="line-code"> .then((res)=>{</span>
-            <span class="line-code"> let data = res.data.data;</span>
-            <span class="line-code"> if(data){</span>
-            <span class="line-code"> this.img.content = data.content;</span>
-            <span class="line-code"> this.img.address = data.origin_img_urls[0];</span>
-            <span class="line-code"> this.img.author = data.author;</span>
-            <span class="line-code"> this.img.translation = data.translation;</span>
-            <span class="line-code"> }})</span>
-            <span class="line-code"> .catch((err)=>{</span>
-            <span class="line-code"> console.log(err);</span>
-            <span class="line-code"> })</span>
-            <span class="line-code">}</span>
-            如果是开发环境：this.host+"/api/quote/getQuote"等同于http://localhost:8009/api/quote/getQuote<br>
-            如果是线上环境：this.host+"/api/quote/getQuote"等同于http://node_api.connectyoume.top/api/quote/getQuote<br>
-            虽然每次要加个this.host,但是可以省去我打包后上线的接口问题。
+            </p>
+            <textarea> mounted(){
+             this.$axios.get(<strong>this.host + "/api/quote/getQuote"</strong>)
+             .then((res)=>{
+             let data = res.data.data;
+             if(data){
+             this.img.content = data.content;
+             this.img.address = data.origin_img_urls[0];
+             this.img.author = data.author;
+             this.img.translation = data.translation;
+             }})
+             .catch((err)=>{
+             console.log(err);
+             })
+            }
+            </textarea>
+            <p>
+                如果是开发环境：this.host+"/api/quote/getQuote"等同于http://localhost:8009/api/quote/getQuote<br>
+                如果是线上环境：this.host+"/api/quote/getQuote"等同于http://node_api.connectyoume.top/api/quote/getQuote<br>
+                虽然每次要加个this.host,但是可以省去我打包后上线的接口问题。
+            </p>
         </div>
         <div class="component" id="jwt-decode">
             <h1 align="left">jwt-decode</h1>
+            <p>
             本来这只是个解码token的，但是因为跟jsonwebtoken有关，所以还是讲一下。
             因为token是有三段，由两个逗号隔开，被base64加密了一下。
             里面存放的可以是用户名，用户id什么的。使用jwt-decode：
-            <span class="code">npm install jwt-decode</span>
+            
+            安装:<span class="code">npm install jwt-decode</span>
             在组件里<span class="code">import jwt_decode from 'jwt-decode';</span>
             前台登录完后,后台返回token,
             <span class="code">let decoded = jwt_decode(token);</span>
             详细代码的话在Login.vue里。后面会贴出仓库地址，有兴趣的可以看一下。
+        </p>
         </div>
         <div class="component" id="tinymce">
             <h1 align="left">Tinymce</h1>
+            <p>
             个人觉得这款富文本编辑器相当精巧好看，并且还支持vue,react,angular等，挺不错的。
             缺点就是加载太慢了，人家网站在国外，然后还是太慢了。。。
+            </p>
             <div class="img">
                 <img src="../assets/tinymce.jpg" alt="">
             </div>
-            如何使用它呢，官方文档全是英文，考验英语水平的时候到了。英语就英语呗，还不是照样搞定它
-            在vue里安装和使用使用它：<span class="line-code">npm install @tinymce/tinymce-vue</span>
-            在vue组件中使用它(详细见Write.vue):
-            <span class="line-code">import Editor from '@tinymce/tinymce-vue';</span>
-            <span class="line-code"> export default {</span>
-            <span class="line-code"> components: {</span>
-            <span class="line-code"> 'editor':Editor}</span>
-            <span class="line-code"> },</span>
-            <span class="line-code">&ltdiv class="tinymce-container"&gt</span>
-            <span class="line-code"> &lteditor v-model="temporarySave.content"
-                api-key="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6" :init="init"&gt</span>
-            <span class="line-code"> &lt/editor&gt</span>
-            <span class="line-code"> &lt/div&gt</span>
+            <p>
+                如何使用它呢，官方文档全是英文，考验英语水平的时候到了。英语就英语呗，还不是照样搞定它
+                在vue里安装和使用使用它：<span class="line-code">npm install @tinymce/tinymce-vue</span>
+                在vue组件中使用它(详细见Write.vue):
+            </p>
+            <textarea disabled="disabled"> import Editor from '@tinymce/tinymce-vue';
+             export default {
+             components: {
+             'editor':Editor}
+             },
+            &ltdiv class="tinymce-container"&gt
+             &lteditor v-model="temporarySave.c
+                api-key="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6" :init="init"&gt
+             &lt/editor&gt
+             &lt/div&gt
+        </textarea>
+        <p>
             tinymce的初始化可以好好看一下文档，定制成你想要的样式。然后就是获得编辑框的内容是通过
             v-model="temporarySave.content",内容全是html字符，然后发送提交给后台，后台存数据库，
             然后要用的时候再把html字符串显示出来，那么就跟编辑时的样式一样。
@@ -334,6 +363,8 @@
             <span class="code">apiKey="px3f3ogu2ob3hoqc6oiosfldxiju2f4br3s695fd1v4ssvi6"</span>,
             如果想更方便的话还是要注册一个，反正也不是很费时间。
             放个图片吧：
+        </p>
+        <br>
             <div class="img">
                 <img src="../assets/tinykey.jpg" alt="">
             </div>
@@ -455,7 +486,7 @@
     }
     textarea{
         background-color: rgba(40,44,52);
-        color:rgb(255,255,255);
+        color:rgb(245,245,245);
         font-size: 16px;
         line-height: 24px;
         border-radius: 3px;
@@ -467,7 +498,6 @@
         font-family: Arial, Helvetica, sans-serif;
         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
     }
-    
 
     .line-code {
         display: inline-block;

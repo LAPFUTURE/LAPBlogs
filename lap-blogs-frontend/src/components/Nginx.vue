@@ -54,22 +54,26 @@
         </div>
         <div class="component" id="download">
             <h1 align="left">下载与安装</h1>
+            <p>
             网上教程遍地开花，所以我就不浪费大家时间了。请根据自家电脑和服务器的系统（linux,windows）自行goole，百度，必应。。。嘻嘻。
             安装好后使用下面几条命令简单操作nginx：
             开启nginx:windows:<span class="code">start nginx</span>,linux:<span class="code">nginx</span>;
             退出nginx:<span class="code">nginx -s quit</span>,如果你的是windows，nginx -s quit没有用的话就用.\nginx -s quit试一下;
             重启nginx:<span class="code">nginx -s reload</span>;
-
+            </p>
         </div>
         <div class="component" id="proxy">
             <h1 align="left">正向代理和反向代理</h1>
+            <p>
             既然要学nginx,那么就得知道正向代理和反向代理的意思。因为nginx主要就是干反向代理的。言归正传：<br>
             正向代理：vpn大家都用过吧，它就是正向代理的例子：
+        </p>
             <br>
             <div class="img">
                 <img src="../assets/proxyserver.jpg" alt="">
             </div>
             <br>
+            <p>
             我们无法直接请求到server,需要先请求proxy,然后proxy再请求server,
             server把响应数据返回给proxy,然后proxy再把数据(可能封装了)返回给客户端。
             而我们使用vpn的用途就是访问国外的资源（该资源无法直接请求获得），
@@ -77,36 +81,43 @@
             在日本的服务器，然后这个服务器是可以访问google的服务的。我们就先
             访问该服务器，然后该服务器再去请求google服务，于是就绕开了墙。
             简言之，<strong>正向代理就是proxy服务器代理的是客户端</strong>，这个例子希望可以帮助你理解正向代理。
+        </p>
             <br>
+            <P>
             然后我们现在讲反向代理：
+        </P>
             <br>
             <div class="img">
                 <img src="../assets/reverseproxy.jpg" alt="">
             </div>
+            <P>
             从图中可以看出,<strong>反向代理就是proxy服务器代理的是服务器</strong>。
             服务器们对外提供一个统一的入口，客户端的请求先经过代理服务器，具体客户端访问
             哪个服务器是由nginx控制的。服务器一般组成一个集群，然后nginx负责把请求
             分发给集群，这就是nginx的功能负载均衡。
+        </P>
         </div>
         <div class="component" id="affect">
             <h1 align="left">Nginx在这个网站的作用</h1>
+            <p>
             在讲作用nginx在这个LAPBlogs体现的作用之前，我们先把几段伪代码展示一下：
-            <span class="line-code">server{</span>
-            <span class="line-code"> listen 80;</span>
-            <span class="line-code"> server_name lapBlogs.connectyoume.top;</span>
-            <span class="line-code"> location / {</span>
-            <span class="line-code"> route html;</span>
-            <span class="line-code"> index lapblogs/index.html</span>
-            <span class="line-code"> }</span>
-            <br>
-            <span class="line-code">server{</span>
-            <span class="line-code"> listen 80;</span>
-            <span class="line-code"> server_name node_api.connectyoume.top;</span>
-            <span class="line-code"> location / {</span>
-            <span class="line-code"> proxy_pass http://localhost:8010;</span>
-            <span class="line-code"> }</span>
-            <span class="line-code">}</span>
-
+            </p>
+            <textarea disabled="disabled">
+            server{
+             listen 80;
+             server_name lapBlogs.connectyoume.top;
+             location / {
+             route html;
+             index lapblogs/index.html
+            server{
+             listen 80;
+             server_name node_api.connectyoume.top;
+             location / {
+             proxy_pass http://localhost:8010;
+             }
+            }
+        </textarea>
+        <P>
             这里我们再讲nginx在LAPBlogs这个站点的作用:客户端访问
             lapblogs.connectyoume.top,这个请求匹配的是
             nginx listen 80和server_name lapBlogs.connectyoume.top，
@@ -115,57 +126,69 @@
             这个请求会被代理到http://localhost:8010，比如说：
             http://node_api.connectyoume.top/user/login这个请求会被代理到
             http://localhost:8015/user/login。
+        </P>
         </div>
         <div class="component" id="others">
             <h1 align="left">Others</h1>
+            <P>
             gzip,适配PC或移动设备(根据不同的设备响应不同的文件)，对于错误页面（404，500等）的处理。
+        </P>
             <br>
+            <P>
             对于gzip，apache和nginx都可以配置。
             我的使用体验:gzip简直就是优化利器。我们知道单页面应用的
             一个缺点就是初始化时间长，首屏渲染给用户的体验差一些。
             拿LAPBlogs举例，没开gzip之前，LAPBlogs首屏加载要7秒(可能网速确实太慢)，
             开了gzip之后，在相同网速条件下时间只要1.3秒(虽然还是很长)，但是gzip的效果是
             立竿见影的。在nginx开启gzip是很简单的：只要在nginx.conf中添加如下代码：
-            <span class="line-code">gzip on;#开启gzip</span>
-            <span class="line-code">gzip_min_length 1k;#对大于1k的文件进行gzip压缩</span>
-            <span class="line-code">gzip_comp_level 7;#压缩等级1-9，越大说明压缩程度越高同时也越消耗服务器资源</span>
-            <span class="line-code">gzip_types text/plain application/javascript text/css application/xml
+        </P>
+        <textarea disabled="disabled">
+            gzip on;#开启gzip
+            gzip_min_length 1k;#对大于1k的文件进行gzip压缩
+            gzip_comp_level 7;#压缩等级1-9，越大说明压缩程度越高同时也越消耗服务器资源
+            gzip_types text/plain application/javascript text/css applicat
                 text/javascript application/x-httpd-php image/jpeg image/gif image/png image/webp;#要进行压缩的文件格式</span>
-            还有一些配置项，但这里也就展开说明上述入门配置。
+        </textarea>
             <br>
+            <p>
             对于适配，我们知道http的request的headers会携带许多信息，而这里要用到的就是
             user-agent。nginx根据user-agent判断是pc还是移动端，从而将请求处理（或转发或响应不同的文件），由于LAP现在只做好了pc,并且样式还丑，大家凑合着看吧，
             从移动端访问则只有一个静态网页（当然也有可能你手机型号并没有在我的处理名单中，就会翻车）。
             在nginx的nginx.conf文件添加如下配置：
-            <span class="line-code">server{</span>
-            <span class="line-code"> listen 80;</span>
-            <span class="line-code"> server_name lapBlogs.connectyoume.top;</span>
-            <span class="line-code"> location / {</span>
-            <span class="line-code"> root html;</span>
-            <span class="line-code"> if ($http_user_agent ~*
+        </p>
+        <textarea disabled="disabled">
+            server
+             listen 80
+             server_name lapBlogs.connectyoume.top
+             location / 
+             root html
+             if ($http_user_
                 'Android|webOS|iPhone|iPod|BlackBerry|mobile|nokia|samsung|htc|huawei') {</span>
-            <span class="line-code"> root mobile;#<strong>如果user-agent是移动端，则让root目录为mobile，跟下面的index连起来就是移动端的响应文件是mobile/lapBlogs/index.html,pc端的响应文件是html/lapBlogs/index.html</strong></span>
-            <span class="line-code"> }</span>
-            <span class="line-code"> index lapBlogs/index.html;</span>
-            <span class="line-code"> }</span>
-            <span class="line-code"> error_page 404 /lapBlogs/index.html;#这里则是让404页面也指向index.html页面，有点偷懒</span>
-            <span class="line-code">}</span>
+             root mobile;#<strong>如果user-agent是移动端，则让root目录为mobile，跟下面的index连起来就是移动端的响应文件是mobile/lapBlogs/index.html,pc端的响应文件是html/lapBlogs/index.html</strong>
+             }
+             index lapBlogs/index.html;
+             }
+             error_page 404 /lapBlogs/index.html;#这里则是让404页面也指向index.html页面，有点偷懒
+            }
             权限限制，nginx可以控制哪些文件可以被访问;
             <br>
             还有负载均衡，需要定义一个上游服务器集群:
-            <span class="line-code">upstream <strong>back_servers</strong>{</span>
-            <span class="line-code"> server 127.0.0.1:8001;</span>
-            <span class="line-code"> server 127.0.0.1:8002;</span>
-            <span class="line-code"> server 127.0.0.1:8003;</span>
-            <span class="line-code">}</span>
-            <span class="line-code">server{</span>
-            <span class="line-code"> listen 80;</span>
-            <span class="line-code"> server_name lapblogs.connectyoume.top;</span>
-            <span class="line-code"> proxy_pass <strong>http:back_servers</strong></span>
-            <span class="line-code">}</span>
+            upstream <strong>back_servers</strong>{
+             server 127.0.0.1:8001;
+             server 127.0.0.1:8002;
+             server 127.0.0.1:8003;
+            }
+            server{
+             listen 80;
+             server_name lapblogs.connectyoume.top;
+             proxy_pass <strong>http:back_servers</strong>
+            }
+        </textarea>
+        <p>
             上述代码的意思就是将lapblogs.connectyoume.top的请求由nginx的负载均衡策略分发给服务器们。
             这个策略可以自己调。LAPBlogs这个小网站就没有去弄服务器集群了，
             这破网站都要负载均衡了，那我不得要上天？
+        </p>
         </div>
 
         <router-link to="/vue">
@@ -257,8 +280,50 @@
     h1 {
         font-size: 2em;
         padding: 10px;
+        /* background-color: rgba(40,44,52);
+        color:rgb(250,250,250); */
+
+    }
+    p{
+        text-indent:2em;
+        text-align: left;
+        line-height: 24px;
+        border:0;
+        background-color: rgb(250,250,250);
+        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+    }
+    a{
+        color: black;
+    }
+    textarea{
+        background-color: rgba(40,44,52);
+        color:rgb(245,245,245);
+        font-size: 16px;
+        line-height: 24px;
+        border-radius: 3px;
+        min-width: 100%;
+        margin:20px 0;
+        padding: 20px 0;
+        overflow-y: auto;
+        min-height: 125px;
+        font-family: Arial, Helvetica, sans-serif;
+        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
     }
 
+    .line-code {
+        display: inline-block;
+        background-color: rgba(40,44,52);
+        color:rgb(255,255,255);
+        font-size: 16px;
+        line-height: 24px;
+        border-radius: 3px;
+        min-width: 100%;
+        margin:20px 0;
+        padding: 5px 0;
+        overflow-y: auto;
+        font-family: Arial, Helvetica, sans-serif;
+    }
     .about {
         padding: 20px;
     }
@@ -283,6 +348,7 @@
     ul {
         padding: 20px;
         list-style-type: disc;
+        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
     }
 
     li {
@@ -295,7 +361,7 @@
         min-width: 100px;
     }
 
-    .nginx {
+    .vue {
         margin-right: 125px;
     }
 
@@ -307,14 +373,7 @@
         color: black;
         border-radius: 4px;
         display: inline-block;
-    }
-
-    .line-code {
-        /* background-color:rgb(66,185,131); */
-        background-color: #BEEDC7;
-        text-indent: 0;
-        padding: 2px 5px 2px 5px;
-        display: block;
+        
     }
 
     .component {
@@ -350,7 +409,6 @@
     }
 
     .right-bottom>ul {
-        width: 110px;
         padding: 0px;
         list-style: none;
         text-align: center;

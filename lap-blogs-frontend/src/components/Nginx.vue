@@ -280,8 +280,6 @@
     h1 {
         font-size: 2em;
         padding: 10px;
-        /* background-color: rgba(40,44,52);
-        color:rgb(250,250,250); */
 
     }
     p{

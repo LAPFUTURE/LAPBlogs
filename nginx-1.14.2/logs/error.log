@@ -172,3 +172,7 @@
 2019/02/21 17:48:34 [error] 14148#2088: *13 upstream timed out (10060: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond) while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/blogs/requestBlogs HTTP/1.1", upstream: "http://[::1]:8010/api/blogs/requestBlogs", host: "localhost:8009", referrer: "http://127.0.0.1:8081/"
 2019/02/21 17:50:43 [error] 14148#2088: *38 no live upstreams while connecting to upstream, client: 127.0.0.1, server: localhost, request: "GET /api/quote/getQuote HTTP/1.1", upstream: "http://localhost/api/quote/getQuote", host: "localhost:8009", referrer: "http://127.0.0.1:8081/"
 2019/02/22 21:46:06 [notice] 1356#14108: signal process started
+2019/03/01 19:12:00 [emerg] 14676#8176: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2019/03/01 19:18:47 [notice] 4176#15784: signal process started
+2019/03/01 19:18:47 [error] 4176#15784: OpenEvent("Global\ngx_quit_13604") failed (2: The system cannot find the file specified)
+2019/03/01 19:19:14 [emerg] 11116#16004: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)

@@ -154,8 +154,6 @@
         data() {
             return {
                 color: "#24292e",
-                nodeApi: "nodeAPI!",
-                pythonApi: "pythonAPI!",
                 search: '',
                 avatar_addr: "https://avatars2.githubusercontent.com/u/37266366?s=40&v=4",
             }

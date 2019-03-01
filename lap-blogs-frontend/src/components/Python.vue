@@ -115,46 +115,68 @@
             <p>
             <strong>查询:</strong>利用find_one()或find()方法进行查询，其中find_one()查询得到的是单个结果，find()则返回一个生成器对象。
             </p>
-            <span class="line-code">blog = Blogs.find_one(ObjectId(userBlogsId))#根据ObjectId查询</span>
-            <span class="line-code">users = Users.find({'age': {'$gt': 20}})#查询age>20</span>
-            另外也可以使用正则
+            <textarea disabled="disabled">
+            blog = Blogs.find_one(ObjectId(userBlogsId))#根据ObjectId查询
+            users = Users.find({'age': {'$gt': 20}})#查询age>20
+            #另外也可以使用正则
+            </textarea>
             <br>
+            <P>
             <strong>插入:</strong>使用insert_one()和insert_many()方法来分别插入单条记录和多条记录,
             insert_one()返回的是InsertOneResult对象，可以调用其inserted_id属性获取_id；insert_many()返回的是InsertManyResult，
             调用inserted_ids属性可以获取插入数据的_id列表。
-            <span class="line-code">user = {</span>
-            <span class="line-code"> "email":"1314@qq.com",</span>
-            <span class="line-code"> "name":"LAPFUTURE",</span>
-            <span class="line-code"> "password":789</span>
-            <span class="line-code">}</span>
-            <span class="line-code">result = Users.insert_one(user)</span>
-            <span class="line-code">print(result.inserted_id)</span>
+            </P>
+            <textarea disabled="disabled">
+                user = {
+                "email":"1314@qq.com",
+                "name":"LAPFUTURE",
+                "password":789
+                }
+                result = Users.insert_one(user)
+                print(result.inserted_id)
+            </textarea>
             <br>
-            <span class="line-code">user1 = {"name":"user1"}</span>
-            <span class="line-code">user2 = {"name":"user2"}</span>
-            <span class="line-code">result = Users.insert_many([user1,user2])</span>
-            <span class="line-code">print(result.inserted_ids)</span>
-            <strong>更新:</strong>update_one()方法和update_many()方法,返回结果是UpdateResult类型。
-            <span class="line-code">user = Users.find_one({'name': 'LAPFUTURE'})</span>
-            <span class="line-code">user['age'] = 18</span>
-            <span class="line-code">result = Users.update_one({'name': 'LAPFUTURE'}, {'$set': user})</span>
+            <textarea disabled="disabled">
+                user1 = {"name":"user1"}
+                user2 = {"name":"user2"}
+                result = Users.insert_many([user1,user2])
+                print(result.inserted_ids)
+            </textarea>
+            <p>
+                <strong>更新:</strong>update_one()方法和update_many()方法,返回结果是UpdateResult类型。
+            </p>
+            <textarea>
+            user = Users.find_one({'name': 'LAPFUTURE'})
+            user['age'] = 18
+            result = Users.update_one({'name': 'LAPFUTURE'}, {'$set': user})
+            </textarea>
             <br>
             <span class="line-code">result = Blogs.update_many({'type': "python"}, {'$set': {'star':
                 999}})#将所有类型为python的博客的star置为999</span>
-            <strong>删除:</strong>delete_one()和delete_many(),delete_one()会删除第一条符合条件的数据，delete_many()会删除所有符合条件的数据。
-            它们的返回结果都是DeleteResult类型。可以使用deleted_count属性来获取删除的数据条数。
-            <span class="line-code">result = Users.delete_one({'name': 'LAPFUTURE'})</span>
-            <span class="line-code">print(result)</span>
-            <span class="line-code">print(result.deleted_count)</span>
+            <p>
+                <strong>删除:</strong>delete_one()和delete_many(),delete_one()会删除第一条符合条件的数据，delete_many()会删除所有符合条件的数据。
+                它们的返回结果都是DeleteResult类型。可以使用deleted_count属性来获取删除的数据条数。
+            </p>
+            <textarea disabled="disabled">
+                result = Users.delete_one({'name': 'LAPFUTURE'})
+                print(result)
+                print(result.deleted_count)
+            </textarea>
             <br>
-            <span class="line-code">result = Blogs.delete_many({'type: "python"})</span>
-            <span class="line-code">print(result.deleted_count)</span>
-            上面都是简单的操作方法，还有排序，计数等等，大家可以查看文档。
+            <textarea disabled="disabled">
+                result = Blogs.delete_many({'type: "python"})
+                print(result.deleted_count)
+            </textarea>
+            <p>
+                上面都是简单的操作方法，还有排序，计数等等，大家可以查看文档。
+            </p>
         </div>
         <div class="component" id="others">
             <h1 align="left">Others</h1>
+            <p>
             就是做到现在，压根就没有怎么使用Django的大部分功能，所以说实在是太菜了。希望以后可以慢慢发掘Django的功能，
             这点半吊子实在不够看。我想起一句话：<strong>弱水三千，只取一瓢饮</strong>。为什么只取一瓢，因为自己目前就只能装那么多啊，哎，好好努力！
+            </p>
         </div>
         <router-link to="/nodejs">
             <el-button type="primary" icon="el-icon-d-arrow-left">上一篇(NodeJs)</el-button>

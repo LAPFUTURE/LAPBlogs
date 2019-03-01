@@ -2,6 +2,7 @@
     <div class="schema" id="schema">
 
         <h1>LAPBlogs的网站结构
+            <a style= href="https://github.com/LAPFUTURE/LAPBlogs"><el-button type="primary" size="mini">Github地址</el-button></a>
             <span style="float: right;padding-right: 10px;">
                 <el-badge :value="value" :max="999" class="item" type="primary">
                     <el-button size="small">浏览数</el-button>

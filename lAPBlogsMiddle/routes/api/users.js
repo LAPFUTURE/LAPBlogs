@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const key = require("../../config/keys");
 const request = require("request");
 
-router.post("/test",(req,res)=>{
+router.get("/test",(req,res)=>{
     res.json({psth:"/test",env:8010});
 });
 
